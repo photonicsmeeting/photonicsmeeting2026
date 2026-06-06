@@ -863,10 +863,13 @@ footer {
    ===================================================== */
 #logo-banner {
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   padding: 32px 24px 20px;
   background: #fff;
+  text-align: center;
+  gap: 16px;
 }
 #logo-banner img {
   max-width: 320px;
@@ -874,9 +877,28 @@ footer {
   height: auto;
   display: block;
 }
+.logo-banner-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.logo-banner-date {
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--navy);
+  letter-spacing: 0.2px;
+}
+.logo-banner-venue {
+  font-size: 14px;
+  color: var(--grey-500);
+  max-width: 480px;
+  line-height: 1.5;
+}
 @media (max-width: 768px) {
   #logo-banner { padding: 24px 16px 16px; }
   #logo-banner img { max-width: 220px; }
+  .logo-banner-date { font-size: 15px; }
+  .logo-banner-venue { font-size: 13px; }
 }
 
 /* =====================================================
@@ -937,6 +959,10 @@ footer {
      ============================================================ -->
 <div id="logo-banner">
   <img src="pm26.png" alt="OSM Photonics Meeting 2026 Official Logo">
+  <div class="logo-banner-meta">
+    <div class="logo-banner-date">📅 8–9 September 2026</div>
+    <div class="logo-banner-venue">📍 Malaysia-Japan International Institute of Technology (MJIIT), Universiti Teknologi Malaysia, Kuala Lumpur</div>
+  </div>
 </div>
 
 <!-- ============================================================
