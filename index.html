@@ -1302,6 +1302,7 @@ function applyContent(c) {
 // ----------------------------------------------------------------
 function renderStats(stats) {
   const bar = document.getElementById('stats-bar');
+  if (!bar) return;
   bar.innerHTML = stats.map((s, i) => {
     const sep = (i < stats.length - 1) ? '<div class="stat-sep" aria-hidden="true"></div>' : '';
     return `<div class="stat-item">
@@ -1430,6 +1431,7 @@ function renderProgram(program) {
 // ----------------------------------------------------------------
 function renderSponsors(sponsors) {
   const container = document.getElementById('sponsors-container');
+  if (!container) return;
   const tiers = { Platinum: [], Gold: [], Silver: [] };
   sponsors.forEach(s => {
     const t = s.tier && tiers[s.tier] !== undefined ? s.tier : 'Silver';
@@ -1524,7 +1526,7 @@ window.addEventListener('scroll', () => {
     if (ssr) populateAll(ssr);
   } catch(e) {}
 })();
-loadConferenceData();
+// loadConferenceData(); // Static HTML mode — data lives in __ssr_data__ above
 
 // ================================================================
 // AUTO-RESIZE for Google Sites iframe embed
