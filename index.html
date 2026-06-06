@@ -393,6 +393,19 @@ body {
 }
 
 /* =====================================================
+   ABOUT US
+   ===================================================== */
+.about-body p {
+  font-size: 15.5px;
+  color: var(--grey-600);
+  line-height: 1.8;
+  max-width: 720px;
+  margin-bottom: 16px;
+}
+.about-body p:last-child { margin-bottom: 0; }
+.about-body strong { color: var(--navy); font-weight: 600; }
+
+/* =====================================================
    IMPORTANT DATES
    ===================================================== */
 .dates-grid {
@@ -846,6 +859,27 @@ footer {
 }
 
 /* =====================================================
+   LOGO BANNER (branding)
+   ===================================================== */
+#logo-banner {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 32px 24px 20px;
+  background: #fff;
+}
+#logo-banner img {
+  max-width: 320px;
+  width: 100%;
+  height: auto;
+  display: block;
+}
+@media (max-width: 768px) {
+  #logo-banner { padding: 24px 16px 16px; }
+  #logo-banner img { max-width: 220px; }
+}
+
+/* =====================================================
    EVENT BANNER (masthead)
    ===================================================== */
 #event-banner { padding: 22px 24px 0; }
@@ -887,7 +921,7 @@ footer {
     </div>
   </a>
   <div class="nav-links">
-    <a href="#about" class="nav-link">About</a>
+    <a href="#about-us" class="nav-link">About</a>
     <a href="#speakers" class="nav-link">Speakers</a>
     <a href="#program" class="nav-link">Program</a>
     <a href="#fees" class="nav-link">Register</a>
@@ -897,6 +931,13 @@ footer {
     </a>
   </div>
 </nav>
+
+<!-- ============================================================
+     LOGO BANNER (official branding)
+     ============================================================ -->
+<div id="logo-banner">
+  <img src="pm26.png" alt="OSM Photonics Meeting 2026 Official Logo">
+</div>
 
 <!-- ============================================================
      EVENT BANNER (masthead) — image inlined as a data URI so it
@@ -929,8 +970,20 @@ footer {
 </section>
 
 <!-- ============================================================
-     STATS BAR
+     ABOUT US
      ============================================================ -->
+<section id="about-us" class="sec" aria-label="About the conference">
+  <div class="sec-inner">
+    <p class="sec-eyebrow">About Us</p>
+    <h2 class="sec-title">OSM Photonics Meeting 2026</h2>
+    <div class="about-body">
+      <p>The OSM Photonics Meeting 2026 (PM26) is an annual event organised by the <strong>Optical Society of Malaysia (OSM)</strong> in celebrating <strong>International Day of Light</strong> on 16th of May every year.</p>
+      <p>In this PM26, program has been arranged to attract researchers, especially in photonics and optics. Program such as conference and webinar will fill this two-days event.</p>
+      <p>The primary goal of PM26 is to allow researchers and scientists to share advances in optical engineering and applications, nanotechnology, while exchanging scientific knowledge among participants.</p>
+      <p>This program is a high impact program which was constructed to build a collaboration and joint effort with others institutions especially in the field of Optic and Photonics research. The purpose of this program is also to gather experts in Lasers, Optics and Photonics field to contribute in delivering ideas and experiences to all participants involved.</p>
+    </div>
+  </div>
+</section>
 
 <!-- ============================================================
      IMPORTANT DATES
@@ -1097,6 +1150,7 @@ footer {
   <div class="footer-inner">
     <p class="footer-copy" id="footer-copy">&copy; 2026 International Conference Photonics Meeting &mdash; Bangi, Selangor, Malaysia.</p>
     <nav class="footer-links" aria-label="Footer links">
+      <a href="#about-us">About</a>
       <a href="#about">Dates</a>
       <a href="#call-for-papers">Call for Papers</a>
       <a href="#speakers">Speakers</a>
