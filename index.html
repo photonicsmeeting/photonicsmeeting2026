@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Photonics Meeting 2026 — International Conference</title>
+<link rel="icon" type="image/png" href="pm26.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
@@ -861,13 +862,34 @@ footer {
 /* =====================================================
    LOGO BANNER (branding)
    ===================================================== */
+@keyframes flow-lines {
+  0%   { background-position: 0 0; }
+  100% { background-position: 80px 80px; }
+}
 #logo-banner {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   padding: 32px 24px 20px;
-  background: #fff;
+  background-color: var(--navy);
+  background-image:
+    repeating-linear-gradient(
+      -45deg,
+      rgba(255,255,255,0.03) 0px,
+      rgba(255,255,255,0.03) 1px,
+      transparent 1px,
+      transparent 40px
+    ),
+    repeating-linear-gradient(
+      45deg,
+      rgba(255,255,255,0.02) 0px,
+      rgba(255,255,255,0.02) 1px,
+      transparent 1px,
+      transparent 40px
+    );
+  background-size: 80px 80px;
+  animation: flow-lines 8s linear infinite;
   text-align: center;
   gap: 16px;
 }
@@ -885,12 +907,12 @@ footer {
 .logo-banner-date {
   font-size: 17px;
   font-weight: 700;
-  color: var(--navy);
+  color: #fff;
   letter-spacing: 0.2px;
 }
 .logo-banner-venue {
   font-size: 14px;
-  color: var(--grey-500);
+  color: rgba(255,255,255,0.70);
   max-width: 480px;
   line-height: 1.5;
 }
