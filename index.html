@@ -941,10 +941,8 @@ footer {
 /* =====================================================
    LOGO BANNER (branding)
    ===================================================== */
-@keyframes flow-lines {
-  0%   { background-position: 0 0; }
-  100% { background-position: 80px 80px; }
-}
+@keyframes wave-flow   { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+@keyframes wave-flow-r { from { transform: translateX(-50%); } to { transform: translateX(0); } }
 #logo-banner {
   display: flex;
   flex-direction: column;
@@ -952,26 +950,21 @@ footer {
   align-items: center;
   padding: 32px 24px 20px;
   background-color: var(--navy);
-  background-image:
-    repeating-linear-gradient(
-      -45deg,
-      rgba(255,255,255,0.03) 0px,
-      rgba(255,255,255,0.03) 1px,
-      transparent 1px,
-      transparent 40px
-    ),
-    repeating-linear-gradient(
-      45deg,
-      rgba(255,255,255,0.02) 0px,
-      rgba(255,255,255,0.02) 1px,
-      transparent 1px,
-      transparent 40px
-    );
-  background-size: 80px 80px;
-  animation: flow-lines 8s linear infinite;
+  position: relative;
+  overflow: hidden;
   text-align: center;
   gap: 16px;
 }
+.wave-bg {
+  position: absolute;
+  top: 0; left: 0;
+  width: 200%; height: 100%;
+  pointer-events: none;
+}
+.wave-bg .wg1 { animation: wave-flow   22s linear infinite; }
+.wave-bg .wg2 { animation: wave-flow-r 17s linear infinite; }
+.wave-bg .wg3 { animation: wave-flow   28s linear infinite; }
+.wave-bg .wg4 { animation: wave-flow-r 19s linear infinite; }
 #logo-banner img {
   max-width: 320px;
   width: 100%;
@@ -1061,6 +1054,25 @@ footer {
      LOGO BANNER (official branding)
      ============================================================ -->
 <div id="logo-banner">
+  <!-- Wavy flowing lines — pure SVG, zero weight -->
+  <svg class="wave-bg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2880 200" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+    <!-- Wave 1: gentle top wave -->
+    <g class="wg1">
+      <path d="M0,35 Q90,11 180,35 Q270,59 360,35 Q450,11 540,35 Q630,59 720,35 Q810,11 900,35 Q990,59 1080,35 Q1170,11 1260,35 Q1350,59 1440,35 Q1530,11 1620,35 Q1710,59 1800,35 Q1890,11 1980,35 Q2070,59 2160,35 Q2250,11 2340,35 Q2430,59 2520,35 Q2610,11 2700,35 Q2790,59 2880,35" stroke="rgba(255,255,255,0.07)" stroke-width="1.5" fill="none"/>
+    </g>
+    <!-- Wave 2: mid wave, opposite direction -->
+    <g class="wg2">
+      <path d="M0,80 Q72,48 144,80 Q216,112 288,80 Q360,48 432,80 Q504,112 576,80 Q648,48 720,80 Q792,112 864,80 Q936,48 1008,80 Q1080,112 1152,80 Q1224,48 1296,80 Q1368,112 1440,80 Q1512,48 1584,80 Q1656,112 1728,80 Q1800,48 1872,80 Q1944,112 2016,80 Q2088,48 2160,80 Q2232,112 2304,80 Q2376,48 2448,80 Q2520,112 2592,80 Q2664,48 2736,80 Q2808,112 2880,80" stroke="rgba(255,255,255,0.05)" stroke-width="1" fill="none"/>
+    </g>
+    <!-- Wave 3: slow wide lower wave -->
+    <g class="wg3">
+      <path d="M0,125 Q120,85 240,125 Q360,165 480,125 Q600,85 720,125 Q840,165 960,125 Q1080,85 1200,125 Q1320,165 1440,125 Q1560,85 1680,125 Q1800,165 1920,125 Q2040,85 2160,125 Q2280,165 2400,125 Q2520,85 2640,125 Q2760,165 2880,125" stroke="rgba(255,255,255,0.06)" stroke-width="2" fill="none"/>
+    </g>
+    <!-- Wave 4: subtle bottom wave, reverse -->
+    <g class="wg4">
+      <path d="M0,168 Q90,150 180,168 Q270,186 360,168 Q450,150 540,168 Q630,186 720,168 Q810,150 900,168 Q990,186 1080,168 Q1170,150 1260,168 Q1350,186 1440,168 Q1530,150 1620,168 Q1710,186 1800,168 Q1890,150 1980,168 Q2070,186 2160,168 Q2250,150 2340,168 Q2430,186 2520,168 Q2610,150 2700,168 Q2790,186 2880,168" stroke="rgba(255,255,255,0.04)" stroke-width="1" fill="none"/>
+    </g>
+  </svg>
   <img src="pm26.png" alt="OSM Photonics Meeting 2026 Official Logo">
   <div class="logo-banner-meta">
     <div class="logo-banner-date">📅 8–9 September 2026</div>
