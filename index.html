@@ -389,6 +389,34 @@ h1,h2,h3 { font-family: var(--font-display); }
   transform: translateY(-2px);
 }
 
+.hero-deadline {
+  margin-bottom: 28px;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  color: rgba(255,255,255,.7);
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+.hero-deadline::before {
+  content: '📌';
+  font-size: 14px;
+}
+.hero-deadline-label {
+  color: rgba(255,255,255,.6);
+}
+.hero-deadline-date {
+  background: linear-gradient(135deg, var(--cyan), var(--blue));
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-weight: 700;
+  letter-spacing: -0.2px;
+}
+
 /* =====================================================
    SECTIONS — shared scaffolding
    ===================================================== */
@@ -1183,6 +1211,10 @@ footer::before {
      ============================================================ -->
 <section id="hero" aria-label="Conference hero">
   <div class="hero-inner">
+    <div class="hero-deadline">
+      <span class="hero-deadline-label">Early Bird Registration</span>
+      <span class="hero-deadline-date">Before 31 July 2026</span>
+    </div>
     <div class="hero-btns">
       <a href="#register" class="btn-primary" id="hero-btn-primary">
         <span id="hero-btn-primary-text">Click to Submit</span>
