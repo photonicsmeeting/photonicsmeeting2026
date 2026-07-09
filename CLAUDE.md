@@ -47,6 +47,13 @@ celebration of the **International Day of Light**.
     `git push`). The site rebuilds on GitHub Pages in ~1 min.
 - **Before switching machines:** make sure Google Drive shows "Up to date" and
   `git status` is clean (everything committed). The AI can verify this.
+- **Git-in-Drive caveat:** the repo's `.git` lives inside this Google Drive folder, so
+  every machine must have the Drive folder **fully available offline / mirrored**
+  (Google Drive for Desktop → *Mirror*, or right-click the folder → *Available offline*).
+  The default Windows "Stream" mode is a virtual filesystem that breaks git
+  (`Function not implemented` on loose objects). If a Drive-folder repo gets into a bad
+  state, delete its local `.git` and re-clone a fresh one (clone to a temp dir, move the
+  healthy `.git` in), or simply clone to a normal local folder and sync via GitHub push/pull.
 
 ## Conventions / notes for the AI
 - Edit `index.html` directly. Keep CSS in the `<style>` block and JS in the
