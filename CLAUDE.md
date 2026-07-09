@@ -43,19 +43,18 @@ celebration of the **International Day of Light**.
 - **Google Drive is NOT part of the repo workflow.** Each machine keeps its own local
   clone and the two sync through **GitHub** (push/pull). This avoids Drive's
   virtual-filesystem git failures on Windows and keeps things simple.
-- **The daily rhythm (enforced automatically by the AI — you don't have to remember it):**
-  - **At session start**, the AI runs `git pull` and reports the status, so you are
-    always synced before editing.
-  - Edit your work as normal.
-  - **At session end (or when you say you're done)**, the AI runs `git commit -a` +
-    `git push` (or reminds you if anything is unclear), so your work is published and
-    the other machine stays in sync.
-  - Net habit: **pull in, push out** — handled by the AI around every session.
+- **Sync is automatic per change (no session boundary, no "done" keyword needed):**
+  - **Before making any edit**, the AI runs `git pull` so it's always editing the latest
+    version (this also catches the other machine's work).
+  - **After completing a change**, the AI immediately runs `git commit -a` + `git push`,
+    so your work is published and the other machine stays in sync — no need to say
+    "done" or remember a habit.
+  - Net effect: **pull before, push after** every change. You simply request edits.
 - **To publish to the live site, you MUST push to GitHub.** GitHub Pages rebuilds in
   ~1 min.
-- **Before switching machines:** the AI already `git pull`s at the start of every
-  session, so just open the project on the other device and it will sync automatically.
-  The AI can verify with `git status`.
+- **Before switching machines:** the other device will `git pull` automatically before
+  its next edit (per the rule above), so just open the project and continue. The AI can
+  verify with `git status`.
 
 ## Conventions / notes for the AI
 - Edit `index.html` directly. Keep CSS in the `<style>` block and JS in the
