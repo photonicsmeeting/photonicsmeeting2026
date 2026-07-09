@@ -1,9 +1,4 @@
-# Local dev files — NOT part of the live website
+# Local dev / tooling files — NOT part of the live website
 .claude/
-Code.gs
-poster.jpeg
-image_c209c2.png
-index.txt
-index.html.bak
-index_backup_v1.html
+.opencode/
 speakers/
