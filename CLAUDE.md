@@ -36,22 +36,20 @@ celebration of the **International Day of Light**.
 
 ## How we work (workflow)
 - Two machines, same project, **never edited at the same time** (different times of day):
-  - **MacBook** → edited with **opencode**. The folder lives in Google Drive, which on
-    macOS appears as a **real local path** (`~/Library/CloudStorage/...`), so git runs
-    fine there.
-  - **Office PC (Windows)** → edited with **Claude Code**. Google Drive is in **Stream
-    mode** (a virtual `G:` drive) that git CANNOT use. So the repo is cloned to a
-    **normal local folder** (e.g. `C:\Users\<you>\photonicsmeeting26`) and synced via
-    GitHub — not through the Drive folder.
-- **Sync between machines is via GitHub (push/pull), NOT Google Drive.** Drive only
-  carries the Mac's files; the authoritative shared copy is the GitHub repo.
-- **To publish to the live site, you MUST push to GitHub** (the AI runs `git commit` +
-  `git push`). GitHub Pages rebuilds in ~1 min. Drive sync alone does nothing for the site.
+  - **MacBook** → edited with **opencode**, in a **local folder** (e.g.
+    `~/Documents/photonicsmeeting26`), **NOT** inside Google Drive.
+  - **Office PC (Windows)** → edited with **Claude Code**, in a **local folder** (e.g.
+    `C:\Users\<you>\Documents\photonicsmeeting26`), **NOT** inside Google Drive.
+- **Google Drive is NOT part of the repo workflow.** Each machine keeps its own local
+  clone and the two sync through **GitHub** (push/pull). This avoids Drive's
+  virtual-filesystem git failures on Windows and keeps things simple.
+- **The daily rhythm:** `git pull` (start of session) → edit → `git commit` (save
+  progress) → `git push` (sync / publish). Neither AI auto-commits or auto-pushes — you
+  say *"commit and push"* and the AI runs it.
+- **To publish to the live site, you MUST push to GitHub.** GitHub Pages rebuilds in
+  ~1 min.
 - **Before switching machines:** ensure the previous machine committed & pushed, then
   `git pull` on the machine you're switching to. The AI can verify with `git status`.
-- **Git-in-Drive warning:** never run git inside a Stream-mode Google Drive folder on
-  Windows — it fails with `Function not implemented`. Keep the repo on a real local disk
-  and sync through GitHub.
 
 ## Conventions / notes for the AI
 - Edit `index.html` directly. Keep CSS in the `<style>` block and JS in the
