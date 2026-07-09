@@ -43,13 +43,15 @@ celebration of the **International Day of Light**.
 - **Google Drive is NOT part of the repo workflow.** Each machine keeps its own local
   clone and the two sync through **GitHub** (push/pull). This avoids Drive's
   virtual-filesystem git failures on Windows and keeps things simple.
-- **Sync is automatic per change (no session boundary, no "done" keyword needed):**
-  - **Before making any edit**, the AI runs `git pull` so it's always editing the latest
-    version (this also catches the other machine's work).
-  - **After completing a change**, the AI immediately runs `git commit -a` + `git push`,
-    so your work is published and the other machine stays in sync — no need to say
-    "done" or remember a habit.
-  - Net effect: **pull before, push after** every change. You simply request edits.
+- **Sync is automatic and lightweight (no session boundary, no "done" keyword needed):**
+  - **Pull once when returning to a machine:** the AI runs `git pull` before the *first*
+    edit of a working spell (not before every micro-edit — nothing changes on the remote
+    while you alone are actively working). This catches the other machine's work.
+  - **Push after each logical chunk:** once a requested change (or a small batch of
+    related tweaks) is complete, the AI runs `git commit -a` + `git push`. It does NOT
+    pull/push on every tiny keystroke-level edit, to avoid needless git churn and token use.
+  - Net effect: **pull when you arrive, push when a change is done.** You simply request
+    edits; the AI keeps GitHub and the other machine in sync efficiently.
 - **To publish to the live site, you MUST push to GitHub.** GitHub Pages rebuilds in
   ~1 min.
 - **Before switching machines:** the other device will `git pull` automatically before
