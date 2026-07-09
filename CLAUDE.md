@@ -35,25 +35,23 @@ celebration of the **International Day of Light**.
   (Folder is gitignored; kept locally only.)
 
 ## How we work (workflow)
-- This folder lives in **Google Drive** and is shared/mirrored between two machines:
-  - **MacBook** → edited with **opencode**
-  - **Office PC** → edited with **Claude Code**
-  - They are NEVER edited at the same time (different times of day).
-- Both machines share the **same `.git` folder** (it's in the Drive folder), so git
-  history/commits are shared. `git log` on either machine shows all commits.
-- **To publish a change to the live site, you MUST push to GitHub.** Google Drive
-  sync alone does NOT update the website.
-  - Workflow: edit → tell the AI *"commit and push"* (the AI runs `git commit` +
-    `git push`). The site rebuilds on GitHub Pages in ~1 min.
-- **Before switching machines:** make sure Google Drive shows "Up to date" and
-  `git status` is clean (everything committed). The AI can verify this.
-- **Git-in-Drive caveat:** the repo's `.git` lives inside this Google Drive folder, so
-  every machine must have the Drive folder **fully available offline / mirrored**
-  (Google Drive for Desktop → *Mirror*, or right-click the folder → *Available offline*).
-  The default Windows "Stream" mode is a virtual filesystem that breaks git
-  (`Function not implemented` on loose objects). If a Drive-folder repo gets into a bad
-  state, delete its local `.git` and re-clone a fresh one (clone to a temp dir, move the
-  healthy `.git` in), or simply clone to a normal local folder and sync via GitHub push/pull.
+- Two machines, same project, **never edited at the same time** (different times of day):
+  - **MacBook** → edited with **opencode**. The folder lives in Google Drive, which on
+    macOS appears as a **real local path** (`~/Library/CloudStorage/...`), so git runs
+    fine there.
+  - **Office PC (Windows)** → edited with **Claude Code**. Google Drive is in **Stream
+    mode** (a virtual `G:` drive) that git CANNOT use. So the repo is cloned to a
+    **normal local folder** (e.g. `C:\Users\<you>\photonicsmeeting26`) and synced via
+    GitHub — not through the Drive folder.
+- **Sync between machines is via GitHub (push/pull), NOT Google Drive.** Drive only
+  carries the Mac's files; the authoritative shared copy is the GitHub repo.
+- **To publish to the live site, you MUST push to GitHub** (the AI runs `git commit` +
+  `git push`). GitHub Pages rebuilds in ~1 min. Drive sync alone does nothing for the site.
+- **Before switching machines:** ensure the previous machine committed & pushed, then
+  `git pull` on the machine you're switching to. The AI can verify with `git status`.
+- **Git-in-Drive warning:** never run git inside a Stream-mode Google Drive folder on
+  Windows — it fails with `Function not implemented`. Keep the repo on a real local disk
+  and sync through GitHub.
 
 ## Conventions / notes for the AI
 - Edit `index.html` directly. Keep CSS in the `<style>` block and JS in the
