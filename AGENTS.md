@@ -4,6 +4,11 @@ This file is auto-read by opencode (and Claude Code) when the project folder is
 opened, so either tool instantly understands the project WITHOUT you re-explaining.
 Keep it accurate when things change.
 
+**Stability note:** This file is edited ONLY when the project's workflow or conventions
+change — never during routine feature/editing work (which touches `index.html` and the
+data only). If a change to this file is ever needed, the AI must **ask you first**, so
+you can run `git pull` on the other machine to keep its brain file in sync.
+
 ---
 
 ## What this project is
@@ -57,6 +62,9 @@ celebration of the **International Day of Light**.
 - **Before switching machines:** the other device will `git pull` automatically before
   its next edit (per the rule above), so just open the project and continue. The AI can
   verify with `git status`.
+- **Editing this brain file:** only do it when workflow/conventions change, and always
+  **ask the user first** so they can `git pull` on the other device to sync it. Routine
+  feature work must never modify `AGENTS.md`/`CLAUDE.md`.
 
 ## Conventions / notes for the AI
 - Edit `index.html` directly. Keep CSS in the `<style>` block and JS in the
