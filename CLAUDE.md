@@ -39,7 +39,7 @@ celebration of the **International Day of Light**.
   - **MacBook** → edited with **opencode**, in a **local folder** (e.g.
     `~/Documents/photonicsmeeting26`), **NOT** inside Google Drive.
   - **Office PC (Windows)** → edited with **Claude Code**, in a **local folder** (e.g.
-    `C:\Users\<you>\Documents\photonicsmeeting26`), **NOT** inside Google Drive.
+    `C:\Users\<you>\Documents\VibeCodeProject\photonicsmeeting26`), **NOT** inside Google Drive.
 - **Google Drive is NOT part of the repo workflow.** Each machine keeps its own local
   clone and the two sync through **GitHub** (push/pull). This avoids Drive's
   virtual-filesystem git failures on Windows and keeps things simple.

@@ -37,7 +37,7 @@ celebration of the **International Day of Light**.
 ## How we work (workflow)
 - Two machines, same project, **never edited at the same time** (different times of day):
   - **MacBook** → edited with **opencode**, in a **local folder** (e.g.
-    `~/Documents/photonicsmeeting26`), **NOT** inside Google Drive.
+    `~/Documents/VibeCodeProject/photonicsmeeting26`), **NOT** inside Google Drive.
   - **Office PC (Windows)** → edited with **Claude Code**, in a **local folder** (e.g.
     `C:\Users\<you>\Documents\photonicsmeeting26`), **NOT** inside Google Drive.
 - **Google Drive is NOT part of the repo workflow.** Each machine keeps its own local
