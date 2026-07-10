@@ -30,6 +30,18 @@ celebration of the **International Day of Light**.
 - Page data is **inlined as JSON** in a `<script type="application/json" id="__ssr_data__">`
   block near the bottom of `index.html`. The JS (`populateAll`) reads that block on
   boot and fills the DOM. **Zero network calls.**
+- **⚠️ The JSON is the runtime source of truth — it OVERWRITES the static HTML.** On
+  boot, `populateAll()` copies values from `__ssr_data__` into the matching elements
+  (by `id`), so the text in the raw `<span>`/`<title>`/etc. markup is only a fallback
+  that gets clobbered a split-second after load. Two rules follow:
+  1. **To change any visible text you MUST edit the JSON value** (e.g. `nav_brand_name`,
+     `page_title`), not just the HTML — otherwise your HTML edit is silently reverted at
+     runtime. If you also touch the HTML, keep it in sync with the JSON.
+  2. **Never delete a static element that `populateAll` still writes to**
+     (`getElementById(...).textContent = ...`) — the `null` reference throws and
+     silently breaks the rest of `populateAll`. Clear the JSON value (or the JS guard)
+     instead. *(This is the exact trap that once left the navbar half-broken: HTML
+     edited, JSON missed.)*
 - A Google Apps Script backend (`Code.gs` + Google Sheets) **used to exist but has
   been removed** — the live fetch (`loadConferenceData()`) is commented out. Do NOT
   re-add backend dependencies; the site is fully static.
@@ -69,9 +81,10 @@ celebration of the **International Day of Light**.
 ## Conventions / notes for the AI
 - Edit `index.html` directly. Keep CSS in the `<style>` block and JS in the
   `<script>` block at the bottom. Design tokens are CSS variables in `:root`.
-- When adding user-provided content (speakers, dates, fees, FAQ, etc.), prefer
-  updating the inline `__ssr_data__` JSON block (and the matching `render*` JS
-  functions) rather than hard-coding into HTML.
+- When adding or changing **any** user-visible content (brand text, page/tab titles,
+  speakers, dates, fees, FAQ, etc.), **update the inline `__ssr_data__` JSON block**
+  (and the matching `render*` / `populateAll` JS) — the JSON overrides the HTML at
+  runtime (see "How the site is built"), so a raw-HTML-only edit will not stick.
 - All dynamic text inserted via JS MUST go through the `esc()` / `escAttr()`
   helpers to stay XSS-safe (already present in the script).
 - The site is embedded in Google Sites via iframe on some pages — keep the
