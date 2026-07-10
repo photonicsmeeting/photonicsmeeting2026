@@ -875,6 +875,65 @@ h1,h2,h3 { font-family: var(--font-display); }
 .archive-card:hover .archive-link { letter-spacing: 0.4px; }
 
 /* =====================================================
+   INDEXING & ABSTRACTING BADGES (Publication section)
+   ===================================================== */
+.index-strip { margin-top: 30px; }
+.index-strip-label {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--grey-400);
+  margin-bottom: 14px;
+}
+.index-badge-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(215px, 1fr));
+  gap: 14px;
+}
+.index-badge {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  background: #fff;
+  border: 1px solid var(--grey-200);
+  border-radius: var(--radius-sm);
+  padding: 15px 18px;
+  box-shadow: var(--shadow-sm);
+  transition: transform .22s cubic-bezier(.16,1,.3,1), box-shadow .22s, border-color .22s;
+}
+.index-badge:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-md);
+  border-color: var(--blue-border);
+}
+.index-badge-mark {
+  flex: 0 0 auto;
+  width: 46px;
+  height: 46px;
+  border-radius: 12px;
+  display: grid;
+  place-items: center;
+  background: var(--m, var(--blue));
+  color: #fff;
+}
+.index-badge-mark svg { width: 26px; height: 26px; display: block; }
+.index-badge-text { display: flex; flex-direction: column; gap: 3px; min-width: 0; }
+.index-badge-name {
+  font-family: var(--font-display);
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--ink);
+  line-height: 1.1;
+}
+.index-badge-tag {
+  font-size: 11.5px;
+  font-weight: 500;
+  color: var(--grey-600);
+  line-height: 1.3;
+}
+
+/* =====================================================
    LOCATION & FAQ
    ===================================================== */
 .loc-faq-grid {
@@ -1320,6 +1379,58 @@ footer::before {
     <h2 class="sec-title">IOP Journal of Physics: Conference Series</h2>
     <p class="sec-sub">Accepted papers from PM26 will be published in the <strong>Journal of Physics: Conference Series</strong> (IOP Publishing, ISSN 1742-6596) &mdash; a peer-reviewed, open-access proceedings series indexed by Scopus and other major academic databases.</p>
     <a class="archive-link" href="https://iopscience.iop.org/journal/1742-6596" target="_blank" rel="noopener noreferrer" style="display:inline-block; margin-top:10px;">View Journal on IOPscience &rarr;</a>
+
+    <div class="index-strip">
+      <p class="index-strip-label">Indexed &amp; Abstracted In</p>
+      <div class="index-badge-row">
+
+        <div class="index-badge">
+          <span class="index-badge-mark" style="--m:#2057E0;">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true">
+              <circle cx="12" cy="12" r="1.7" fill="currentColor" stroke="none"/>
+              <ellipse cx="12" cy="12" rx="10" ry="4.2"/>
+              <ellipse cx="12" cy="12" rx="10" ry="4.2" transform="rotate(60 12 12)"/>
+              <ellipse cx="12" cy="12" rx="10" ry="4.2" transform="rotate(120 12 12)"/>
+            </svg>
+          </span>
+          <span class="index-badge-text">
+            <span class="index-badge-name">IOP Publishing</span>
+            <span class="index-badge-tag">Publisher &middot; Open Access</span>
+          </span>
+        </div>
+
+        <div class="index-badge">
+          <span class="index-badge-mark" style="--m:#E9711C;">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true">
+              <circle cx="10.5" cy="10.5" r="6.5"/>
+              <line x1="15.5" y1="15.5" x2="21" y2="21"/>
+              <line x1="8" y1="9" x2="13" y2="9"/>
+              <line x1="8" y1="12" x2="13" y2="12"/>
+            </svg>
+          </span>
+          <span class="index-badge-text">
+            <span class="index-badge-name">Scopus</span>
+            <span class="index-badge-tag">Abstracting &amp; Indexing</span>
+          </span>
+        </div>
+
+        <div class="index-badge">
+          <span class="index-badge-mark" style="--m:#3E9B45;">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true">
+              <circle cx="12" cy="12" r="9"/>
+              <ellipse cx="12" cy="12" rx="4" ry="9"/>
+              <line x1="3" y1="12" x2="21" y2="12"/>
+              <path d="M4.6 7.5h14.8M4.6 16.5h14.8"/>
+            </svg>
+          </span>
+          <span class="index-badge-text">
+            <span class="index-badge-name">Web of Science</span>
+            <span class="index-badge-tag">Core Collection &middot; CPCI</span>
+          </span>
+        </div>
+
+      </div>
+    </div>
 
     <h3 class="sec-title" style="font-size:1.35rem; margin-top:36px;">Manuscript Submission and Review</h3>
     <p class="sec-sub">All submitted manuscripts will undergo a double-blind peer review process. To ensure anonymity during the review, authors must remove all identifying information from their manuscripts prior to submission. This includes author names, institutional affiliations, email addresses, and the Acknowledgement section. Authors should also ensure that any self-references within the manuscript do not reveal their identity. Manuscripts that do not comply with the double-blind review requirements may be returned for revision before being sent for peer review.</p>
