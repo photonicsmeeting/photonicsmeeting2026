@@ -1401,6 +1401,196 @@ footer::before {
 .gallery-empty b { color: var(--grey-600, #475569); }
 @media (max-width: 900px) { .gallery-grid { grid-template-columns: repeat(2, 1fr); } }
 @media (max-width: 520px) { .gallery-grid { grid-template-columns: 1fr; } }
+
+/* ============================================================
+   LIQUID GLASS REDESIGN LAYER (iOS-style, OCD-consistent)
+   One systematic override block. Tokens first, then surfaces.
+   Remove this block to restore the previous flat design.
+   ============================================================ */
+
+/* ---------- 1. TOKENS (single source of truth) ---------- */
+:root {
+  --radius:      22px;                                    /* cards   */
+  --radius-sm:   14px;                                    /* chips   */
+  --radius-btn:  14px;                                    /* buttons */
+  --gap-grid:    16px;                                    /* ALL card grids */
+  --lift:        -4px;                                    /* ALL card hovers */
+  --glass-bg:    rgba(255,255,255,.58);
+  --glass-bg-2:  rgba(255,255,255,.72);                   /* nested chips */
+  --glass-edge:  rgba(255,255,255,.85);
+  --glass-ring:  0 0 0 1px rgba(11,18,48,.05);
+  --glass-hilite: inset 0 1px 0 rgba(255,255,255,.95);
+  --blur:        blur(18px) saturate(1.6);
+  --shadow-sm:   0 2px 8px rgba(10,18,51,.05);
+  --shadow-md:   0 8px 28px rgba(10,18,51,.09);
+  --shadow-lg:   0 18px 48px rgba(10,18,51,.13);
+  --ease-ios:    cubic-bezier(.32,.72,0,1);
+}
+html { scroll-padding-top: 84px; }
+
+/* ---------- 2. AURORA CANVAS (gives the glass something to refract) ---------- */
+body { background: #F4F7FD; }
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    radial-gradient(560px 560px at 8% 12%,   rgba(32,87,224,.11),  transparent 68%),
+    radial-gradient(640px 640px at 94% 30%,  rgba(124,58,237,.09), transparent 68%),
+    radial-gradient(620px 620px at 22% 78%,  rgba(34,211,238,.10), transparent 68%),
+    radial-gradient(520px 520px at 78% 96%,  rgba(32,87,224,.08),  transparent 68%);
+}
+.sec { background: transparent; padding: 96px 24px; }
+.sec-alt { background: rgba(233,240,252,.55); }
+
+/* ---------- 3. UNIVERSAL GLASS CARD (one recipe, everywhere) ---------- */
+.date-card, .speaker-card, .archive-card, .index-badge, .org-card,
+.cfp-topics, .faq-item, .fees-scroll, .prog-item, .program-placeholder,
+.sponsor-card, .map-frame {
+  background: var(--glass-bg);
+  backdrop-filter: var(--blur);
+  -webkit-backdrop-filter: var(--blur);
+  border: 1px solid var(--glass-edge);
+  box-shadow: var(--glass-ring), var(--glass-hilite), var(--shadow-sm);
+}
+.date-card:hover, .speaker-card:hover, .archive-card:hover, .index-badge:hover,
+.org-card:hover, .sponsor-card:hover {
+  transform: translateY(var(--lift));
+  box-shadow: var(--glass-ring), var(--glass-hilite), var(--shadow-lg);
+  border-color: #fff;
+}
+.date-card, .speaker-card, .archive-card, .index-badge, .org-card, .sponsor-card {
+  transition: transform .3s var(--ease-ios), box-shadow .3s var(--ease-ios), border-color .3s var(--ease-ios);
+}
+
+/* ---------- 4. UNIFORM GRID RHYTHM ---------- */
+.dates-grid, .speakers-grid, .archive-grid, .index-badge-row,
+.org-grid, .gallery-grid { gap: var(--gap-grid); }
+.faq-list { gap: 12px; }
+
+/* ---------- 5. NESTED CHIPS (solid-ish, no double blur) ---------- */
+#cfp-topics-list li {
+  background: var(--glass-bg-2);
+  border-color: rgba(255,255,255,.9);
+  box-shadow: var(--glass-ring);
+}
+.cfp-topics { box-shadow: var(--glass-ring), var(--glass-hilite), var(--shadow-md); }
+
+/* ---------- 6. iOS BUTTONS (flat fill, press scale, one radius) ---------- */
+.btn-primary, .btn-register, #submit-paper-btn.active {
+  background: var(--blue);
+  border-radius: var(--radius-btn);
+  box-shadow: 0 4px 18px rgba(32,87,224,.38);
+}
+.btn-primary:hover, .btn-register:hover, #submit-paper-btn.active:hover {
+  transform: translateY(-1px);
+  background: var(--blue-dark);
+  box-shadow: 0 8px 26px rgba(32,87,224,.45);
+}
+.btn-primary:active, .btn-register:active, .btn-outline:active,
+.btn-secondary:active, #submit-paper-btn:active { transform: scale(.97); }
+.btn-outline {
+  background: var(--glass-bg);
+  backdrop-filter: var(--blur);
+  -webkit-backdrop-filter: var(--blur);
+  border: 1px solid rgba(255,255,255,.9);
+  box-shadow: var(--glass-ring), var(--shadow-sm);
+  border-radius: var(--radius-btn);
+}
+.btn-outline:hover {
+  border-color: #fff;
+  box-shadow: var(--glass-ring), var(--shadow-md);
+  transform: translateY(-1px);
+}
+.btn-secondary { border-radius: var(--radius-btn); }
+.btn-primary, .btn-register, .btn-outline, .btn-secondary, #submit-paper-btn {
+  transition: transform .25s var(--ease-ios), box-shadow .25s var(--ease-ios),
+              background .25s var(--ease-ios), border-color .25s var(--ease-ios);
+}
+
+/* ---------- 7. LIQUID NAVBAR ---------- */
+#navbar {
+  background: rgba(255,255,255,.55);
+  backdrop-filter: blur(24px) saturate(1.8);
+  -webkit-backdrop-filter: blur(24px) saturate(1.8);
+  border-bottom: 1px solid rgba(11,18,48,.06);
+}
+#navbar.scrolled { box-shadow: 0 8px 32px rgba(10,18,51,.08); }
+.nav-logo-badge { background: var(--glass-bg-2); }
+
+/* ---------- 8. FEES TABLE ON GLASS ---------- */
+.fees-scroll { border-radius: var(--radius); }
+.fees-table { background: transparent; }
+.fees-table thead th { background: var(--navy); }
+.fees-table thead .subhead-row th { background: rgba(10,18,51,.92); }
+.fees-table tbody td { border-bottom: 1px solid rgba(11,18,48,.06); }
+.fees-table tbody tr:hover { background: rgba(255,255,255,.55); }
+
+/* ---------- 9. FAQ AS GLASS LIST ---------- */
+.faq-q:hover { background: rgba(255,255,255,.5); }
+.faq-q.open { background: rgba(239,244,255,.75); }
+.faq-a-inner { border-top: 1px solid rgba(11,18,48,.06); }
+
+/* ---------- 10. PROSE DISCIPLINE (long-form text blocks) ----------
+   One treatment for ALL body prose: left rule + indent + justified
+   edges with hyphenation. Applied to About and the Publication
+   descriptions (the intro .sec-sub under each title stays standard
+   section anatomy, identical across sections). */
+.about-body,
+#iop-journal h3 ~ p.sec-sub {
+  border-left: 3px solid rgba(32,87,224,.22);
+  padding-left: 24px;
+}
+.about-body p,
+#iop-journal h3 ~ p.sec-sub {
+  text-align: justify;
+  hyphens: auto;
+  -webkit-hyphens: auto;
+}
+#iop-journal h3 ~ p.sec-sub { margin-bottom: 22px; max-width: 820px; }
+#iop-journal h3 ~ p.sec-sub:has(+ a.archive-link) { margin-bottom: 6px; }
+
+/* ---------- 11. TOPIC BARS (equal size, iOS grouped-list style) ---------- */
+#cfp-topics-list {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 8px;
+}
+#cfp-topics-list li {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  width: 100%;
+  min-height: 46px;
+  border-radius: var(--radius-sm);
+  padding: 10px 16px;
+}
+#cfp-topics-list li::before {
+  content: '';
+  flex-shrink: 0;
+  width: 7px; height: 7px;
+  border-radius: 50%;
+  background: var(--spectrum);
+}
+#cfp-topics-list li:hover {
+  transform: translateX(3px);
+}
+
+/* ---------- 12. ACCESSIBILITY & MOTION DISCIPLINE ---------- */
+:focus-visible {
+  outline: 2px solid var(--blue);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+@media (prefers-reduced-motion: reduce) {
+  .date-card, .speaker-card, .archive-card, .index-badge, .org-card,
+  .sponsor-card, .btn-primary, .btn-register, .btn-outline, .btn-secondary,
+  #cfp-topics-list li { transition: none; }
+  .date-card:hover, .speaker-card:hover, .archive-card:hover,
+  .index-badge:hover, .org-card:hover, .sponsor-card:hover { transform: none; }
+}
 </style>
 </head>
 <body>
