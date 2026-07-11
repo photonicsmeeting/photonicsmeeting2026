@@ -1227,6 +1227,129 @@ footer::before {
   .prog-item { grid-template-columns: 90px 1fr; }
   .speaker-card { padding: 26px 14px 24px; }
 }
+
+/* ============================================================
+   STEALTH CFP → WHATSAPP SHARE (committee-only floating button)
+   ============================================================ */
+.wa-fab {
+  position: fixed;
+  right: 18px;
+  bottom: 18px;
+  z-index: 60;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 9px 13px;
+  border-radius: 999px;
+  background: #25D366;
+  color: #fff;
+  font: 600 12px/1 'Inter', sans-serif;
+  letter-spacing: .4px;
+  text-decoration: none;
+  box-shadow: 0 6px 20px rgba(0,0,0,.22);
+  opacity: .22;
+  transition: opacity .2s ease, transform .2s ease;
+  cursor: pointer;
+}
+.wa-fab:hover,
+.wa-fab:focus { opacity: 1; transform: translateY(-2px); outline: none; }
+.wa-fab svg { width: 16px; height: 16px; }
+
+.wa-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 70;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  background: rgba(6,11,34,.55);
+  backdrop-filter: blur(3px);
+  padding: 20px;
+}
+.wa-overlay.open { display: flex; }
+.wa-modal {
+  width: min(560px, 100%);
+  max-height: 90vh;
+  overflow-y: auto;
+  background: #fff;
+  color: #0B1230;
+  border-radius: 18px;
+  padding: 24px 24px 20px;
+  box-shadow: 0 30px 80px rgba(0,0,0,.35);
+}
+.wa-modal h3 {
+  font-family: 'Sora', sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+.wa-modal .wa-sub {
+  font-size: 12.5px;
+  color: #64748b;
+  margin-bottom: 16px;
+}
+.wa-field { margin-bottom: 14px; }
+.wa-field label {
+  display: block;
+  font-size: 12px;
+  font-weight: 600;
+  color: #475569;
+  margin-bottom: 6px;
+  letter-spacing: .3px;
+}
+.wa-field textarea,
+.wa-field input {
+  width: 100%;
+  border: 1px solid #E2E8F0;
+  border-radius: 11px;
+  padding: 11px 13px;
+  font: 400 13.5px/1.5 'Inter', sans-serif;
+  color: #0B1230;
+  background: #F8FAFC;
+  resize: vertical;
+}
+.wa-field textarea { min-height: 210px; }
+.wa-field input:focus,
+.wa-field textarea:focus { outline: none; border-color: #25D366; background: #fff; }
+.wa-radios { display: flex; gap: 10px; }
+.wa-radios label {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  border: 1px solid #E2E8F0;
+  border-radius: 11px;
+  padding: 10px 12px;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  background: #F8FAFC;
+}
+.wa-radios input { width: auto; }
+.wa-radios label:has(input:checked) { border-color: #25D366; background: #ECFDF3; }
+.wa-hint { font-size: 12px; color: #DC2626; min-height: 16px; margin: -6px 0 10px; }
+.wa-actions { display: flex; gap: 10px; justify-content: flex-end; margin-top: 6px; }
+.wa-btn {
+  border: none;
+  border-radius: 11px;
+  padding: 11px 18px;
+  font: 600 13.5px/1 'Inter', sans-serif;
+  cursor: pointer;
+}
+.wa-btn.send { background: #25D366; color: #fff; }
+.wa-btn.cancel { background: #EEF2F7; color: #475569; }
+.wa-close {
+  position: absolute;
+  top: 14px;
+  right: 16px;
+  border: none;
+  background: transparent;
+  font-size: 22px;
+  line-height: 1;
+  color: #94A3B8;
+  cursor: pointer;
+}
+.wa-modal-wrap { position: relative; }
 </style>
 </head>
 <body>
@@ -2317,6 +2440,101 @@ window.addEventListener('scroll', () => {
 })();
 // loadConferenceData(); // Static HTML mode — data lives in __ssr_data__ above
 
+// ============================================================
+// STEALTH CFP → WHATSAPP SHARE (committee-only)
+// Uses WhatsApp's official wa.me click-to-chat link — free, no API,
+// no backend. Opens a pre-filled message; user taps send manually.
+// ============================================================
+(function() {
+  var WA_WRITEUP = [
+    "*📢 Call for Papers – Share Your Research at Photonics Meeting 2026*",
+    "",
+    "Dear Prof./ Assoc. Prof./ Dr./ Ts./ Ir./ Mr./ Ms.,",
+    "",
+    "The *Optical Society of Malaysia (OSM)* cordially invites researchers, academicians, postgraduate students, industry professionals, and members of the optics and photonics community to participate in the *8th Annual International Conference: Photonics Meeting 2026 (PM26)*.",
+    "",
+    "📅 *Dates*: 8–9 September 2026",
+    "📍 *Venue*: Malaysia-Japan International Institute of Technology, Universiti Teknologi Malaysia, Kuala Lumpur",
+    "",
+    "The OSM Photonics Meeting 2026 provides a platform for researchers and professionals to share recent findings, exchange scientific knowledge, and explore collaboration opportunities in photonics, optics, optical engineering, nanotechnology, and light-based technologies. The two-day programme will include keynote speeches, invited talks, technical sessions, workshops, and research networking opportunities.",
+    "",
+    "We also welcome original research submissions in areas related to photonics, optics, and light-based technologies. Accepted and presented papers will be published in the *Journal of Physics: Conference Series, IOP Publishing*, which is indexed by *Scopus*.",
+    "",
+    "*Topics of interest for Photonics Meeting 2026* include, but are not limited to, areas such as the following:",
+    "",
+    "Fiber Optics and Photonic Integration",
+    "Laser Physics and Applications",
+    "Optical Sensors and Imaging Systems",
+    "Quantum Photonics and Entanglement",
+    "Biophotonics and Medical Diagnostics",
+    "Nonlinear Optics and Ultrafast Science",
+    "Silicon Photonics and Nanophotonics",
+    "Optical Communications and Networks",
+    "",
+    "*Early bird registration deadline* is *31 July 2026*.",
+    "",
+    "For further information on registration, paper submission, conference fees, and programme details, please visit the official conference website:",
+    "🌐 *Conference Website*: https://photonics-meeting.com/",
+    "",
+    "We would be grateful if you could share this invitation with your colleagues, students, research groups, and relevant networks.",
+    "",
+    "For inquiries, please contact us at: 📧 photonics.meeting@gmail.com",
+    "",
+    "We look forward to welcoming you to Photonics Meeting 2026 (PM26) in Kuala Lumpur.",
+    "",
+    "Best regards,",
+    "*Organizing Committee*",
+    "Photonics Meeting 2026",
+    "Optical Society of Malaysia (OSM)"
+  ].join("\n");
+
+  function waSubmissionUrl() {
+    var el = document.getElementById('__ssr_data__');
+    if (!el) return "https://www.morressier.com/call-for-papers/6a4e6bd8c4b29bfefa35f5c5";
+    try {
+      var cfg = JSON.parse(el.textContent || el.innerHTML).config || {};
+      return (cfg.submission_url && cfg.submission_url.trim()) || "https://www.morressier.com/call-for-papers/6a4e6bd8c4b29bfefa35f5c5";
+    } catch (e) { return "https://www.morressier.com/call-for-papers/6a4e6bd8c4b29bfefa35f5c5"; }
+  }
+
+  function openWaModal() {
+    var ta = document.getElementById('wa-writeup');
+    if (ta && !ta.value.trim()) ta.value = WA_WRITEUP;
+    document.getElementById('wa-modal').classList.add('open');
+    document.getElementById('wa-hint').textContent = '';
+  }
+  function closeWaModal() {
+    document.getElementById('wa-modal').classList.remove('open');
+  }
+  function sendWa() {
+    var variant = document.querySelector('input[name="wa-poster"]:checked').value;
+    var poster = variant === 'bright'
+      ? 'https://photonics-meeting.com/poster/pm26-cfp-poster-bright.png'
+      : 'https://photonics-meeting.com/poster/pm26-cfp-poster.png';
+    var phone = (document.getElementById('wa-phone').value || '').replace(/[^\d]/g, '');
+    var hint = document.getElementById('wa-hint');
+    if (!phone) { hint.textContent = 'Please enter your WhatsApp number (international format, e.g. 60123456789).'; return; }
+    if (phone.length < 8) { hint.textContent = 'That number looks too short — include the country code (e.g. 60 for Malaysia).'; return; }
+    var msg = document.getElementById('wa-writeup').value.trim()
+      + "\n\nPoster (HD): " + poster
+      + "\nSubmit your paper: " + waSubmissionUrl();
+    window.open('https://wa.me/' + phone + '?text=' + encodeURIComponent(msg), '_blank');
+    closeWaModal();
+  }
+
+  var fab = document.getElementById('wa-share-btn');
+  if (fab) fab.addEventListener('click', function(e) { e.preventDefault(); openWaModal(); });
+  var closeBtn = document.getElementById('wa-close');
+  if (closeBtn) closeBtn.addEventListener('click', closeWaModal);
+  var cancelBtn = document.getElementById('wa-cancel');
+  if (cancelBtn) cancelBtn.addEventListener('click', closeWaModal);
+  var sendBtn = document.getElementById('wa-send');
+  if (sendBtn) sendBtn.addEventListener('click', sendWa);
+  var overlay = document.getElementById('wa-modal');
+  if (overlay) overlay.addEventListener('click', function(e) { if (e.target === overlay) closeWaModal(); });
+  document.addEventListener('keydown', function(e) { if (e.key === 'Escape') closeWaModal(); });
+})();
+
 // ================================================================
 // AUTO-RESIZE for Google Sites iframe embed
 // Reports full page height to parent frame after every render cycle
@@ -2346,5 +2564,48 @@ if (typeof ResizeObserver !== 'undefined') {
   new ResizeObserver(notifyHeight).observe(document.body);
 }
 </script>
+
+<!-- ============================================================
+     STEALTH CFP → WHATSAPP SHARE (committee-only)
+     ============================================================ -->
+<a id="wa-share-btn" class="wa-fab" title="Share CFP via WhatsApp" aria-label="Share CFP via WhatsApp">
+  <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38a9.9 9.9 0 0 0 4.79 1.22h.01c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0 0 12.04 2Zm0 1.8c2.4 0 4.66.94 6.36 2.64a8.98 8.98 0 0 1 2.63 6.37c0 4.96-4.04 8.99-9.01 8.99a8.8 8.8 0 0 1-4.6-1.3l-.33-.2-3.12.82.83-3.04-.22-.34a8.95 8.95 0 0 1-1.37-4.77c0-4.96 4.04-8.99 9.01-8.99Zm-4.85 4.05c-.21 0-.55.08-.84.4-.29.31-1.1 1.07-1.1 2.62s1.13 3.04 1.29 3.25c.16.21 2.24 3.42 5.43 4.78.76.33 1.35.52 1.81.67.76.24 1.45.21 2 .13.61-.09 1.87-.76 2.13-1.5.26-.73.26-1.36.19-1.5-.08-.13-.29-.21-.61-.37-.32-.16-1.87-.92-2.16-1.03-.29-.11-.5-.16-.71.16-.21.31-.81 1.03-1 1.24-.18.21-.37.24-.69.08-.32-.16-1.35-.5-2.57-1.58-.95-.84-1.59-1.88-1.78-2.2-.18-.31-.02-.48.14-.64.15-.15.32-.39.48-.58.16-.19.21-.33.32-.55.11-.21.05-.42-.03-.58-.08-.16-.71-1.71-.97-2.35-.26-.62-.52-.53-.71-.54h-.61Z"/></svg>
+  <span>CFP</span>
+</a>
+
+<div id="wa-modal" class="wa-overlay" role="dialog" aria-modal="true" aria-label="Share CFP via WhatsApp">
+  <div class="wa-modal-wrap">
+    <div class="wa-modal">
+      <button class="wa-close" id="wa-close" aria-label="Close">&times;</button>
+      <h3>Share CFP via WhatsApp</h3>
+      <p class="wa-sub">Opens WhatsApp pre-filled — tap send to your number, then forward.</p>
+
+      <div class="wa-field">
+        <label for="wa-writeup">Message writeup</label>
+        <textarea id="wa-writeup"></textarea>
+      </div>
+
+      <div class="wa-field">
+        <label>Poster variant (HD link)</label>
+        <div class="wa-radios">
+          <label><input type="radio" name="wa-poster" value="dark" checked> Dark</label>
+          <label><input type="radio" name="wa-poster" value="bright"> Bright</label>
+        </div>
+      </div>
+
+      <div class="wa-field">
+        <label for="wa-phone">Your WhatsApp number (international, no +)</label>
+        <input id="wa-phone" type="tel" inputmode="numeric" placeholder="e.g. 60123456789" autocomplete="off">
+      </div>
+      <div class="wa-hint" id="wa-hint"></div>
+
+      <div class="wa-actions">
+        <button class="wa-btn cancel" id="wa-cancel">Cancel</button>
+        <button class="wa-btn send" id="wa-send">Send to WhatsApp</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 </body>
 </html>
