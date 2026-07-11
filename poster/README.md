@@ -1,44 +1,49 @@
-# PM26 Call-for-Papers Poster
+# PM26 Call-for-Papers Posters
 
-Print-ready A4 poster built from the live website data. Served by GitHub Pages,
-so the PNG is publicly downloadable at:
+Print-ready A4 posters built from the live website data. Served by GitHub
+Pages, so the PNGs are publicly downloadable at:
 
-    https://photonics-meeting.com/poster/pm26-cfp-poster.png
+    https://photonics-meeting.com/poster/pm26-cfp-poster.png          (CFP 1 — dark)
+    https://photonics-meeting.com/poster/pm26-cfp-poster-bright.png   (CFP 2 — bright)
 
-The website's **Call for Papers** section links to it ("Download CFP Poster").
+The website's **Call for Papers** section links to the dark one
+("Download CFP Poster").
 
 ## Files
 
 | File | What it is |
 |---|---|
-| `pm26-cfp-poster.png` | The poster — A4 @ 300 DPI (2480×3508). This is what visitors download. |
-| `pm26-cfp-poster.html` | **Editable source of truth.** Self-contained (fonts via Google Fonts, all images embedded as base64). Open in a browser to preview. |
-| `make_poster.py` | Regenerates the HTML from `../index.html`'s `__ssr_data__` JSON. ⚠️ Overwrites hand-tuned HTML — only run after website data changes (new speakers, fees, dates). |
+| `pm26-cfp-poster.png` / `.html` | **CFP 1 — dark theme.** PNG is A4 @ 300 DPI (2480×3508); HTML is its render source. |
+| `pm26-cfp-poster-bright.png` / `.html` | **CFP 2 — bright theme.** Same content, light design. |
+| `make_poster.py` | **The design source of truth.** Regenerates BOTH HTML files from `../index.html` — data comes from the `__ssr_data__` JSON (dates, fees, speakers + photos, topics) and the About Us section (brief). Design changes go in here so they survive regeneration. |
 | `cfp-poster-prompt.txt` | AI image-generation prompts (full-info + background-only variants). |
 
-## Workflow: fine-tune the poster
+## Workflow: website data changed (dates/fees/speakers/about)
 
-1. Edit `pm26-cfp-poster.html` directly (it is plain HTML/CSS).
-2. Re-render the PNG (macOS path shown; on Windows use `chrome.exe`):
+The posters do NOT update by themselves — regenerate after editing the site:
 
 ```sh
-"/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" \
-  --headless=new --disable-gpu --hide-scrollbars \
-  --window-size=1240,1754 --force-device-scale-factor=2 \
-  --virtual-time-budget=15000 \
-  --screenshot="poster/pm26-cfp-poster.png" \
-  "file://$PWD/poster/pm26-cfp-poster.html"
+python3 poster/make_poster.py    # rebuild both HTMLs from current index.html
+```
+
+then re-render both PNGs (macOS path shown; on Windows use `chrome.exe`):
+
+```sh
+for v in pm26-cfp-poster pm26-cfp-poster-bright; do
+  "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" \
+    --headless=new --disable-gpu --hide-scrollbars \
+    --window-size=1240,1754 --force-device-scale-factor=2 \
+    --virtual-time-budget=15000 \
+    --screenshot="poster/$v.png" "file://$PWD/poster/$v.html"
+done
 ```
 
 (run from the repo root; 1240×1754 @ 2× = 2480×3508 = exact A4 @ 300 DPI)
 
-3. Commit **both** the HTML and the PNG, push — the live download link updates
-   in ~1 min via GitHub Pages.
+Commit + push — the live download links update in ~1 min via GitHub Pages.
 
-## Workflow: website data changed (speakers/fees/dates)
+## Workflow: fine-tune the design
 
-```sh
-python3 poster/make_poster.py   # rebuilds HTML from index.html JSON
-```
-
-then re-render the PNG as above. Note this discards manual HTML tweaks.
+Edit the CSS/layout inside `make_poster.py` (NOT the generated HTML files —
+they get overwritten on the next regeneration), then run the two commands
+above. Theme colors live in the `THEMES` dict (dark + bright).
