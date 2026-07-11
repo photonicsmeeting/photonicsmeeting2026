@@ -1,0 +1,52 @@
+name: Rebuild CFP posters
+
+# Auto-rebuilds both CFP posters whenever the website data (or the poster
+# generator / logos) changes on main. The generated HTML/PNG commits do NOT
+# match these paths, so the workflow cannot re-trigger itself.
+on:
+  push:
+    branches: [main]
+    paths:
+      - index.html
+      - poster/make_poster.py
+      - pm26.png
+      - utm-logo.png
+      - osm-logo.png
+  workflow_dispatch:
+
+concurrency:
+  group: rebuild-posters
+  cancel-in-progress: true
+
+permissions:
+  contents: write
+
+jobs:
+  rebuild:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Regenerate poster HTML from website data
+        run: python3 poster/make_poster.py
+
+      - name: Render PNGs (A4 @ 300 DPI) with headless Chrome
+        run: |
+          for v in pm26-cfp-poster pm26-cfp-poster-bright; do
+            google-chrome --headless=new --disable-gpu --no-sandbox --hide-scrollbars \
+              --window-size=1240,1754 --force-device-scale-factor=2 \
+              --virtual-time-budget=20000 \
+              --screenshot="poster/$v.png" "file://$PWD/poster/$v.html"
+          done
+
+      - name: Commit & push if posters changed
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add poster/
+          if git diff --cached --quiet; then
+            echo "Posters already up to date."
+          else
+            git commit -m "posters: auto-rebuild from website data [skip ci]"
+            git push
+          fi
