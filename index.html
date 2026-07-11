@@ -2614,17 +2614,33 @@ window.addEventListener('scroll', () => {
     }
   }
 
-  var fab = document.getElementById('wa-share-btn');
-  if (fab) fab.addEventListener('click', function(e) { e.preventDefault(); openWaModal(); });
-  var closeBtn = document.getElementById('wa-close');
-  if (closeBtn) closeBtn.addEventListener('click', closeWaModal);
-  var cancelBtn = document.getElementById('wa-cancel');
-  if (cancelBtn) cancelBtn.addEventListener('click', closeWaModal);
-  var sendBtn = document.getElementById('wa-send');
-  if (sendBtn) sendBtn.addEventListener('click', sendWa);
-  var overlay = document.getElementById('wa-modal');
-  if (overlay) overlay.addEventListener('click', function(e) { if (e.target === overlay) closeWaModal(); });
-  document.addEventListener('keydown', function(e) { if (e.key === 'Escape') closeWaModal(); });
+  function safe(elm, ev, fn, label) {
+    if (!elm) return;
+    elm.addEventListener(ev, function(e) {
+      try { fn(e); } catch (err) { console.error('[WA] ' + (label || ev) + ' failed:', err); }
+    });
+  }
+
+  function initWa() {
+    try {
+      safe(document.getElementById('wa-share-btn'), 'click', function(e) { e.preventDefault(); openWaModal(); }, 'open');
+      safe(document.getElementById('wa-close'), 'click', closeWaModal, 'close');
+      safe(document.getElementById('wa-cancel'), 'click', closeWaModal, 'cancel');
+      safe(document.getElementById('wa-send'), 'click', sendWa, 'send');
+      var overlay = document.getElementById('wa-modal');
+      safe(overlay, 'click', function(e) { if (e.target === overlay) closeWaModal(); }, 'overlay');
+      safe(document, 'keydown', function(e) { if (e.key === 'Escape') closeWaModal(); }, 'esc');
+    } catch (err) {
+      console.error('[WA] init failed:', err);
+    }
+  }
+
+  // Attach now (inline script is at end of body, so DOM exists), and again
+  // on DOMContentLoaded as a safety net against any unrelated page error.
+  initWa();
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initWa);
+  }
 })();
 
 // ============================================================
