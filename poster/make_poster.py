@@ -31,6 +31,8 @@ if not about_text:  # fallback if the About section markup ever changes
                   "Optical Society of Malaysia (OSM) in celebrating International Day of Light.")
 
 logo_b64 = base64.b64encode(open(os.path.join(ROOT, "pm26.png"), "rb").read()).decode()
+utm_b64 = base64.b64encode(open(os.path.join(ROOT, "utm-logo.png"), "rb").read()).decode()
+osm_b64 = base64.b64encode(open(os.path.join(ROOT, "osm-logo.png"), "rb").read()).decode()
 
 THEMES = {
     "dark": dict(
@@ -40,12 +42,14 @@ THEMES = {
             "radial-gradient(900px 600px at 50% 108%, rgba(34,211,238,.16), transparent 55%),"
             "linear-gradient(165deg, #0A1233 0%, #060B22 55%, #071026 100%)"),
         ink="#EAF2FF", dim="#9FB0D0", dimmer="#6D7FA5",
-        card="rgba(255,255,255,.045)", edge="rgba(255,255,255,.13)",
+        card="rgba(255,255,255,.07)", edge="rgba(255,255,255,.17)",
         gold="#E8C36A", gold_edge="rgba(232,195,106,.55)", gold_bg="rgba(232,195,106,.07)",
         spectrum="linear-gradient(90deg,#4E8CFF 0%,#22D3EE 45%,#A78BFA 100%)",
         cyan="#22D3EE", rowline="rgba(255,255,255,.07)",
         net_dot="#7FD8F0", net_line="#4FA8D8", net_dot_op=(0.15, 0.5), net_line_base=0.16,
-        chip_shadow="none", logochip_border="none",
+        chip_shadow="0 8px 32px rgba(0,0,0,.28)", logochip_border="none",
+        orbs=[("rgba(32,87,224,.50)",150,500,300),("rgba(124,58,237,.42)",1060,760,320),
+              ("rgba(34,211,238,.30)",300,1280,300),("rgba(124,58,237,.28)",980,1560,260)],
         ring="rgba(232,195,106,.75)", halo="rgba(34,211,238,.14)",
         pub_bg="linear-gradient(90deg, rgba(32,87,224,.16), rgba(34,211,238,.09), rgba(124,58,237,.14))",
         pub_edge="rgba(34,211,238,.30)",
@@ -55,17 +59,19 @@ THEMES = {
     ),
     "bright": dict(
         out="pm26-cfp-poster-bright.html",
-        bg=("radial-gradient(900px 500px at 85% -5%, rgba(124,58,237,.10), transparent 60%),"
-            "radial-gradient(800px 520px at -10% 8%, rgba(32,87,224,.12), transparent 60%),"
-            "radial-gradient(900px 600px at 50% 108%, rgba(34,211,238,.10), transparent 55%),"
+        bg=("radial-gradient(900px 500px at 85% -5%, rgba(124,58,237,.16), transparent 60%),"
+            "radial-gradient(800px 520px at -10% 8%, rgba(32,87,224,.18), transparent 60%),"
+            "radial-gradient(900px 600px at 50% 108%, rgba(34,211,238,.15), transparent 55%),"
             "linear-gradient(165deg, #F7F9FE 0%, #FFFFFF 55%, #EFF4FF 100%)"),
         ink="#0B1230", dim="#475569", dimmer="#94A3B8",
-        card="#FFFFFF", edge="#E2E8F0",
+        card="rgba(255,255,255,.52)", edge="rgba(255,255,255,.95)",
         gold="#A87818", gold_edge="rgba(168,120,24,.45)", gold_bg="rgba(232,195,106,.14)",
         spectrum="linear-gradient(90deg,#2057E0 0%,#0891B2 45%,#7C3AED 100%)",
         cyan="#0891B2", rowline="rgba(10,18,51,.08)",
         net_dot="#2057E0", net_line="#2057E0", net_dot_op=(0.08, 0.25), net_line_base=0.09,
-        chip_shadow="0 1px 3px rgba(10,18,51,.07)", logochip_border="1px solid #E2E8F0",
+        chip_shadow="0 8px 32px rgba(10,18,51,.12)", logochip_border="1px solid #E2E8F0",
+        orbs=[("rgba(32,87,224,.26)",150,500,300),("rgba(124,58,237,.20)",1060,760,320),
+              ("rgba(34,211,238,.24)",300,1280,300),("rgba(124,58,237,.16)",980,1560,260)],
         ring="rgba(168,120,24,.65)", halo="rgba(32,87,224,.10)",
         pub_bg="linear-gradient(90deg, rgba(32,87,224,.07), rgba(34,211,238,.05), rgba(124,58,237,.07))",
         pub_edge="rgba(32,87,224,.30)",
@@ -91,6 +97,12 @@ def net_svg(T):
             if d < 170 and random.random() < .5:
                 lines.append(f'<line x1="{x:.0f}" y1="{y:.0f}" x2="{x2:.0f}" y2="{y2:.0f}" stroke="{T["net_line"]}" stroke-width="0.7" opacity="{max(.02, T["net_line_base"] - d/1400):.2f}"/>')
     return f'<svg class="net" viewBox="0 0 {W} {Hh}" xmlns="http://www.w3.org/2000/svg">{"".join(lines)}{"".join(dots)}</svg>'
+
+def orbs_html(T):
+    return "".join(
+        f'<div class="orb" style="left:{x-r}px;top:{y-r}px;width:{2*r}px;height:{2*r}px;'
+        f'background:radial-gradient(circle,{c} 0%,transparent 70%);"></div>'
+        for c, x, y, r in T["orbs"])
 
 sp_cards = ""
 for s in data["speakers"]:
@@ -128,9 +140,15 @@ def render(T):
     font-family:'Inter',sans-serif; color:var(--ink);
     background:{T["bg"]}; }}
   .net {{ position:absolute; inset:0; width:100%; height:100%; }}
+  .orb {{ position:absolute; border-radius:50%; filter:blur(60px); }}
+  .pill, .sp, .chip, .panel, .pub, .foot {{ backdrop-filter:blur(16px) saturate(150%);
+    -webkit-backdrop-filter:blur(16px) saturate(150%); }}
   .wrap {{ position:relative; padding:52px 64px 0; height:100%; display:flex; flex-direction:column; }}
 
   .toprow {{ display:flex; justify-content:space-between; align-items:center; }}
+  .topright {{ display:flex; align-items:center; gap:12px; }}
+  .logochip.small {{ padding:9px 14px; border-radius:13px; }}
+  .logochip.small img {{ height:42px; }}
   .logochip {{ background:#fff; border-radius:16px; padding:10px 22px; border:{T["logochip_border"]};
     box-shadow:0 10px 40px rgba(0,0,0,.18); }}
   .logochip img {{ height:56px; display:block; }}
@@ -208,12 +226,17 @@ def render(T):
 </style></head>
 <body>
 {net_svg(T)}
+{orbs_html(T)}
 <div class="wrap">
 
   <div class="toprow">
     <div class="logochip"><img src="data:image/png;base64,{logo_b64}" alt="Photonics Meeting 2026"></div>
-    <div class="org">Organised by the <b>Optical Society of Malaysia (OSM)</b><br>
-    <span class="idl">✦ In celebration of the International Day of Light</span></div>
+    <div class="topright">
+      <div class="org">Organised by the <b>Optical Society of Malaysia (OSM)</b><br>
+      <span class="idl">✦ In celebration of the International Day of Light</span></div>
+      <div class="logochip small"><img src="data:image/png;base64,{utm_b64}" alt="UTM"></div>
+      <div class="logochip small"><img src="data:image/png;base64,{osm_b64}" alt="OSM"></div>
+    </div>
   </div>
 
   <div class="eyebrow">{H.escape(content["hero_title_line1"]).upper()} PHOTONICS MEETING</div>

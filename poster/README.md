@@ -3,6 +3,14 @@
 Print-ready A4 posters built from the live website data. Served by GitHub
 Pages, so the PNGs are publicly downloadable at:
 
+> **🤖 AUTO-REBUILD:** a GitHub Action
+> (`.github/workflows/rebuild-posters.yml`) regenerates and re-renders both
+> posters automatically whenever `index.html`, `poster/make_poster.py`, or
+> the logos (`pm26.png`, `utm-logo.png`, `osm-logo.png`) change on `main` —
+> no manual step needed. It pushes a `posters: auto-rebuild…` commit, so
+> **`git pull` before local work after editing the site.** The manual
+> commands below remain for local preview/iteration.
+
     https://photonics-meeting.com/poster/pm26-cfp-poster.png          (CFP 1 — dark)
     https://photonics-meeting.com/poster/pm26-cfp-poster-bright.png   (CFP 2 — bright)
 
@@ -15,7 +23,7 @@ The website's **Call for Papers** section links to the dark one
 |---|---|
 | `pm26-cfp-poster.png` / `.html` | **CFP 1 — dark theme.** PNG is A4 @ 300 DPI (2480×3508); HTML is its render source. |
 | `pm26-cfp-poster-bright.png` / `.html` | **CFP 2 — bright theme.** Same content, light design. |
-| `make_poster.py` | **The design source of truth.** Regenerates BOTH HTML files from `../index.html` — data comes from the `__ssr_data__` JSON (dates, fees, speakers + photos, topics) and the About Us section (brief). Design changes go in here so they survive regeneration. |
+| `make_poster.py` | **The design source of truth.** Regenerates BOTH HTML files from `../index.html` — data comes from the `__ssr_data__` JSON (dates, fees, speakers + photos, topics) and the About Us section (brief). Also embeds `../pm26.png`, `../utm-logo.png`, `../osm-logo.png`. Design changes (incl. the glassmorphism THEMES dict) go in here so they survive regeneration. |
 | `cfp-poster-prompt.txt` | AI image-generation prompts (full-info + background-only variants). |
 
 ## Workflow: website data changed (dates/fees/speakers/about)
