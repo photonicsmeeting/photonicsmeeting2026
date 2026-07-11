@@ -567,7 +567,26 @@ h1,h2,h3 { font-family: var(--font-display); }
   gap: 64px;
   align-items: start;
 }
-.cfp-btns { margin-top: 6px; }
+.cfp-btns { margin-top: 6px; display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
+.btn-outline {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  background: #fff;
+  border: 1px solid var(--grey-300);
+  color: var(--blue);
+  font-size: 15px;
+  font-weight: 600;
+  padding: 15px 30px;
+  border-radius: 12px;
+  text-decoration: none;
+  transition: border-color .15s, box-shadow .15s, transform .14s;
+}
+.btn-outline:hover {
+  border-color: var(--blue-border);
+  box-shadow: var(--shadow-md);
+  transform: translateY(-1px);
+}
 .cfp-topics {
   background: linear-gradient(180deg, #fff, var(--grey-50));
   border: 1px solid var(--grey-200);
@@ -1321,6 +1340,10 @@ footer::before {
           <a id="submit-paper-hero" href="#call-for-papers" class="btn-primary">
             <span id="cfp-submit-btn-text">Submit Paper</span>
             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          </a>
+          <a href="poster/pm26-cfp-poster.png" download="PM26-Call-for-Papers-Poster.png" class="btn-outline">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            <span>Download CFP Poster</span>
           </a>
         </div>
         <p id="cfp-status-note" style="margin-top:14px; font-size:13px; color:var(--grey-400); font-style:italic;"></p>

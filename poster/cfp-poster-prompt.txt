@@ -1,0 +1,114 @@
+PM26 — CALL FOR PAPERS POSTER PROMPT (customized with website data)
+=====================================================================
+Paste into an AI image generator that renders text well (GPT-Image /
+Gemini-Imagen / Ideogram). For Midjourney, use PART B (background only)
+and overlay the text yourself — MJ cannot render this much text.
+
+IMPORTANT: attach `pm26.png` (logo) and the 5 speaker headshots as
+reference images if your generator supports image input; AI cannot
+recreate real faces or the exact logo from text alone.
+
+---------------------------------------------------------------------
+PART A — FULL POSTER PROMPT (all real PM26 information)
+---------------------------------------------------------------------
+
+A professional A4-size vertical poster (210:297) for the "Call for
+Papers" of PHOTONICS MEETING 2026, an international photonics
+conference. Clean, minimalist, highly organized academic editorial
+design. Deep navy blue background (#060B22 to #0A1233) with abstract
+glowing network nodes, interconnected data lines, and subtle
+translucent geometric facets; accents in teal/cyan (#22D3EE), blue
+(#2057E0), violet (#7C3AED) and subtle metallic gold (#E8C36A). Fonts:
+bold geometric sans-serif headlines, clean humanist sans body text.
+
+LAYOUT, top to bottom:
+
+1. HEADER — white rounded chip top-left containing the "photonics
+   meeting 2026" logo (attached image pm26.png). Top-right, small
+   text: "Organised by the Optical Society of Malaysia (OSM)" and in
+   gold: "In celebration of the International Day of Light".
+
+2. TITLE ZONE — cyan letter-spaced eyebrow "THE INTERNATIONAL
+   CONFERENCE ON PHOTONICS MEETING", then huge gradient headline
+   "CALL FOR PAPERS" (blue-to-cyan-to-violet gradient). Subtitle:
+   "We invite original research submissions in all areas of photonics,
+   optics, and light-based technologies. Accepted papers will be
+   published in a peer-reviewed proceedings volume."
+   Three rounded pills: [gold] "8–9 September 2026" · "MJIIT, UTM
+   Kuala Lumpur, Malaysia" · "Keynotes · Technical Sessions ·
+   Workshops".
+
+3. KEYNOTE & INVITED SPEAKERS — five cards in a row, each with a
+   circular gold-ringed headshot photo (attached reference photos),
+   name, affiliation, country in cyan caps:
+   • Prof. Ir. Ts. Dr. Tiu Zian Cheak — School of Engineering &
+     Computing, MILA University — MALAYSIA
+   • Prof. Dr. Waleed Mohammed — BU-CROCCS, School of Engineering,
+     Bangkok University — THAILAND
+   • Prof. Dr. Ir. Retna Apsari — Universitas Airlangga, Surabaya —
+     INDONESIA
+   • Dr. Yu Chen — Chongqing Vocational Institute of Engineering —
+     CHINA
+   • Dr. Abdulkadir Mukhtar Diblawe — Dept. of Telecommunication
+     Engineering, Hormuud University — SOMALIA
+
+4. CONFERENCE TOPICS — eight rounded chips in a 4x2 grid:
+   Fiber Optics & Photonic Integration | Laser Physics & Applications
+   | Optical Sensors & Imaging Systems | Quantum Photonics &
+   Entanglement | Biophotonics & Medical Diagnostics | Nonlinear
+   Optics & Ultrafast Science | Silicon Photonics & Nanophotonics |
+   Optical Communications & Networks
+
+5. TWO-COLUMN ZONE —
+   Left panel "IMPORTANT DATES":
+   • Early Bird Registration — Before 31 July 2026
+   • Full Paper Submission Deadline — 15 August 2026  (highlight gold)
+   • Registration Deadline — 1 August 2026
+   • Acceptance Notification — Starting from 25 August 2026
+   • Conference Date — 8–9 September 2026
+   Right panel "REGISTRATION FEES":
+   • Normal — RM 1,500          • Normal (Student) — RM 1,400
+   • Early Bird (Student & Non-student) — RM 1,200
+   • International (Normal) — USD 400
+   • International (Student) — USD 370
+   • International (Early Bird) — USD 350
+   Footnote: "Early bird rates apply before 31 July 2026 · Fees
+   include conference materials, proceedings & meals"
+
+6. PUBLICATION STRIP — gradient-bordered banner: "Accepted papers
+   will be published in the IOP Journal of Physics: Conference Series
+   (ISSN 1742-6596) — peer-reviewed & open access, indexed in Scopus
+   and Web of Science (CPCI)."
+
+7. FOOTER BAND — dark translucent bar: gold button "SUBMIT YOUR PAPER
+   → morressier.com"; right side: "photonics-meeting.com" in cyan,
+   "photonics.meeting@gmail.com · © 2026 OSM Photonics Meeting —
+   Kuala Lumpur, Malaysia."
+
+Smooth gradients, ample negative space, high definition, 8k, sharp
+legible typography, professional academic conference poster.
+Aspect Ratio: Vertical 210:297.
+
+---------------------------------------------------------------------
+PART B — BACKGROUND-ONLY PROMPT (for Midjourney + manual text overlay)
+---------------------------------------------------------------------
+
+A professional A4-size vertical poster template background for a
+"Call for Papers" announcement, designed with ample clean negative
+space. The composition is clean, minimalist, and highly organized,
+suitable for graphic overlays. The aesthetic is modern and
+sophisticated, featuring abstract glowing network nodes,
+interconnected data lines, and subtle translucent geometric facets.
+The color palette is composed of deep navy blue, teal, white, and
+subtle metallic gold accents. The layout includes a clear, defined
+large zone in the upper center, a clean multi-column area in the
+middle, and a distinct footer band at the bottom. Minimalist academic
+vector art style, smooth gradients, highly detailed texture,
+professional editorial graphic design. High definition, 8k resolution.
+Aspect Ratio: Vertical 210:297.
+
+---------------------------------------------------------------------
+NOTE: A finished, print-ready poster built from the live website data
+already exists in this folder: poster/pm26-cfp-poster.png (A4 @ 300
+DPI, 2480x3508) and poster/pm26-cfp-poster.html (editable source).
+---------------------------------------------------------------------
