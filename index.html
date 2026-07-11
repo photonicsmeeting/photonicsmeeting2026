@@ -2575,6 +2575,8 @@ window.addEventListener('scroll', () => {
     if (ta && !ta.value.trim()) ta.value = WA_WRITEUP;
     document.getElementById('wa-modal').classList.add('open');
     document.getElementById('wa-hint').textContent = '';
+    var fb = document.getElementById('wa-fallback');
+    if (fb) fb.style.display = 'none';
   }
   function closeWaModal() {
     document.getElementById('wa-modal').classList.remove('open');
@@ -2591,8 +2593,25 @@ window.addEventListener('scroll', () => {
     var msg = document.getElementById('wa-writeup').value.trim()
       + "\n\nPoster (HD): " + poster
       + "\nSubmit your paper: " + waSubmissionUrl();
-    window.open('https://wa.me/' + phone + '?text=' + encodeURIComponent(msg), '_blank');
-    closeWaModal();
+    var url = 'https://wa.me/' + phone + '?text=' + encodeURIComponent(msg);
+
+    // Try popup first; if blocked, fall back to an in-page anchor click.
+    var win = window.open(url, '_blank');
+    if (!win) {
+      var a = document.createElement('a');
+      a.href = url; a.target = '_blank'; a.rel = 'noopener noreferrer';
+      document.body.appendChild(a); a.click(); a.remove();
+    }
+    // Always surface a visible, tappable link as a guaranteed fallback, and
+    // KEEP the modal open so it's actually visible (a successful popup can
+    // still "do nothing" if WhatsApp isn't installed / Web isn't logged in).
+    var fb = document.getElementById('wa-fallback');
+    var fbl = document.getElementById('wa-fallback-link');
+    if (fb && fbl) {
+      fbl.href = url;
+      fbl.textContent = url;
+      fb.style.display = 'block';
+    }
   }
 
   var fab = document.getElementById('wa-share-btn');
@@ -2695,6 +2714,10 @@ if (typeof ResizeObserver !== 'undefined') {
         <button class="wa-btn cancel" id="wa-cancel">Cancel</button>
         <button class="wa-btn send" id="wa-send">Send to WhatsApp</button>
       </div>
+      <p class="wa-fallback" id="wa-fallback" style="display:none; margin-top:12px; font-size:12.5px; color:#475569; line-height:1.6;">
+        WhatsApp should open in a new tab with your message ready to send. If nothing appeared (no WhatsApp app, or Web not logged in), tap this link — or copy it:<br>
+        <a id="wa-fallback-link" href="#" target="_blank" rel="noopener noreferrer" style="color:#25D366; font-weight:600; word-break:break-all;"></a>
+      </p>
     </div>
   </div>
 </div>
