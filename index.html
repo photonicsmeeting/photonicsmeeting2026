@@ -1350,6 +1350,57 @@ footer::before {
   cursor: pointer;
 }
 .wa-modal-wrap { position: relative; }
+
+/* ============================================================
+   PREVIOUS CONFERENCE PHOTO GALLERY (subtle, bottom)
+   ============================================================ */
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  margin-top: 22px;
+}
+.gallery-item {
+  position: relative;
+  border-radius: 14px;
+  overflow: hidden;
+  aspect-ratio: 4 / 3;
+  background: var(--grey-50, #F1F5F9);
+  border: 1px solid var(--grey-100, #E2E8F0);
+}
+.gallery-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform .4s ease;
+}
+.gallery-item:hover img { transform: scale(1.06); }
+.gallery-cap {
+  position: absolute;
+  left: 0; right: 0; bottom: 0;
+  padding: 9px 11px;
+  font-size: 11.5px;
+  font-weight: 600;
+  color: #fff;
+  background: linear-gradient(transparent, rgba(6,11,34,.72));
+  opacity: 0;
+  transition: opacity .3s ease;
+}
+.gallery-item:hover .gallery-cap { opacity: 1; }
+.gallery-empty {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 34px 18px;
+  border: 1px dashed var(--grey-200, #CBD5E1);
+  border-radius: 14px;
+  color: var(--grey-400, #94A3B8);
+  font-size: 13.5px;
+  line-height: 1.6;
+}
+.gallery-empty b { color: var(--grey-600, #475569); }
+@media (max-width: 900px) { .gallery-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 520px) { .gallery-grid { grid-template-columns: 1fr; } }
 </style>
 </head>
 <body>
@@ -1744,6 +1795,27 @@ footer::before {
       <span id="register-btn-text">Click to Submit</span>
       <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
     </a>
+  </div>
+</section>
+
+<!-- ============================================================
+     PREVIOUS CONFERENCE GALLERY (subtle)
+     ============================================================ -->
+<section id="gallery" class="sec sec-alt" aria-label="Previous conference photo gallery">
+  <div class="sec-inner reveal">
+    <p class="sec-eyebrow">From Previous Editions</p>
+    <h2 class="sec-title">Moments from Past Photonics Meetings</h2>
+    <p class="sec-sub">A glimpse of our community in action at earlier OSM Photonics Meeting editions.</p>
+    <div class="gallery-grid" id="gallery-grid">
+      <div class="gallery-item"><img src="gallery/pm26-gallery-1.jpg" alt="Photonics Meeting — previous edition" loading="lazy"><div class="gallery-cap">PM — Kuala Lumpur</div></div>
+      <div class="gallery-item"><img src="gallery/pm26-gallery-2.jpg" alt="Photonics Meeting — previous edition" loading="lazy"><div class="gallery-cap">Keynote Session</div></div>
+      <div class="gallery-item"><img src="gallery/pm26-gallery-3.jpg" alt="Photonics Meeting — previous edition" loading="lazy"><div class="gallery-cap">Technical Presentation</div></div>
+      <div class="gallery-item"><img src="gallery/pm26-gallery-4.jpg" alt="Photonics Meeting — previous edition" loading="lazy"><div class="gallery-cap">Award Ceremony</div></div>
+      <div class="gallery-item"><img src="gallery/pm26-gallery-5.jpg" alt="Photonics Meeting — previous edition" loading="lazy"><div class="gallery-cap">Networking</div></div>
+      <div class="gallery-item"><img src="gallery/pm26-gallery-6.jpg" alt="Photonics Meeting — previous edition" loading="lazy"><div class="gallery-cap">Group Photo</div></div>
+      <div class="gallery-item"><img src="gallery/pm26-gallery-7.jpg" alt="Photonics Meeting — previous edition" loading="lazy"><div class="gallery-cap">Exhibition</div></div>
+      <div class="gallery-item"><img src="gallery/pm26-gallery-8.jpg" alt="Photonics Meeting — previous edition" loading="lazy"><div class="gallery-cap">Workshop</div></div>
+    </div>
   </div>
 </section>
 
@@ -2533,6 +2605,30 @@ window.addEventListener('scroll', () => {
   var overlay = document.getElementById('wa-modal');
   if (overlay) overlay.addEventListener('click', function(e) { if (e.target === overlay) closeWaModal(); });
   document.addEventListener('keydown', function(e) { if (e.key === 'Escape') closeWaModal(); });
+})();
+
+// ============================================================
+// PREVIOUS CONFERENCE GALLERY — graceful fallback if photos
+// have not been added to /gallery yet (no broken-image icons).
+// ============================================================
+(function() {
+  var grid = document.getElementById('gallery-grid');
+  if (!grid) return;
+  var imgs = grid.querySelectorAll('.gallery-item img');
+  var loaded = 0, failed = 0;
+  function check() {
+    if (loaded === 0 && failed === imgs.length) {
+      grid.innerHTML = '<div class="gallery-empty">Photos from previous editions will appear here. ' +
+        'Add images as <b>gallery/pm26-gallery-1.jpg … 8.jpg</b> in the repo (e.g. downloaded from the OSM Facebook album).</div>';
+    }
+  }
+  imgs.forEach(function(img) {
+    img.addEventListener('error', function() {
+      img.closest('.gallery-item').style.display = 'none';
+      failed++; check();
+    });
+    img.addEventListener('load', function() { loaded++; check(); });
+  });
 })();
 
 // ================================================================
