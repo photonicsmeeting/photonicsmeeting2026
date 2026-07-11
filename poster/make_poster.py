@@ -33,6 +33,9 @@ if not about_text:  # fallback if the About section markup ever changes
 logo_b64 = base64.b64encode(open(os.path.join(ROOT, "pm26.png"), "rb").read()).decode()
 utm_b64 = base64.b64encode(open(os.path.join(ROOT, "utm-logo.png"), "rb").read()).decode()
 osm_b64 = base64.b64encode(open(os.path.join(ROOT, "osm-logo.png"), "rb").read()).decode()
+iop_b64 = base64.b64encode(open(os.path.join(ROOT, "iop-logo.png"), "rb").read()).decode()
+scopus_b64 = base64.b64encode(open(os.path.join(ROOT, "scopus-logo.png"), "rb").read()).decode()
+wos_b64 = base64.b64encode(open(os.path.join(ROOT, "wos-logo.png"), "rb").read()).decode()
 
 THEMES = {
     "dark": dict(
@@ -208,10 +211,11 @@ def render(T):
 
   .pub {{ margin-top:28px; display:flex; align-items:center; gap:20px; border-radius:18px; padding:24px 30px;
     background:{T["pub_bg"]}; border:1px solid {T["pub_edge"]}; }}
-  .pub-mark {{ flex:0 0 auto; width:54px; height:54px; border-radius:14px; background:var(--spectrum);
-    display:grid; place-items:center; }}
-  .pub-mark svg {{ width:30px; height:30px; }}
-  .pub-t {{ font-size:14px; line-height:1.6; color:var(--dim); }}
+  .pub-t {{ flex:1; font-size:14px; line-height:1.6; color:var(--dim); }}
+  .pub-logos {{ display:flex; align-items:center; gap:10px; flex:0 0 auto; }}
+  .pub-chip {{ background:#fff; border-radius:11px; padding:9px 14px; display:flex; align-items:center;
+    justify-content:center; box-shadow:0 3px 14px rgba(0,0,0,.15); }}
+  .pub-chip img {{ display:block; }}
   .pub-t b {{ color:var(--ink); }}
   .pub-t .gold {{ color:var(--gold); font-weight:600; }}
 
@@ -232,7 +236,8 @@ def render(T):
   <div class="toprow">
     <div class="logochip"><img src="data:image/png;base64,{logo_b64}" alt="Photonics Meeting 2026"></div>
     <div class="topright">
-      <div class="org">Organised by the <b>Optical Society of Malaysia (OSM)</b><br>
+      <div class="org">Organised by <b>Universiti Teknologi Malaysia (UTM)</b><br>
+      &amp; the <b>Optical Society of Malaysia (OSM)</b><br>
       <span class="idl">✦ In celebration of the International Day of Light</span></div>
       <div class="logochip small"><img src="data:image/png;base64,{utm_b64}" alt="UTM"></div>
       <div class="logochip small"><img src="data:image/png;base64,{osm_b64}" alt="OSM"></div>
@@ -271,12 +276,14 @@ def render(T):
   </div>
 
   <div class="pub">
-    <div class="pub-mark"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.6">
-      <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20V3H6.5A2.5 2.5 0 0 0 4 5.5v14z"/>
-      <path d="M4 19.5A2.5 2.5 0 0 0 6.5 22H20v-5"/></svg></div>
     <div class="pub-t">Accepted papers will be published in the <b>IOP Journal of Physics: Conference Series</b> (ISSN 1742-6596)
       — peer-reviewed &amp; open access, indexed in <span class="gold">Scopus</span> and
       <span class="gold">Web of Science (CPCI)</span>.</div>
+    <div class="pub-logos">
+      <span class="pub-chip"><img src="data:image/png;base64,{iop_b64}" alt="IOP Publishing" style="height:38px;"></span>
+      <span class="pub-chip"><img src="data:image/png;base64,{scopus_b64}" alt="Scopus" style="height:24px;"></span>
+      <span class="pub-chip"><img src="data:image/png;base64,{wos_b64}" alt="Web of Science" style="height:17px;"></span>
+    </div>
   </div>
 
   <div class="foot">

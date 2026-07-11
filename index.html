@@ -912,12 +912,14 @@ h1,h2,h3 { font-family: var(--font-display); }
 }
 .index-badge {
   display: flex;
+  flex-direction: column;
   align-items: center;
-  gap: 14px;
+  justify-content: center;
+  gap: 12px;
   background: #fff;
   border: 1px solid var(--grey-200);
   border-radius: var(--radius-sm);
-  padding: 15px 18px;
+  padding: 22px 18px 16px;
   box-shadow: var(--shadow-sm);
   transition: transform .22s cubic-bezier(.16,1,.3,1), box-shadow .22s, border-color .22s;
 }
@@ -926,30 +928,17 @@ h1,h2,h3 { font-family: var(--font-display); }
   box-shadow: var(--shadow-md);
   border-color: var(--blue-border);
 }
-.index-badge-mark {
-  flex: 0 0 auto;
-  width: 46px;
-  height: 46px;
-  border-radius: 12px;
-  display: grid;
-  place-items: center;
-  background: var(--m, var(--blue));
-  color: #fff;
-}
-.index-badge-mark svg { width: 26px; height: 26px; display: block; }
-.index-badge-text { display: flex; flex-direction: column; gap: 3px; min-width: 0; }
-.index-badge-name {
-  font-family: var(--font-display);
-  font-size: 15px;
-  font-weight: 700;
-  color: var(--ink);
-  line-height: 1.1;
+.index-badge-logo {
+  width: auto;
+  max-width: 90%;
+  object-fit: contain;
 }
 .index-badge-tag {
   font-size: 11.5px;
   font-weight: 500;
   color: var(--grey-600);
   line-height: 1.3;
+  text-align: center;
 }
 
 /* =====================================================
@@ -1384,9 +1373,13 @@ footer::before {
             <span id="cfp-submit-btn-text">Submit Paper</span>
             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
           </a>
-          <a href="poster/pm26-cfp-poster.png" download="PM26-Call-for-Papers-Poster.png" class="btn-outline">
+          <a href="poster/pm26-cfp-poster.png" download="PM26-CFP-Poster-Dark.png" class="btn-outline">
             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-            <span>Download CFP Poster</span>
+            <span>CFP Poster (Dark)</span>
+          </a>
+          <a href="poster/pm26-cfp-poster-bright.png" download="PM26-CFP-Poster-Bright.png" class="btn-outline">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            <span>CFP Poster (Bright)</span>
           </a>
         </div>
         <p id="cfp-status-note" style="margin-top:14px; font-size:13px; color:var(--grey-400); font-style:italic;"></p>
@@ -1451,48 +1444,18 @@ footer::before {
       <div class="index-badge-row">
 
         <div class="index-badge">
-          <span class="index-badge-mark" style="--m:#2057E0;">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true">
-              <circle cx="12" cy="12" r="1.7" fill="currentColor" stroke="none"/>
-              <ellipse cx="12" cy="12" rx="10" ry="4.2"/>
-              <ellipse cx="12" cy="12" rx="10" ry="4.2" transform="rotate(60 12 12)"/>
-              <ellipse cx="12" cy="12" rx="10" ry="4.2" transform="rotate(120 12 12)"/>
-            </svg>
-          </span>
-          <span class="index-badge-text">
-            <span class="index-badge-name">IOP Publishing</span>
-            <span class="index-badge-tag">Publisher &middot; Open Access</span>
-          </span>
+          <img class="index-badge-logo" src="iop-logo.png" alt="IOP Publishing logo" style="height:62px;" loading="lazy">
+          <span class="index-badge-tag">Publisher &middot; Open Access</span>
         </div>
 
         <div class="index-badge">
-          <span class="index-badge-mark" style="--m:#E9711C;">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true">
-              <circle cx="10.5" cy="10.5" r="6.5"/>
-              <line x1="15.5" y1="15.5" x2="21" y2="21"/>
-              <line x1="8" y1="9" x2="13" y2="9"/>
-              <line x1="8" y1="12" x2="13" y2="12"/>
-            </svg>
-          </span>
-          <span class="index-badge-text">
-            <span class="index-badge-name">Scopus</span>
-            <span class="index-badge-tag">Abstracting &amp; Indexing</span>
-          </span>
+          <img class="index-badge-logo" src="scopus-logo.png" alt="Scopus logo" style="height:38px;" loading="lazy">
+          <span class="index-badge-tag">Abstracting &amp; Indexing</span>
         </div>
 
         <div class="index-badge">
-          <span class="index-badge-mark" style="--m:#3E9B45;">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true">
-              <circle cx="12" cy="12" r="9"/>
-              <ellipse cx="12" cy="12" rx="4" ry="9"/>
-              <line x1="3" y1="12" x2="21" y2="12"/>
-              <path d="M4.6 7.5h14.8M4.6 16.5h14.8"/>
-            </svg>
-          </span>
-          <span class="index-badge-text">
-            <span class="index-badge-name">Web of Science</span>
-            <span class="index-badge-tag">Core Collection &middot; CPCI</span>
-          </span>
+          <img class="index-badge-logo" src="wos-logo.png" alt="Web of Science logo" style="height:26px;" loading="lazy">
+          <span class="index-badge-tag">Core Collection &middot; CPCI</span>
         </div>
 
       </div>
@@ -1600,7 +1563,7 @@ footer::before {
   <div class="sec-inner reveal">
     <p class="sec-eyebrow">Organisers</p>
     <h2 class="sec-title">Organised By</h2>
-    <p class="sec-sub">Photonics Meeting 2026 is organised by the Optical Society of Malaysia together with Universiti Teknologi Malaysia.</p>
+    <p class="sec-sub">Photonics Meeting 2026 is organised by <strong>Universiti Teknologi Malaysia (UTM)</strong> and the <strong>Optical Society of Malaysia (OSM)</strong>.</p>
     <div class="org-grid">
       <div class="org-card">
         <img src="utm-logo.png" alt="Universiti Teknologi Malaysia (UTM) official logo" loading="lazy">
