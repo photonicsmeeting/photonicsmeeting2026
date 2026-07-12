@@ -262,13 +262,6 @@ def render(T):
 
   <div class="about">{H.escape(about_text)}</div>
 
-  <div class="kl-strip">
-    <img src="data:image/jpeg;base64,{kl_petronas_b64}" alt="Petronas Twin Towers, Kuala Lumpur">
-    <img src="data:image/jpeg;base64,{kl_tower_b64}" alt="KL Tower, Kuala Lumpur">
-    <img src="data:image/jpeg;base64,{kl_merdeka_b64}" alt="Merdeka Square, Kuala Lumpur">
-  </div>
-  <div class="kl-cap">KUALA LUMPUR — YOUR HOST CITY</div>
-
   <div class="slab"><b>KEYNOTE &amp; INVITED SPEAKERS</b></div>
   <div class="sps">{sp_cards}</div>
 
@@ -298,6 +291,13 @@ def render(T):
       <span class="pub-chip"><img src="data:image/png;base64,{wos_b64}" alt="Web of Science" style="height:17px;"></span>
     </div>
   </div>
+
+  <div class="kl-strip">
+    <img src="data:image/jpeg;base64,{kl_petronas_b64}" alt="Petronas Twin Towers, Kuala Lumpur">
+    <img src="data:image/jpeg;base64,{kl_tower_b64}" alt="KL Tower, Kuala Lumpur">
+    <img src="data:image/jpeg;base64,{kl_merdeka_b64}" alt="Merdeka Square, Kuala Lumpur">
+  </div>
+  <div class="kl-cap">KUALA LUMPUR — YOUR HOST CITY</div>
 
   <div class="foot">
     <div class="foot-submit">SUBMIT YOUR PAPER → morressier.com</div>
