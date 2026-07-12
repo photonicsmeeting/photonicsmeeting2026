@@ -48,6 +48,7 @@ THEMES = {
         ink="#EAF2FF", dim="#9FB0D0", dimmer="#6D7FA5",
         card="rgba(255,255,255,.07)", edge="rgba(255,255,255,.17)",
         gold="#E8C36A", gold_edge="rgba(232,195,106,.55)", gold_bg="rgba(232,195,106,.07)",
+        hot_edge="rgba(34,211,238,.45)", hot_bg="rgba(34,211,238,.06)",
         spectrum="linear-gradient(90deg,#4E8CFF 0%,#22D3EE 45%,#A78BFA 100%)",
         cyan="#22D3EE", rowline="rgba(255,255,255,.07)",
         net_dot="#7FD8F0", net_line="#4FA8D8", net_dot_op=(0.15, 0.5), net_line_base=0.16,
@@ -70,6 +71,7 @@ THEMES = {
         ink="#0B1230", dim="#475569", dimmer="#94A3B8",
         card="rgba(255,255,255,.52)", edge="rgba(255,255,255,.95)",
         gold="#A87818", gold_edge="rgba(168,120,24,.45)", gold_bg="rgba(232,195,106,.14)",
+        hot_edge="rgba(8,145,178,.40)", hot_bg="rgba(8,145,178,.07)",
         spectrum="linear-gradient(90deg,#2057E0 0%,#0891B2 45%,#7C3AED 100%)",
         cyan="#0891B2", rowline="rgba(10,18,51,.08)",
         net_dot="#2057E0", net_line="#2057E0", net_dot_op=(0.08, 0.25), net_line_base=0.09,
@@ -120,9 +122,9 @@ for s in data["speakers"]:
 
 topic_chips = "".join(f'<div class="chip">{H.escape(t.strip())}</div>' for t in content["cfp_topics"].split("|"))
 
-date_rows = "".join(
+date_rows = '<div class="date-grid">' + "".join(
     f'''<div class="row{' hot' if 'Paper' in d["milestone"] else ''}"><span class="row-l">{H.escape(d["milestone"])}</span><span class="row-r">{H.escape(d["date"])}</span></div>'''
-    for d in data["dates"])
+    for d in data["dates"]) + '</div>'
 
 fee_rows = "".join(
     f'''<div class="row"><span class="row-l">{H.escape(f["category"])}</span><span class="row-r">{H.escape(f["fee"])}</span></div>'''
@@ -170,6 +172,7 @@ def render(T):
     border-radius:999px; padding:12px 24px; font-size:15px; font-weight:600; letter-spacing:.3px;
     white-space:nowrap; box-shadow:{T["chip_shadow"]}; }}
   .pill.gold {{ border-color:{T["gold_edge"]}; color:var(--gold); background:{T["gold_bg"]}; }}
+  .pill.hot {{ border-color:{T["hot_edge"]}; color:var(--cyan); background:{T["hot_bg"]}; }}
   .dot {{ width:8px; height:8px; border-radius:50%; background:var(--cyan); }}
   .pill.gold .dot {{ background:var(--gold); }}
 
@@ -186,7 +189,7 @@ def render(T):
   .slab::after {{ content:''; flex:1; height:1px; background:linear-gradient(90deg,var(--edge),transparent); }}
   .slab b {{ color:var(--ink); font-weight:700; }}
 
-  .sps {{ display:grid; grid-template-columns:repeat(5,1fr); gap:14px; }}
+  .sps {{ display:grid; grid-template-columns:repeat({max(len(data['speakers']), 1)},1fr); gap:14px; }}
   .sp {{ background:var(--card); border:1px solid var(--edge); border-radius:16px; padding:16px 10px 12px;
     text-align:center; box-shadow:{T["chip_shadow"]}; }}
   .sp img {{ width:72px; height:72px; border-radius:50%; object-fit:cover; object-position:top;
@@ -209,6 +212,10 @@ def render(T):
   .row {{ display:flex; justify-content:space-between; align-items:baseline; gap:12px;
     padding:6px 0; border-bottom:1px solid {T["rowline"]}; font-size:20px; }}
   .row:last-child {{ border-bottom:none; }}
+  .date-grid {{ display:grid; grid-template-columns:1fr 1fr; gap:6px 26px; }}
+  .date-grid .row {{ flex-direction:column; align-items:flex-start; gap:2px; padding:7px 0 9px; }}
+  .date-grid .row-l {{ font-size:13.5px; font-weight:600; letter-spacing:.2px; }}
+  .date-grid .row-r {{ font-family:'Sora'; font-size:19px; }}
   .row-l {{ color:var(--dim); font-weight:500; }}
   .row-r {{ font-weight:700; white-space:nowrap; }}
   .row.hot .row-l, .row.hot .row-r {{ color:var(--gold); }}
@@ -255,9 +262,8 @@ def render(T):
   <div class="sub">{H.escape(content["cfp_sub"])}</div>
 
   <div class="pills">
-    <div class="pill gold"><span class="dot"></span>8–9 September 2026</div>
-    <div class="pill"><span class="dot"></span>MJIIT, UTM Kuala Lumpur, Malaysia</div>
-    <div class="pill"><span class="dot"></span>Keynotes · Technical Sessions · Workshops</div>
+    <div class="pill gold"><span class="dot"></span>8–9 Sept 2026</div>
+    <div class="pill hot"><span class="dot"></span>MJIIT, UTM Kuala Lumpur, Malaysia</div>
   </div>
 
   <div class="about">{H.escape(about_text)}</div>

@@ -38,6 +38,7 @@
     border-radius:999px; padding:12px 24px; font-size:15px; font-weight:600; letter-spacing:.3px;
     white-space:nowrap; box-shadow:0 8px 32px rgba(0,0,0,.28); }
   .pill.gold { border-color:rgba(232,195,106,.55); color:var(--gold); background:rgba(232,195,106,.07); }
+  .pill.hot { border-color:rgba(34,211,238,.45); color:var(--cyan); background:rgba(34,211,238,.06); }
   .dot { width:8px; height:8px; border-radius:50%; background:var(--cyan); }
   .pill.gold .dot { background:var(--gold); }
 
@@ -54,7 +55,7 @@
   .slab::after { content:''; flex:1; height:1px; background:linear-gradient(90deg,var(--edge),transparent); }
   .slab b { color:var(--ink); font-weight:700; }
 
-  .sps { display:grid; grid-template-columns:repeat(5,1fr); gap:14px; }
+  .sps { display:grid; grid-template-columns:repeat(4,1fr); gap:14px; }
   .sp { background:var(--card); border:1px solid var(--edge); border-radius:16px; padding:16px 10px 12px;
     text-align:center; box-shadow:0 8px 32px rgba(0,0,0,.28); }
   .sp img { width:72px; height:72px; border-radius:50%; object-fit:cover; object-position:top;
@@ -77,6 +78,10 @@
   .row { display:flex; justify-content:space-between; align-items:baseline; gap:12px;
     padding:6px 0; border-bottom:1px solid rgba(255,255,255,.07); font-size:20px; }
   .row:last-child { border-bottom:none; }
+  .date-grid { display:grid; grid-template-columns:1fr 1fr; gap:6px 26px; }
+  .date-grid .row { flex-direction:column; align-items:flex-start; gap:2px; padding:7px 0 9px; }
+  .date-grid .row-l { font-size:13.5px; font-weight:600; letter-spacing:.2px; }
+  .date-grid .row-r { font-family:'Sora'; font-size:19px; }
   .row-l { color:var(--dim); font-weight:500; }
   .row-r { font-weight:700; white-space:nowrap; }
   .row.hot .row-l, .row.hot .row-r { color:var(--gold); }
@@ -123,9 +128,8 @@
   <div class="sub">We invite original research submissions in all areas of photonics, optics, and light-based technologies. Accepted papers will be published in a peer-reviewed proceedings volume.</div>
 
   <div class="pills">
-    <div class="pill gold"><span class="dot"></span>8–9 September 2026</div>
-    <div class="pill"><span class="dot"></span>MJIIT, UTM Kuala Lumpur, Malaysia</div>
-    <div class="pill"><span class="dot"></span>Keynotes · Technical Sessions · Workshops</div>
+    <div class="pill gold"><span class="dot"></span>8–9 Sept 2026</div>
+    <div class="pill hot"><span class="dot"></span>MJIIT, UTM Kuala Lumpur, Malaysia</div>
   </div>
 
   <div class="about">PM26 is OSM&#x27;s annual conference on photonics &amp; optics — share research, exchange ideas, build collaborations.</div>
@@ -164,7 +168,7 @@
   <div class="cols">
     <div class="panel">
       <h3>IMPORTANT DATES</h3>
-      <div class="row"><span class="row-l">Early Bird Registration</span><span class="row-r">Before 31 Jul 2026</span></div><div class="row hot"><span class="row-l">Full Paper Submission Deadline</span><span class="row-r">15 Aug 2026</span></div><div class="row"><span class="row-l">Registration Deadline</span><span class="row-r">1 Aug 2026</span></div><div class="row"><span class="row-l">Acceptance Notification</span><span class="row-r">25 Aug 2026</span></div><div class="row"><span class="row-l">Conference Date</span><span class="row-r">8–9 Sept 2026</span></div>
+      <div class="date-grid"><div class="row"><span class="row-l">Early Bird Registration</span><span class="row-r">Before 31 Jul 2026</span></div><div class="row hot"><span class="row-l">Full Paper Submission Deadline</span><span class="row-r">15 Aug 2026</span></div><div class="row"><span class="row-l">Registration Deadline</span><span class="row-r">1 Aug 2026</span></div><div class="row"><span class="row-l">Acceptance Notification</span><span class="row-r">25 Aug 2026</span></div><div class="row"><span class="row-l">Conference Date</span><span class="row-r">8–9 Sept 2026</span></div></div>
     </div>
     <div class="panel">
       <h3>REGISTRATION FEES</h3>
