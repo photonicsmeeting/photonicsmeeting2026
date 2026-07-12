@@ -162,9 +162,9 @@ def render(T):
   .eyebrow {{ margin-top:50px; font-size:15px; font-weight:700; letter-spacing:5px; color:var(--cyan); }}
   h1 {{ font-family:'Sora'; font-weight:800; font-size:102px; letter-spacing:-2px; line-height:1.02; margin-top:10px;
     background:var(--spectrum); -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent; }}
-  .sub {{ margin-top:18px; font-size:16.5px; line-height:1.55; color:var(--dim); max-width:940px; }}
+  .sub {{ margin-top:18px; font-size:19px; line-height:1.55; color:var(--dim); max-width:940px; }}
 
-  .pills {{ display:flex; gap:14px; margin-top:28px; }}
+  .pills {{ display:flex; gap:14px; margin-top:22px; }}
   .pill {{ display:flex; align-items:center; gap:9px; border:1px solid var(--edge); background:var(--card);
     border-radius:999px; padding:12px 24px; font-size:15px; font-weight:600; letter-spacing:.3px;
     white-space:nowrap; box-shadow:{T["chip_shadow"]}; }}
@@ -172,28 +172,28 @@ def render(T):
   .dot {{ width:8px; height:8px; border-radius:50%; background:var(--cyan); }}
   .pill.gold .dot {{ background:var(--gold); }}
 
-  .about {{ margin-top:30px; font-size:14px; line-height:1.6; color:var(--dim);
+  .about {{ margin-top:24px; font-size:17px; line-height:1.55; color:var(--dim);
     border-left:3px solid var(--cyan); padding-left:18px; }}
 
   .slab {{ font-family:'Sora'; font-size:14px; font-weight:700; letter-spacing:3.4px; color:var(--dimmer);
-    margin:42px 0 18px; display:flex; align-items:center; gap:14px; }}
+    margin:34px 0 18px; display:flex; align-items:center; gap:14px; }}
   .slab::after {{ content:''; flex:1; height:1px; background:linear-gradient(90deg,var(--edge),transparent); }}
   .slab b {{ color:var(--ink); font-weight:700; }}
 
   .sps {{ display:grid; grid-template-columns:repeat(5,1fr); gap:14px; }}
   .sp {{ background:var(--card); border:1px solid var(--edge); border-radius:16px; padding:21px 12px 16px;
     text-align:center; box-shadow:{T["chip_shadow"]}; }}
-  .sp img {{ width:114px; height:114px; border-radius:50%; object-fit:cover; object-position:top;
+  .sp img {{ width:104px; height:104px; border-radius:50%; object-fit:cover; object-position:top;
     border:2.5px solid {T["ring"]}; box-shadow:0 0 0 5px {T["halo"]}; }}
   .sp-name {{ font-family:'Sora'; font-size:13.5px; font-weight:700; line-height:1.3; margin-top:12px; min-height:36px;
     display:flex; align-items:center; justify-content:center; }}
-  .sp-aff {{ font-size:11px; color:var(--dim); line-height:1.45; margin-top:5px; min-height:48px;
+  .sp-aff {{ font-size:10px; color:var(--dim); line-height:1.45; margin-top:5px; min-height:48px;
     display:-webkit-box; -webkit-line-clamp:3; -webkit-box-orient:vertical; overflow:hidden; }}
   .sp-cty {{ font-size:10px; font-weight:700; letter-spacing:1.8px; color:var(--cyan); margin-top:6px; }}
 
   .chips {{ display:grid; grid-template-columns:repeat(4,1fr); gap:10px; }}
   .chip {{ border:1px solid var(--edge); background:var(--card); border-radius:11px; padding:16px 10px;
-    font-size:13.5px; font-weight:600; text-align:center; color:var(--ink); line-height:1.3;
+    font-size:15.5px; font-weight:600; text-align:center; color:var(--ink); line-height:1.3;
     box-shadow:{T["chip_shadow"]}; }}
 
   .cols {{ display:grid; grid-template-columns:1fr 1fr; gap:22px; }}
@@ -201,7 +201,7 @@ def render(T):
     box-shadow:{T["chip_shadow"]}; }}
   .panel h3 {{ font-family:'Sora'; font-size:14.5px; font-weight:700; letter-spacing:2.6px; color:var(--cyan); margin-bottom:10px; }}
   .row {{ display:flex; justify-content:space-between; align-items:baseline; gap:12px;
-    padding:12.5px 0; border-bottom:1px solid {T["rowline"]}; font-size:15px; }}
+    padding:10px 0; border-bottom:1px solid {T["rowline"]}; font-size:17px; }}
   .row:last-child {{ border-bottom:none; }}
   .row-l {{ color:var(--dim); font-weight:500; }}
   .row-r {{ font-weight:700; white-space:nowrap; }}
@@ -211,7 +211,7 @@ def render(T):
 
   .pub {{ margin-top:28px; display:flex; align-items:center; gap:20px; border-radius:18px; padding:24px 30px;
     background:{T["pub_bg"]}; border:1px solid {T["pub_edge"]}; }}
-  .pub-t {{ flex:1; font-size:14px; line-height:1.6; color:var(--dim); }}
+  .pub-t {{ flex:1; font-size:16.5px; line-height:1.6; color:var(--dim); }}
   .pub-logos {{ display:flex; align-items:center; gap:10px; flex:0 0 auto; }}
   .pub-chip {{ background:#fff; border-radius:11px; padding:9px 14px; display:flex; align-items:center;
     justify-content:center; box-shadow:0 3px 14px rgba(0,0,0,.15); }}
@@ -224,7 +224,7 @@ def render(T):
     display:flex; justify-content:space-between; align-items:center; }}
   .foot-submit {{ font-family:'Sora'; font-size:15.5px; font-weight:700; letter-spacing:.5px;
     background:{T["submit_bg"]}; color:{T["submit_ink"]}; padding:16px 28px; border-radius:12px; }}
-  .foot-info {{ text-align:right; font-size:13.5px; line-height:1.8; color:var(--dim); }}
+  .foot-info {{ text-align:right; font-size:15px; line-height:1.8; color:var(--dim); }}
   .foot-info b {{ color:var(--ink); font-weight:600; }}
   .foot-info .web {{ color:{T["web_accent"]}; font-weight:700; font-size:15px; letter-spacing:.4px; }}
 </style></head>

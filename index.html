@@ -1448,7 +1448,7 @@ body::before {
 /* ---------- 3. UNIVERSAL GLASS CARD (one recipe, everywhere) ---------- */
 .date-card, .speaker-card, .archive-card, .index-badge, .org-card,
 .cfp-topics, .faq-item, .fees-scroll, .prog-item, .program-placeholder,
-.sponsor-card, .map-frame {
+.sponsor-card, .map-frame, .attr-card {
   background: var(--glass-bg);
   backdrop-filter: var(--blur);
   -webkit-backdrop-filter: var(--blur);
@@ -1456,18 +1456,19 @@ body::before {
   box-shadow: var(--glass-ring), var(--glass-hilite), var(--shadow-sm);
 }
 .date-card:hover, .speaker-card:hover, .archive-card:hover, .index-badge:hover,
-.org-card:hover, .sponsor-card:hover {
+.org-card:hover, .sponsor-card:hover, .attr-card:hover {
   transform: translateY(var(--lift));
   box-shadow: var(--glass-ring), var(--glass-hilite), var(--shadow-lg);
   border-color: #fff;
 }
-.date-card, .speaker-card, .archive-card, .index-badge, .org-card, .sponsor-card {
+.date-card, .speaker-card, .archive-card, .index-badge, .org-card, .sponsor-card,
+.attr-card {
   transition: transform .3s var(--ease-ios), box-shadow .3s var(--ease-ios), border-color .3s var(--ease-ios);
 }
 
 /* ---------- 4. UNIFORM GRID RHYTHM ---------- */
 .dates-grid, .speakers-grid, .archive-grid, .index-badge-row,
-.org-grid, .gallery-grid { gap: var(--gap-grid); }
+.org-grid, .gallery-grid, .attr-grid { gap: var(--gap-grid); }
 .faq-list { gap: 12px; }
 
 /* ---------- 5. NESTED CHIPS (solid-ish, no double blur) ---------- */
@@ -1589,8 +1590,82 @@ body::before {
   .sponsor-card, .btn-primary, .btn-register, .btn-outline, .btn-secondary,
   #cfp-topics-list li { transition: none; }
   .date-card:hover, .speaker-card:hover, .archive-card:hover,
-  .index-badge:hover, .org-card:hover, .sponsor-card:hover { transform: none; }
+  .index-badge:hover, .org-card:hover, .sponsor-card:hover,
+  .attr-card:hover { transform: none; }
 }
+
+/* ---------- 13. ATTRACTIONS (Explore Kuala Lumpur) ---------- */
+.attr-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+}
+.attr-card {
+  display: block;
+  overflow: hidden;
+  border-radius: var(--radius);
+  text-decoration: none;
+}
+.attr-thumb {
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+  background: var(--grey-100);
+}
+.attr-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform .45s var(--ease-ios);
+}
+.attr-card:hover .attr-thumb img { transform: scale(1.05); }
+.attr-body { padding: 18px 20px 17px; }
+.attr-name {
+  font-family: var(--font-display);
+  font-size: 15.5px;
+  font-weight: 700;
+  color: var(--navy);
+  letter-spacing: -0.2px;
+  margin-bottom: 6px;
+}
+.attr-desc {
+  font-size: 13px;
+  color: var(--grey-600);
+  line-height: 1.55;
+  margin-bottom: 14px;
+  min-height: 40px;
+}
+.attr-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+.attr-dist {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.4px;
+  color: var(--blue);
+  background: var(--blue-light);
+  border: 1px solid var(--blue-border);
+  padding: 4px 10px;
+  border-radius: 100px;
+  white-space: nowrap;
+}
+.attr-link {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--blue);
+  transition: letter-spacing .2s;
+}
+.attr-card:hover .attr-link { letter-spacing: 0.4px; }
+.attr-credit {
+  margin-top: 18px;
+  font-size: 11.5px;
+  color: var(--grey-400);
+}
+.attr-credit a { color: var(--grey-400); }
+@media (max-width: 900px) { .attr-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 520px) { .attr-grid { grid-template-columns: 1fr; } }
 </style>
 </head>
 <body>
@@ -1942,9 +2017,81 @@ body::before {
 </section>
 
 <!-- ============================================================
+     ATTRACTIONS — Explore Kuala Lumpur
+     Thumbnails: attractions/*.jpg (local, Wikimedia Commons,
+     licenses in attractions/CREDITS.md). Distances approximate
+     from MJIIT. External links open in a new tab.
+     ============================================================ -->
+<section id="attractions" class="sec sec-alt" aria-label="Kuala Lumpur attractions">
+  <div class="sec-inner reveal">
+    <p class="sec-eyebrow">Explore Kuala Lumpur</p>
+    <h2 class="sec-title">Attractions Around the Venue</h2>
+    <p class="sec-sub">Make the most of your visit &mdash; Kuala Lumpur&rsquo;s highlights are only minutes from MJIIT. Distances are approximate from the venue.</p>
+    <div class="attr-grid">
+
+      <a class="attr-card" href="https://www.petronastwintowers.com.my" target="_blank" rel="noopener noreferrer">
+        <div class="attr-thumb"><img src="attractions/petronas.jpg" alt="Petronas Twin Towers at night" loading="lazy" width="800" height="500"></div>
+        <div class="attr-body">
+          <div class="attr-name">Petronas Twin Towers</div>
+          <div class="attr-desc">Iconic 452&nbsp;m twin skyscrapers with a skybridge and observation deck at the heart of KLCC.</div>
+          <div class="attr-meta"><span class="attr-dist">&approx; 3 KM</span><span class="attr-link">Visit website &rarr;</span></div>
+        </div>
+      </a>
+
+      <a class="attr-card" href="https://www.menarakl.com.my" target="_blank" rel="noopener noreferrer">
+        <div class="attr-thumb"><img src="attractions/kl-tower.jpg" alt="Menara KL Tower" loading="lazy" width="800" height="500"></div>
+        <div class="attr-body">
+          <div class="attr-name">Menara KL Tower</div>
+          <div class="attr-desc">421&nbsp;m telecommunications tower with a revolving restaurant and panoramic observation deck.</div>
+          <div class="attr-meta"><span class="attr-dist">&approx; 4 KM</span><span class="attr-link">Visit website &rarr;</span></div>
+        </div>
+      </a>
+
+      <a class="attr-card" href="https://en.wikipedia.org/wiki/Batu_Caves" target="_blank" rel="noopener noreferrer">
+        <div class="attr-thumb"><img src="attractions/batu-caves.jpg" alt="Batu Caves rainbow stairs and golden Murugan statue" loading="lazy" width="800" height="500"></div>
+        <div class="attr-body">
+          <div class="attr-name">Batu Caves</div>
+          <div class="attr-desc">Hindu temple complex set in limestone caves, guarded by a 43&nbsp;m golden Murugan statue.</div>
+          <div class="attr-meta"><span class="attr-dist">&approx; 10 KM</span><span class="attr-link">Learn more &rarr;</span></div>
+        </div>
+      </a>
+
+      <a class="attr-card" href="https://www.centralmarket.com.my" target="_blank" rel="noopener noreferrer">
+        <div class="attr-thumb"><img src="attractions/central-market.jpg" alt="Central Market Kuala Lumpur art-deco facade" loading="lazy" width="800" height="500"></div>
+        <div class="attr-body">
+          <div class="attr-name">Central Market</div>
+          <div class="attr-desc">Art-deco heritage market (since 1888) for Malaysian crafts, batik and souvenirs.</div>
+          <div class="attr-meta"><span class="attr-dist">&approx; 6 KM</span><span class="attr-link">Visit website &rarr;</span></div>
+        </div>
+      </a>
+
+      <a class="attr-card" href="https://www.iamm.org.my" target="_blank" rel="noopener noreferrer">
+        <div class="attr-thumb"><img src="attractions/islamic-arts.jpg" alt="Islamic Arts Museum Malaysia exterior" loading="lazy" width="800" height="500"></div>
+        <div class="attr-body">
+          <div class="attr-name">Islamic Arts Museum Malaysia</div>
+          <div class="attr-desc">Southeast Asia&rsquo;s largest museum of Islamic art &mdash; manuscripts, textiles and architecture across 12 galleries.</div>
+          <div class="attr-meta"><span class="attr-dist">&approx; 7 KM</span><span class="attr-link">Visit website &rarr;</span></div>
+        </div>
+      </a>
+
+      <a class="attr-card" href="https://en.wikipedia.org/wiki/Merdeka_Square,_Kuala_Lumpur" target="_blank" rel="noopener noreferrer">
+        <div class="attr-thumb"><img src="attractions/merdeka-square.jpg" alt="Merdeka Square and the Sultan Abdul Samad Building" loading="lazy" width="800" height="500"></div>
+        <div class="attr-body">
+          <div class="attr-name">Merdeka Square</div>
+          <div class="attr-desc">Historic independence square framed by the Moorish-style Sultan Abdul Samad Building.</div>
+          <div class="attr-meta"><span class="attr-dist">&approx; 6 KM</span><span class="attr-link">Learn more &rarr;</span></div>
+        </div>
+      </a>
+
+    </div>
+    <p class="attr-credit">Photos &copy; their respective <a href="attractions/CREDITS.md" target="_blank" rel="noopener noreferrer">Wikimedia Commons contributors</a> (CC BY-SA / CC BY).</p>
+  </div>
+</section>
+
+<!-- ============================================================
      LOCATION & FAQ
      ============================================================ -->
-<section id="location" class="sec sec-alt" aria-label="Venue and FAQ">
+<section id="location" class="sec" aria-label="Venue and FAQ">
   <div class="sec-inner reveal">
     <p class="sec-eyebrow" id="location-eyebrow">Venue &amp; FAQ</p>
     <h2 class="sec-title" id="location-title">Getting There &amp; Common Questions</h2>
