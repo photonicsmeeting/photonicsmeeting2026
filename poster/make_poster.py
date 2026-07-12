@@ -54,8 +54,8 @@ THEMES = {
         cyan="#22D3EE", rowline="rgba(255,255,255,.07)",
         net_dot="#7FD8F0", net_line="#4FA8D8", net_dot_op=(0.15, 0.5), net_line_base=0.16,
         chip_shadow="0 8px 32px rgba(0,0,0,.28)", logochip_border="none",
-        orbs=[("rgba(32,87,224,.50)",150,500,300),("rgba(124,58,237,.42)",1060,760,320),
-              ("rgba(34,211,238,.30)",300,1280,300),("rgba(124,58,237,.28)",980,1560,260)],
+        orbs=[("rgba(32,87,224,.40)",120,500,300),("rgba(124,58,237,.26)",1290,700,300),
+              ("rgba(34,211,238,.16)",260,1480,280),("rgba(124,58,237,.20)",1270,1560,260)],
         ring="rgba(232,195,106,.75)", halo="rgba(34,211,238,.14)",
         pub_bg="linear-gradient(90deg, rgba(32,87,224,.16), rgba(34,211,238,.09), rgba(124,58,237,.14))",
         pub_edge="rgba(34,211,238,.30)",
@@ -78,8 +78,8 @@ THEMES = {
         cyan="#0891B2", rowline="rgba(10,18,51,.08)",
         net_dot="#2057E0", net_line="#2057E0", net_dot_op=(0.08, 0.25), net_line_base=0.09,
         chip_shadow="0 8px 32px rgba(10,18,51,.12)", logochip_border="1px solid #E2E8F0",
-        orbs=[("rgba(32,87,224,.26)",150,500,300),("rgba(124,58,237,.20)",1060,760,320),
-              ("rgba(34,211,238,.24)",300,1280,300),("rgba(124,58,237,.16)",980,1560,260)],
+        orbs=[("rgba(32,87,224,.22)",120,500,300),("rgba(124,58,237,.14)",1290,700,300),
+              ("rgba(34,211,238,.12)",260,1480,280),("rgba(124,58,237,.12)",1270,1560,260)],
         ring="rgba(168,120,24,.65)", halo="rgba(32,87,224,.10)",
         pub_bg="linear-gradient(90deg, rgba(32,87,224,.07), rgba(34,211,238,.05), rgba(124,58,237,.07))",
         pub_edge="rgba(32,87,224,.30)",
@@ -183,10 +183,10 @@ def render(T):
   .about {{ margin-top:12px; font-size:16px; line-height:1.4; color:var(--dim);
     border-left:3px solid var(--cyan); padding-left:18px; }}
 
-  .kl-strip {{ display:flex; gap:14px; margin-top:14px; }}
+  .kl-strip {{ display:flex; gap:14px; margin-top:10px; }}
   .kl-strip img {{ flex:1; height:78px; width:100%; object-fit:cover; border-radius:14px;
     border:1px solid var(--edge); box-shadow:{T["chip_shadow"]}; }}
-  .kl-cap {{ margin-top:7px; font-size:13px; font-weight:600; letter-spacing:1.5px; color:var(--cyan); text-align:center; }}
+  .kl-cap {{ margin-top:5px; font-size:13px; font-weight:600; letter-spacing:1.5px; color:var(--cyan); text-align:center; }}
 
   .slab {{ font-family:'Sora'; font-size:14px; font-weight:700; letter-spacing:3.4px; color:var(--dimmer);
     margin:16px 0 10px; display:flex; align-items:center; gap:14px; }}
@@ -204,12 +204,12 @@ def render(T):
     display:-webkit-box; -webkit-line-clamp:3; -webkit-box-orient:vertical; overflow:hidden; }}
   .sp-cty {{ font-size:10px; font-weight:700; letter-spacing:1.8px; color:var(--cyan); margin-top:6px; }}
 
-  .chips {{ display:grid; grid-template-columns:repeat(4,1fr); gap:12px; }}
+  .chips {{ display:grid; grid-template-columns:repeat(4,1fr); gap:14px; }}
   .chip {{ border:1px solid var(--edge); background:var(--card); border-radius:11px; padding:13px 10px;
     font-size:17px; font-weight:600; text-align:center; color:var(--ink); line-height:1.3;
     box-shadow:{T["chip_shadow"]}; }}
 
-  .cols {{ display:grid; grid-template-columns:1fr 1fr; gap:22px; }}
+  .cols {{ display:grid; grid-template-columns:1fr 1fr; gap:14px; }}
   .panel {{ background:var(--card); border:1px solid var(--edge); border-radius:18px; padding:26px 30px 18px;
     box-shadow:{T["chip_shadow"]}; }}
   .panel h3 {{ font-family:'Sora'; font-size:14.5px; font-weight:700; letter-spacing:2.6px; color:var(--cyan); margin-bottom:10px; }}
@@ -226,7 +226,7 @@ def render(T):
   .row.hot .row-l {{ font-weight:600; }}
   .fee-note {{ font-size:11.5px; color:var(--dimmer); padding-top:9px; }}
 
-  .pub {{ margin-top:18px; display:flex; align-items:center; gap:20px; border-radius:18px; padding:20px 30px;
+  .pub {{ margin-top:12px; display:flex; align-items:center; gap:20px; border-radius:18px; padding:20px 30px;
     background:{T["pub_bg"]}; border:1px solid {T["pub_edge"]}; }}
   .pub-t {{ flex:1; font-size:20px; line-height:1.55; color:var(--dim); }}
   .pub-logos {{ display:flex; align-items:center; gap:10px; flex:0 0 auto; }}
@@ -236,7 +236,7 @@ def render(T):
   .pub-t b {{ color:var(--ink); }}
   .pub-t .gold {{ color:var(--gold); font-weight:600; }}
 
-  .foot {{ margin-top:auto; margin-left:-64px; margin-right:-64px; padding:20px 64px 22px;
+  .foot {{ margin-top:auto; margin-left:-64px; margin-right:-64px; padding:16px 64px 18px;
     background:{T["foot_bg"]}; border-top:1px solid var(--edge);
     display:flex; justify-content:space-between; align-items:center; }}
   .foot-submit {{ font-family:'Sora'; font-size:15.5px; font-weight:700; letter-spacing:.5px;
@@ -279,7 +279,7 @@ def render(T):
   <div class="slab"><b>CONFERENCE TOPICS</b></div>
   <div class="chips">{topic_chips}</div>
 
-  <div style="height:30px"></div>
+  <div style="height:48px"></div>
   <div class="cols">
     <div class="panel">
       <h3>IMPORTANT DATES</h3>
