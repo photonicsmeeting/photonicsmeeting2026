@@ -49,6 +49,7 @@ THEMES = {
         card="rgba(255,255,255,.07)", edge="rgba(255,255,255,.17)",
         gold="#E8C36A", gold_edge="rgba(232,195,106,.55)", gold_bg="rgba(232,195,106,.07)",
         hot_edge="rgba(34,211,238,.45)", hot_bg="rgba(34,211,238,.06)",
+        wm_filter="brightness(0) invert(1)", wm_opacity="0.034",
         spectrum="linear-gradient(90deg,#4E8CFF 0%,#22D3EE 45%,#A78BFA 100%)",
         cyan="#22D3EE", rowline="rgba(255,255,255,.07)",
         net_dot="#7FD8F0", net_line="#4FA8D8", net_dot_op=(0.15, 0.5), net_line_base=0.16,
@@ -72,6 +73,7 @@ THEMES = {
         card="rgba(255,255,255,.52)", edge="rgba(255,255,255,.95)",
         gold="#A87818", gold_edge="rgba(168,120,24,.45)", gold_bg="rgba(232,195,106,.14)",
         hot_edge="rgba(8,145,178,.40)", hot_bg="rgba(8,145,178,.07)",
+        wm_filter="brightness(0)", wm_opacity="0.028",
         spectrum="linear-gradient(90deg,#2057E0 0%,#0891B2 45%,#7C3AED 100%)",
         cyan="#0891B2", rowline="rgba(10,18,51,.08)",
         net_dot="#2057E0", net_line="#2057E0", net_dot_op=(0.08, 0.25), net_line_base=0.09,
@@ -147,6 +149,8 @@ def render(T):
     background:{T["bg"]}; }}
   .net {{ position:absolute; inset:0; width:100%; height:100%; }}
   .orb {{ position:absolute; border-radius:50%; filter:blur(60px); }}
+  .wm {{ position:absolute; left:50%; top:120px; transform:translateX(-50%); width:1120px;
+    filter:{T["wm_filter"]}; opacity:{T["wm_opacity"]}; pointer-events:none; }}
   .pill, .sp, .chip, .panel, .pub, .foot {{ backdrop-filter:blur(16px) saturate(150%);
     -webkit-backdrop-filter:blur(16px) saturate(150%); }}
   .wrap {{ position:relative; padding:52px 64px 0; height:100%; display:flex; flex-direction:column; }}
@@ -155,9 +159,9 @@ def render(T):
   .topright {{ display:flex; align-items:center; gap:12px; }}
   .logochip.small {{ padding:9px 14px; border-radius:13px; }}
   .logochip.small img {{ height:42px; }}
-  .logochip {{ background:#fff; border-radius:16px; padding:10px 22px; border:{T["logochip_border"]};
+  .logochip {{ background:#fff; border-radius:18px; padding:12px 26px; border:{T["logochip_border"]};
     box-shadow:0 10px 40px rgba(0,0,0,.18); }}
-  .logochip img {{ height:56px; display:block; }}
+  .logochip img {{ height:74px; display:block; }}
   .org {{ text-align:right; font-size:13.5px; line-height:1.65; color:var(--dim); font-weight:500; }}
   .org b {{ color:var(--ink); font-weight:600; }}
   .org .idl {{ color:var(--gold); letter-spacing:.6px; font-weight:600; }}
@@ -165,7 +169,7 @@ def render(T):
   .eyebrow {{ margin-top:50px; font-size:15px; font-weight:700; letter-spacing:5px; color:var(--cyan); }}
   h1 {{ font-family:'Sora'; font-weight:800; font-size:102px; letter-spacing:-2px; line-height:1.02; margin-top:10px;
     background:var(--spectrum); -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent; }}
-  .sub {{ margin-top:16px; font-size:24px; line-height:1.5; color:var(--dim); max-width:980px; }}
+  .sub {{ margin-top:12px; font-size:24px; line-height:1.5; color:var(--dim); max-width:980px; }}
 
   .pills {{ display:flex; gap:14px; margin-top:8px; }}
   .pill {{ display:flex; align-items:center; gap:9px; border:1px solid var(--edge); background:var(--card);
@@ -196,13 +200,13 @@ def render(T):
     border:2.5px solid {T["ring"]}; box-shadow:0 0 0 5px {T["halo"]}; }}
   .sp-name {{ font-family:'Sora'; font-size:13.5px; font-weight:700; line-height:1.3; margin-top:12px; min-height:36px;
     display:flex; align-items:center; justify-content:center; }}
-  .sp-aff {{ font-size:10px; color:var(--dim); line-height:1.45; margin-top:5px; min-height:48px;
+  .sp-aff {{ font-size:12px; color:var(--dim); line-height:1.45; margin-top:5px; min-height:53px;
     display:-webkit-box; -webkit-line-clamp:3; -webkit-box-orient:vertical; overflow:hidden; }}
   .sp-cty {{ font-size:10px; font-weight:700; letter-spacing:1.8px; color:var(--cyan); margin-top:6px; }}
 
-  .chips {{ display:grid; grid-template-columns:repeat(4,1fr); gap:10px; }}
-  .chip {{ border:1px solid var(--edge); background:var(--card); border-radius:11px; padding:16px 10px;
-    font-size:18px; font-weight:600; text-align:center; color:var(--ink); line-height:1.3;
+  .chips {{ display:grid; grid-template-columns:repeat(4,1fr); gap:12px; }}
+  .chip {{ border:1px solid var(--edge); background:var(--card); border-radius:11px; padding:13px 10px;
+    font-size:17px; font-weight:600; text-align:center; color:var(--ink); line-height:1.3;
     box-shadow:{T["chip_shadow"]}; }}
 
   .cols {{ display:grid; grid-template-columns:1fr 1fr; gap:22px; }}
@@ -244,6 +248,7 @@ def render(T):
 <body>
 {net_svg(T)}
 {orbs_html(T)}
+<img class="wm" src="data:image/png;base64,{logo_b64}" alt="">
 <div class="wrap">
 
   <div class="toprow">
@@ -274,7 +279,7 @@ def render(T):
   <div class="slab"><b>CONFERENCE TOPICS</b></div>
   <div class="chips">{topic_chips}</div>
 
-  <div style="height:12px"></div>
+  <div style="height:30px"></div>
   <div class="cols">
     <div class="panel">
       <h3>IMPORTANT DATES</h3>
