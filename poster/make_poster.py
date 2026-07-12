@@ -22,10 +22,8 @@ about_html = re.search(r'<div class="about-body">(.*?)</div>', src, re.S)
 about_text = ""
 if about_html:
     paras = [re.sub(r"<[^>]+>", "", p).strip() for p in re.findall(r"<p>(.*?)</p>", about_html.group(1), re.S)]
-    if len(paras) >= 3:
-        about_text = paras[0] + " " + paras[2]
-    elif paras:
-        about_text = paras[0]
+    if paras:
+        about_text = "PM26 is OSM's annual conference on photonics & optics — share research, exchange ideas, build collaborations."
 if not about_text:  # fallback if the About section markup ever changes
     about_text = ("The OSM Photonics Meeting 2026 (PM26) is an annual event organised by the "
                   "Optical Society of Malaysia (OSM) in celebrating International Day of Light.")
@@ -36,6 +34,9 @@ osm_b64 = base64.b64encode(open(os.path.join(ROOT, "osm-logo.png"), "rb").read()
 iop_b64 = base64.b64encode(open(os.path.join(ROOT, "iop-logo.png"), "rb").read()).decode()
 scopus_b64 = base64.b64encode(open(os.path.join(ROOT, "scopus-logo.png"), "rb").read()).decode()
 wos_b64 = base64.b64encode(open(os.path.join(ROOT, "wos-logo.png"), "rb").read()).decode()
+kl_petronas_b64 = base64.b64encode(open(os.path.join(ROOT, "attractions", "petronas.jpg"), "rb").read()).decode()
+kl_tower_b64    = base64.b64encode(open(os.path.join(ROOT, "attractions", "kl-tower.jpg"), "rb").read()).decode()
+kl_merdeka_b64  = base64.b64encode(open(os.path.join(ROOT, "attractions", "merdeka-square.jpg"), "rb").read()).decode()
 
 THEMES = {
     "dark": dict(
@@ -162,9 +163,9 @@ def render(T):
   .eyebrow {{ margin-top:50px; font-size:15px; font-weight:700; letter-spacing:5px; color:var(--cyan); }}
   h1 {{ font-family:'Sora'; font-weight:800; font-size:102px; letter-spacing:-2px; line-height:1.02; margin-top:10px;
     background:var(--spectrum); -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent; }}
-  .sub {{ margin-top:18px; font-size:19px; line-height:1.55; color:var(--dim); max-width:940px; }}
+  .sub {{ margin-top:16px; font-size:24px; line-height:1.5; color:var(--dim); max-width:980px; }}
 
-  .pills {{ display:flex; gap:14px; margin-top:22px; }}
+  .pills {{ display:flex; gap:14px; margin-top:8px; }}
   .pill {{ display:flex; align-items:center; gap:9px; border:1px solid var(--edge); background:var(--card);
     border-radius:999px; padding:12px 24px; font-size:15px; font-weight:600; letter-spacing:.3px;
     white-space:nowrap; box-shadow:{T["chip_shadow"]}; }}
@@ -172,18 +173,23 @@ def render(T):
   .dot {{ width:8px; height:8px; border-radius:50%; background:var(--cyan); }}
   .pill.gold .dot {{ background:var(--gold); }}
 
-  .about {{ margin-top:24px; font-size:17px; line-height:1.55; color:var(--dim);
+  .about {{ margin-top:12px; font-size:16px; line-height:1.4; color:var(--dim);
     border-left:3px solid var(--cyan); padding-left:18px; }}
 
+  .kl-strip {{ display:flex; gap:14px; margin-top:14px; }}
+  .kl-strip img {{ flex:1; height:78px; width:100%; object-fit:cover; border-radius:14px;
+    border:1px solid var(--edge); box-shadow:{T["chip_shadow"]}; }}
+  .kl-cap {{ margin-top:7px; font-size:13px; font-weight:600; letter-spacing:1.5px; color:var(--cyan); text-align:center; }}
+
   .slab {{ font-family:'Sora'; font-size:14px; font-weight:700; letter-spacing:3.4px; color:var(--dimmer);
-    margin:34px 0 18px; display:flex; align-items:center; gap:14px; }}
+    margin:16px 0 10px; display:flex; align-items:center; gap:14px; }}
   .slab::after {{ content:''; flex:1; height:1px; background:linear-gradient(90deg,var(--edge),transparent); }}
   .slab b {{ color:var(--ink); font-weight:700; }}
 
   .sps {{ display:grid; grid-template-columns:repeat(5,1fr); gap:14px; }}
-  .sp {{ background:var(--card); border:1px solid var(--edge); border-radius:16px; padding:21px 12px 16px;
+  .sp {{ background:var(--card); border:1px solid var(--edge); border-radius:16px; padding:16px 10px 12px;
     text-align:center; box-shadow:{T["chip_shadow"]}; }}
-  .sp img {{ width:104px; height:104px; border-radius:50%; object-fit:cover; object-position:top;
+  .sp img {{ width:72px; height:72px; border-radius:50%; object-fit:cover; object-position:top;
     border:2.5px solid {T["ring"]}; box-shadow:0 0 0 5px {T["halo"]}; }}
   .sp-name {{ font-family:'Sora'; font-size:13.5px; font-weight:700; line-height:1.3; margin-top:12px; min-height:36px;
     display:flex; align-items:center; justify-content:center; }}
@@ -193,7 +199,7 @@ def render(T):
 
   .chips {{ display:grid; grid-template-columns:repeat(4,1fr); gap:10px; }}
   .chip {{ border:1px solid var(--edge); background:var(--card); border-radius:11px; padding:16px 10px;
-    font-size:15.5px; font-weight:600; text-align:center; color:var(--ink); line-height:1.3;
+    font-size:18px; font-weight:600; text-align:center; color:var(--ink); line-height:1.3;
     box-shadow:{T["chip_shadow"]}; }}
 
   .cols {{ display:grid; grid-template-columns:1fr 1fr; gap:22px; }}
@@ -201,7 +207,7 @@ def render(T):
     box-shadow:{T["chip_shadow"]}; }}
   .panel h3 {{ font-family:'Sora'; font-size:14.5px; font-weight:700; letter-spacing:2.6px; color:var(--cyan); margin-bottom:10px; }}
   .row {{ display:flex; justify-content:space-between; align-items:baseline; gap:12px;
-    padding:10px 0; border-bottom:1px solid {T["rowline"]}; font-size:17px; }}
+    padding:6px 0; border-bottom:1px solid {T["rowline"]}; font-size:20px; }}
   .row:last-child {{ border-bottom:none; }}
   .row-l {{ color:var(--dim); font-weight:500; }}
   .row-r {{ font-weight:700; white-space:nowrap; }}
@@ -209,9 +215,9 @@ def render(T):
   .row.hot .row-l {{ font-weight:600; }}
   .fee-note {{ font-size:11.5px; color:var(--dimmer); padding-top:9px; }}
 
-  .pub {{ margin-top:28px; display:flex; align-items:center; gap:20px; border-radius:18px; padding:24px 30px;
+  .pub {{ margin-top:18px; display:flex; align-items:center; gap:20px; border-radius:18px; padding:20px 30px;
     background:{T["pub_bg"]}; border:1px solid {T["pub_edge"]}; }}
-  .pub-t {{ flex:1; font-size:16.5px; line-height:1.6; color:var(--dim); }}
+  .pub-t {{ flex:1; font-size:20px; line-height:1.55; color:var(--dim); }}
   .pub-logos {{ display:flex; align-items:center; gap:10px; flex:0 0 auto; }}
   .pub-chip {{ background:#fff; border-radius:11px; padding:9px 14px; display:flex; align-items:center;
     justify-content:center; box-shadow:0 3px 14px rgba(0,0,0,.15); }}
@@ -219,12 +225,12 @@ def render(T):
   .pub-t b {{ color:var(--ink); }}
   .pub-t .gold {{ color:var(--gold); font-weight:600; }}
 
-  .foot {{ margin-top:auto; margin-left:-64px; margin-right:-64px; padding:28px 64px 30px;
+  .foot {{ margin-top:auto; margin-left:-64px; margin-right:-64px; padding:20px 64px 22px;
     background:{T["foot_bg"]}; border-top:1px solid var(--edge);
     display:flex; justify-content:space-between; align-items:center; }}
   .foot-submit {{ font-family:'Sora'; font-size:15.5px; font-weight:700; letter-spacing:.5px;
     background:{T["submit_bg"]}; color:{T["submit_ink"]}; padding:16px 28px; border-radius:12px; }}
-  .foot-info {{ text-align:right; font-size:15px; line-height:1.8; color:var(--dim); }}
+  .foot-info {{ text-align:right; font-size:17px; line-height:1.8; color:var(--dim); }}
   .foot-info b {{ color:var(--ink); font-weight:600; }}
   .foot-info .web {{ color:{T["web_accent"]}; font-weight:700; font-size:15px; letter-spacing:.4px; }}
 </style></head>
@@ -256,13 +262,20 @@ def render(T):
 
   <div class="about">{H.escape(about_text)}</div>
 
+  <div class="kl-strip">
+    <img src="data:image/jpeg;base64,{kl_petronas_b64}" alt="Petronas Twin Towers, Kuala Lumpur">
+    <img src="data:image/jpeg;base64,{kl_tower_b64}" alt="KL Tower, Kuala Lumpur">
+    <img src="data:image/jpeg;base64,{kl_merdeka_b64}" alt="Merdeka Square, Kuala Lumpur">
+  </div>
+  <div class="kl-cap">KUALA LUMPUR — YOUR HOST CITY</div>
+
   <div class="slab"><b>KEYNOTE &amp; INVITED SPEAKERS</b></div>
   <div class="sps">{sp_cards}</div>
 
   <div class="slab"><b>CONFERENCE TOPICS</b></div>
   <div class="chips">{topic_chips}</div>
 
-  <div style="height:32px"></div>
+  <div style="height:12px"></div>
   <div class="cols">
     <div class="panel">
       <h3>IMPORTANT DATES</h3>
