@@ -34,7 +34,7 @@ LAYOUT, top to bottom:
    "We invite original research submissions in all areas of photonics,
    optics, and light-based technologies. Accepted papers will be
    published in a peer-reviewed proceedings volume."
-   Three rounded pills: [gold] "8–9 September 2026" · "MJIIT, UTM
+   Three rounded pills: [gold] "10–11 November 2026" · "MJIIT, UTM
    Kuala Lumpur, Malaysia" · "Keynotes · Technical Sessions ·
    Workshops".
 
@@ -59,18 +59,18 @@ LAYOUT, top to bottom:
 
 5. TWO-COLUMN ZONE —
    Left panel "IMPORTANT DATES":
-   • Early Bird Registration — Before 31 July 2026
-   • Full Paper Submission Deadline — 15 August 2026  (highlight gold)
-   • Registration Deadline — 1 August 2026
-   • Acceptance Notification — Starting from 25 August 2026
-   • Conference Date — 8–9 September 2026
+   • Early Bird Registration — Before 30 September 2026
+   • Full Paper Submission Deadline — 15 October 2026  (highlight gold)
+   • Registration Deadline — 1 October 2026
+   • Acceptance Notification — Starting from 25 October 2026
+   • Conference Date — 10–11 November 2026
    Right panel "REGISTRATION FEES":
    • Normal — RM 1,500          • Normal (Student) — RM 1,400
    • Early Bird (Student & Non-student) — RM 1,200
    • International (Normal) — USD 400
    • International (Student) — USD 370
    • International (Early Bird) — USD 350
-   Footnote: "Early bird rates apply before 31 July 2026 · Fees
+   Footnote: "Early bird rates apply before 30 September 2026 · Fees
    include conference materials, proceedings & meals"
 
 6. PUBLICATION STRIP — gradient-bordered banner: "Accepted papers

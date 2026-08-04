@@ -267,7 +267,7 @@ def render(T):
   <div class="sub">{H.escape(content["cfp_sub"])}</div>
 
   <div class="pills">
-    <div class="pill gold"><span class="dot"></span>8–9 Sept 2026</div>
+    <div class="pill gold"><span class="dot"></span>10–11 Nov 2026</div>
     <div class="pill hot"><span class="dot"></span>MJIIT, UTM Kuala Lumpur, Malaysia</div>
   </div>
 
@@ -288,7 +288,7 @@ def render(T):
     <div class="panel">
       <h3>REGISTRATION FEES</h3>
       {fee_rows}
-      <div class="fee-note">Early bird rates apply before 31 July 2026 · Fees include conference materials, proceedings &amp; meals</div>
+      <div class="fee-note">Early bird rates apply before 30 September 2026 · Fees include conference materials, proceedings &amp; meals</div>
     </div>
   </div>
 

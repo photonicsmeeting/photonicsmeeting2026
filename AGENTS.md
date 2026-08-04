@@ -16,7 +16,7 @@ A **single-page static website** for **Photonics Meeting 2026 (PM26)** — an an
 conference organised by the **Optical Society of Malaysia (OSM)**, held in
 celebration of the **International Day of Light**.
 
-- **Event:** 8–9 September 2026
+- **Event:** 10–11 November 2026
 - **Venue:** Malaysia-Japan International Institute of Technology (MJIIT),
   Universiti Teknologi Malaysia (UTM), Kuala Lumpur
 - **Live site:** https://photonics-meeting.com  (custom domain via `CNAME`)
