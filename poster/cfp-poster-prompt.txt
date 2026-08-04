@@ -66,10 +66,10 @@ LAYOUT, top to bottom:
    • Conference Date — 10–11 November 2026
    Right panel "REGISTRATION FEES":
    • Normal — RM 1,500          • Normal (Student) — RM 1,400
-   • Early Bird (Student & Non-student) — RM 1,200
+   • Early Bird (Student & Non-student) — RM 1,100
    • International (Normal) — USD 400
    • International (Student) — USD 370
-   • International (Early Bird) — USD 350
+   • International (Early Bird) — USD 300
    Footnote: "Early bird rates apply before 30 September 2026 · Fees
    include conference materials, proceedings & meals"
 
