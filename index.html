@@ -264,6 +264,17 @@ h1,h2,h3 { font-family: var(--font-display); }
   background-size: 28px 28px;
   pointer-events: none;
 }
+/* KL city skyline — hand-drawn line-art, pinned to the masthead horizon */
+.masthead .skyline {
+  position: absolute;
+  left: 0; right: 0; bottom: 0;
+  width: 100%;
+  height: clamp(150px, 26vw, 330px);
+  z-index: 0;
+  pointer-events: none;
+  display: block;
+  opacity: .9;
+}
 
 /* ---------- Logo banner ---------- */
 #logo-banner {
@@ -1729,6 +1740,99 @@ body::before {
      logo banner → poster → hero CTAs
      ============================================================ -->
 <div class="masthead">
+
+<!-- ============================================================
+     KL CITY SKYLINE — hand-drawn line-art (original artwork)
+     Left→right: Menara KL Tower · Petronas Twin Towers (+skybridge)
+     · The Exchange 106 · Merdeka 118. Two depth layers + window
+     lights. Pinned to the masthead horizon as a subtle backdrop.
+     ============================================================ -->
+<svg class="skyline" viewBox="0 0 1440 340" preserveAspectRatio="xMidYMax slice" aria-hidden="true">
+  <!-- BACK LAYER — generic filler towers (dim blue) -->
+  <g stroke="rgba(32,87,224,.20)" stroke-width="1.4" fill="none">
+    <path d="M0,340 V268 H44 V340"/>
+    <path d="M52,340 V236 H96 V340"/>
+    <path d="M236,340 V252 H286 V340"/>
+    <path d="M300,340 V214 H352 V340"/>
+    <path d="M700,340 V248 H748 V340"/>
+    <path d="M872,340 V228 H924 V340"/>
+    <path d="M1004,340 V256 H1052 V340"/>
+    <path d="M1216,340 V224 H1272 V340"/>
+    <path d="M1300,340 V262 H1352 V340"/>
+    <path d="M1368,340 V240 H1440 V340"/>
+  </g>
+
+  <!-- FRONT LAYER — landmarks + nearer towers (brighter cyan/blue) -->
+  <g stroke="rgba(32,87,224,.34)" stroke-width="1.6" fill="none">
+    <path d="M104,340 V286 H150 V340"/>
+    <path d="M360,340 V272 H410 V340"/>
+    <path d="M640,340 V292 H690 V340"/>
+    <path d="M940,340 V282 H990 V340"/>
+    <path d="M1196,340 V270 H1240 V340"/>
+  </g>
+
+  <!-- MENARA KL TOWER (421m) — hill mound + shaft + deck bulb + antenna -->
+  <g stroke="rgba(34,211,238,.34)" stroke-width="1.8" fill="none">
+    <path d="M150,340 Q178,300 206,340"/>            <!-- Bukit Nanas hill -->
+    <path d="M176,340 V150"/>                         <!-- shaft left  -->
+    <path d="M184,340 V150"/>                         <!-- shaft right -->
+    <ellipse cx="180" cy="138" rx="17" ry="14"/>      <!-- observation deck -->
+    <path d="M163,150 Q180,158 197,150"/>             <!-- deck underside -->
+    <path d="M176,124 V112 H184 V124"/>               <!-- upper collar -->
+    <path d="M180,112 V64"/>                          <!-- antenna spire -->
+    <circle cx="180" cy="60" r="3"/>
+  </g>
+
+  <!-- PETRONAS TWIN TOWERS (452m) — twin stepped towers + skybridge -->
+  <g stroke="rgba(34,211,238,.40)" stroke-width="1.8" fill="none">
+    <!-- Tower 1 -->
+    <path d="M470,340 V210 H486 V176 H498 V140 H508 V104 H516 V340"/>
+    <path d="M470,340 H516"/>
+    <path d="M493,104 V58"/>                          <!-- spire 1 -->
+    <path d="M486,176 H500 M498,140 H508 M482,210 H512" stroke-width="1.2"/>
+    <!-- Tower 2 -->
+    <path d="M560,340 V104 H568 V140 H578 V176 H590 V210 H606 V340"/>
+    <path d="M560,340 H606"/>
+    <path d="M583,104 V58"/>                          <!-- spire 2 -->
+    <path d="M568,140 H578 M576,176 H590 M560,210 H594" stroke-width="1.2"/>
+    <!-- Skybridge (double-decker, ~L41/42) -->
+    <path d="M516,238 H560 M516,246 H560" stroke="rgba(34,211,238,.5)"/>
+  </g>
+
+  <!-- THE EXCHANGE 106 (454m) — tapered tower + lantern crown -->
+  <g stroke="rgba(34,211,238,.38)" stroke-width="1.8" fill="none">
+    <path d="M760,340 L772,150 H788 L800,340"/>
+    <path d="M772,340 V150 H788 V340" stroke-width="1.1" opacity=".6"/>
+    <path d="M770,150 L780,118 L790,150"/>            <!-- crown -->
+    <path d="M780,118 V96"/>
+  </g>
+
+  <!-- MERDEKA 118 (679m) — tallest, crystalline body + long needle -->
+  <g stroke="rgba(34,211,238,.44)" stroke-width="1.8" fill="none">
+    <path d="M1100,340 L1114,190 L1122,140 L1130,190 L1144,340"/>
+    <path d="M1114,190 L1122,340 M1130,190 L1122,340" stroke-width="1" opacity=".55"/>
+    <path d="M1122,140 V44"/>                          <!-- needle spire -->
+    <path d="M1117,120 L1127,120 M1118,90 L1126,90" stroke-width="1"/>
+    <circle cx="1122" cy="38" r="3"/>
+  </g>
+
+  <!-- WINDOW LIGHTS — sparse glowing dots (cyan + a little amber) -->
+  <g fill="rgba(34,211,238,.5)" stroke="none">
+    <rect x="66" y="250" width="4" height="4"/><rect x="80" y="270" width="4" height="4"/>
+    <rect x="312" y="230" width="4" height="4"/><rect x="330" y="252" width="4" height="4"/>
+    <rect x="370" y="290" width="4" height="4"/><rect x="392" y="300" width="4" height="4"/>
+    <rect x="716" y="264" width="4" height="4"/><rect x="732" y="286" width="4" height="4"/>
+    <rect x="884" y="244" width="4" height="4"/><rect x="904" y="266" width="4" height="4"/>
+    <rect x="952" y="300" width="4" height="4"/><rect x="976" y="290" width="4" height="4"/>
+    <rect x="1230" y="240" width="4" height="4"/><rect x="1252" y="262" width="4" height="4"/>
+    <rect x="1318" y="278" width="4" height="4"/><rect x="1396" y="258" width="4" height="4"/>
+  </g>
+  <g fill="rgba(252,211,77,.45)" stroke="none">
+    <rect x="490" y="230" width="4" height="4"/><rect x="572" y="230" width="4" height="4"/>
+    <rect x="772" y="200" width="4" height="4"/><rect x="1116" y="230" width="4" height="4"/>
+    <rect x="180" y="140" width="4" height="4"/>
+  </g>
+</svg>
 
 <!-- ============================================================
      LOGO BANNER (official branding)
