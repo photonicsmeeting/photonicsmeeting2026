@@ -1411,6 +1411,8 @@ footer::before {
   line-height: 1.6;
 }
 .gallery-empty b { color: var(--grey-600, #475569); }
+.gallery-empty a { color: var(--blue); font-weight: 600; text-decoration: none; border-bottom: 1px solid currentColor; }
+.gallery-empty a:hover { opacity: .78; }
 @media (max-width: 900px) { .gallery-grid { grid-template-columns: repeat(2, 1fr); } }
 @media (max-width: 520px) { .gallery-grid { grid-template-columns: 1fr; } }
 
@@ -3119,8 +3121,8 @@ window.addEventListener('scroll', () => {
   var loaded = 0, failed = 0;
   function check() {
     if (loaded === 0 && failed === imgs.length) {
-      grid.innerHTML = '<div class="gallery-empty">Photos from previous editions will appear here. ' +
-        'Add images as <b>gallery/pm26-gallery-1.jpg … 8.jpg</b> in the repo (e.g. downloaded from the OSM Facebook album).</div>';
+      grid.innerHTML = '<div class="gallery-empty">Photo highlights from previous Photonics Meeting editions are available on our ' +
+        '<a href="https://www.facebook.com/opticalsocietyofmalaysia/" target="_blank" rel="noopener noreferrer">official Facebook page</a>.</div>';
     }
   }
   imgs.forEach(function(img) {
