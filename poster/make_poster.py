@@ -129,7 +129,9 @@ date_rows = '<div class="date-grid">' + "".join(
     for d in data["dates"]) + '</div>'
 
 fee_rows = "".join(
-    f'''<div class="row"><span class="row-l">{H.escape(f["category"])}</span><span class="row-r">{H.escape(f["fee"])}</span></div>'''
+    f'''<div class="row"><span class="row-l">{H.escape(f["category"])}</span><span class="row-r">'''
+    + (f'''<s class="row-old">{H.escape(f["old_fee"])}</s>''' if f.get("old_fee") else "")
+    + f'''{H.escape(f["fee"])}</span></div>'''
     for f in data["fees"])
 
 
@@ -222,6 +224,8 @@ def render(T):
   .date-grid .row-r {{ font-family:'Sora'; font-size:19px; }}
   .row-l {{ color:var(--dim); font-weight:500; }}
   .row-r {{ font-weight:700; white-space:nowrap; }}
+  .row-old {{ font-weight:600; font-size:15px; color:var(--dim); margin-right:8px;
+              text-decoration:line-through; text-decoration-thickness:2px; }}
   .row.hot .row-l, .row.hot .row-r {{ color:var(--gold); }}
   .row.hot .row-l {{ font-weight:600; }}
   .fee-note {{ font-size:11.5px; color:var(--dimmer); padding-top:9px; }}
@@ -288,7 +292,7 @@ def render(T):
     <div class="panel">
       <h3>REGISTRATION FEES</h3>
       {fee_rows}
-      <div class="fee-note">Early bird rates apply before 30 September 2026 · Fees include conference materials, proceedings &amp; meals</div>
+      <div class="fee-note">Fees include conference materials, proceedings &amp; meals</div>
     </div>
   </div>
 
