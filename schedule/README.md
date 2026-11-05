@@ -35,7 +35,7 @@ after reading the handbook, so a re-import never wipes it:
   It is added only if the handbook has no such day; once the handbook has it, the handbook wins and the importer
   tells you the entry can be deleted.
 * `"patches"` — overwrite fields on matching entries (currently the **Opening Ceremony** officiating line, naming
-  Prof. Madya Ir. Dr. Zool Hilmi bin Ismail). A patch that matches nothing is reported, so it cannot go stale silently.
+  Prof. Ir. Dr. Sulaiman Wadi Harun and Prof. Madya Ir. Dr. Zool Hilmi bin Ismail). A patch that matches nothing is reported, so it cannot go stale silently.
 
 When you add the same information to the handbook, delete the matching entry from `supplement.json`.
 

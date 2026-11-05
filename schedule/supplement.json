@@ -13,7 +13,7 @@
   "patches": [
     {
       "match": { "type": "ceremony", "session_title": "Opening Ceremony" },
-      "set": { "detail": "Officiated by the Advisor of OSM and the Deputy Dean (Research, Innovation and Development) of MJIIT, Prof. Madya Ir. Dr. Zool Hilmi bin Ismail" }
+      "set": { "detail": "Officiated by Prof. Ir. Dr. Sulaiman Wadi Harun, Advisor of OSM (Universiti Malaya), and Prof. Madya Ir. Dr. Zool Hilmi bin Ismail, Deputy Dean (Research, Innovation and Development) of MJIIT" }
     }
   ]
 }
