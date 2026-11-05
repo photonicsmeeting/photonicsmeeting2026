@@ -922,10 +922,20 @@ h1,h2,h3 { font-family: var(--font-display); }
   font-size: 15px;
   font-weight: 700;
 }
-.prog-text { min-width: 0; }
+.prog-text { flex: 1; min-width: 0; }
 .prog-name { font-size: 15.5px; font-weight: 700; color: var(--navy); line-height: 1.35; }
 .prog-detail { font-size: 13px; color: var(--grey-600); line-height: 1.5; margin-top: 2px; }
 .prog-talk { font-size: 13.5px; font-style: italic; color: var(--blue); line-height: 1.5; margin-top: 3px; }
+/* officiating guests / hosts: one block per person — name, role, organisation */
+.prog-guests {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 10px;
+}
+.prog-guest { border-left: 2px solid var(--blue-border); padding-left: 12px; }
+.prog-guest-name { font-size: 14px; font-weight: 600; color: var(--navy); line-height: 1.4; }
+.prog-guest-role { font-size: 12.5px; color: var(--grey-600); line-height: 1.5; margin-top: 1px; }
 .prog-dur {
   font-size: 12px;
   font-weight: 600;
@@ -2650,7 +2660,19 @@ body::before {
       "time": "09:00–09:15",
       "type": "ceremony",
       "session_title": "Opening Ceremony",
-      "detail": "Officiated by Prof. Ir. Dr. Sulaiman Wadi Harun, Advisor of OSM (Universiti Malaya), and Prof. Madya Ir. Dr. Zool Hilmi bin Ismail, Deputy Dean (Research, Innovation and Development) of MJIIT"
+      "detail": "Officiated by",
+      "guests": [
+        {
+          "name": "Prof. Ir. Dr. Sulaiman Wadi Harun",
+          "role": "Advisor, Optical Society of Malaysia (OSM)",
+          "org": "Universiti Malaya"
+        },
+        {
+          "name": "Prof. Madya Ir. Dr. Zool Hilmi bin Ismail",
+          "role": "Deputy Dean (Research, Innovation and Development)",
+          "org": "Malaysia-Japan International Institute of Technology (MJIIT)"
+        }
+      ]
     },
     {
       "day": "Tuesday, 10 November 2026",
@@ -3212,6 +3234,13 @@ function renderProgram(program, speakers, c) {
           node = '<span class="prog-dot" aria-hidden="true"></span>';
           text = `<div class="prog-name">${esc(item.session_title || '')}</div>`
                + (item.detail ? `<div class="prog-detail">${esc(item.detail)}</div>` : '')
+               + (Array.isArray(item.guests) && item.guests.length
+                    ? '<div class="prog-guests">' + item.guests.map(g =>
+                        `<div class="prog-guest"><div class="prog-guest-name">${esc(g.name || '')}</div>`
+                        + (g.role ? `<div class="prog-guest-role">${esc(g.role)}</div>` : '')
+                        + (g.org ? `<div class="prog-guest-role">${esc(g.org)}</div>` : '')
+                        + '</div>').join('') + '</div>'
+                    : '')
                + (item.speaker && item.speaker.trim() ? `<div class="prog-detail">${esc(item.speaker)}</div>` : '');
         }
         html += `

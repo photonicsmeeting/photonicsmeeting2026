@@ -1,19 +1,38 @@
 {
   "_note": "Agreed details that are NOT in the handbook .docx yet. Applied by import_handbook.py after the handbook is read. Delete an entry here once the handbook says the same thing (see schedule/README.md).",
-
   "days": [
     {
       "day": "Wednesday, 11 November 2026",
       "items": [
-        { "time": "08:00–17:00", "type": "session", "session_title": "Lab Visit & Networking" }
+        {
+          "time": "08:00–17:00",
+          "type": "session",
+          "session_title": "Lab Visit & Networking"
+        }
       ]
     }
   ],
-
   "patches": [
     {
-      "match": { "type": "ceremony", "session_title": "Opening Ceremony" },
-      "set": { "detail": "Officiated by Prof. Ir. Dr. Sulaiman Wadi Harun, Advisor of OSM (Universiti Malaya), and Prof. Madya Ir. Dr. Zool Hilmi bin Ismail, Deputy Dean (Research, Innovation and Development) of MJIIT" }
+      "match": {
+        "type": "ceremony",
+        "session_title": "Opening Ceremony"
+      },
+      "set": {
+        "detail": "Officiated by",
+        "guests": [
+          {
+            "name": "Prof. Ir. Dr. Sulaiman Wadi Harun",
+            "role": "Advisor, Optical Society of Malaysia (OSM)",
+            "org": "Universiti Malaya"
+          },
+          {
+            "name": "Prof. Madya Ir. Dr. Zool Hilmi bin Ismail",
+            "role": "Deputy Dean (Research, Innovation and Development)",
+            "org": "Malaysia-Japan International Institute of Technology (MJIIT)"
+          }
+        ]
+      }
     }
   ]
 }

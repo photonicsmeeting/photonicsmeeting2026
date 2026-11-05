@@ -123,7 +123,7 @@ def apply_supplement(items):
         for e in d["items"]:
             item = {"day": d["day"], "session": e.get("session", ""), "time": e["time"], "type": e.get("type", "session")}
             item["session_title"] = e.get("session_title", "")
-            for k in ("label", "speaker", "detail"):
+            for k in ("label", "speaker", "detail", "guests"):
                 if e.get(k):
                     item[k] = e[k]
             items.append(item)
