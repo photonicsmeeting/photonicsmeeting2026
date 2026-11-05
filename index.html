@@ -796,7 +796,7 @@ h1,h2,h3 { font-family: var(--font-display); }
 /* =====================================================
    PROGRAM
    ===================================================== */
-.program-wrap { max-width: 780px; }
+.program-wrap { max-width: 920px; }
 .program-placeholder {
   text-align: center;
   border: 2px dashed var(--grey-200);
@@ -814,59 +814,154 @@ h1,h2,h3 { font-family: var(--font-display); }
 .program-placeholder p { font-size: 14px; color: var(--grey-400); line-height: 1.7; max-width: 420px; margin: 0 auto; }
 .program-placeholder a { color: var(--blue); }
 
-.program-timeline { display: flex; flex-direction: column; gap: 0; }
-.day-header {
+.program-timeline { display: flex; flex-direction: column; gap: 18px; }
+
+/* day header */
+.prog-day { display: flex; align-items: center; gap: 14px; margin-top: 14px; }
+.prog-day:first-child { margin-top: 0; }
+.prog-day-chip {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1.4px;
+  text-transform: uppercase;
+  color: #fff;
+  background: var(--navy);
+  padding: 6px 13px;
+  border-radius: 100px;
+}
+.prog-day-name {
+  font-family: var(--font-display);
+  font-size: 21px;
+  font-weight: 800;
+  letter-spacing: -0.4px;
+  color: var(--navy);
+}
+
+/* session card */
+.prog-session {
+  background: #fff;
+  border: 1px solid var(--grey-200);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+.prog-session-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 15px 24px;
+  background: rgba(239, 244, 255, .6);
+  border-bottom: 1px solid rgba(11, 18, 48, .06);
+}
+.prog-session-name {
+  font-family: var(--font-display);
+  font-size: 12.5px;
+  font-weight: 700;
+  letter-spacing: 1.8px;
+  text-transform: uppercase;
+  color: var(--navy);
+}
+.prog-session-span {
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--grey-600);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+/* row: time | node/avatar + text | duration */
+.prog-row {
+  display: grid;
+  grid-template-columns: 132px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 20px;
+  padding: 16px 24px;
+  border-top: 1px solid rgba(11, 18, 48, .06);
+}
+.prog-row:first-child,
+.prog-session-head + .prog-row { border-top: none; }
+.prog-time {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--navy);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+.prog-main { display: flex; align-items: center; gap: 16px; min-width: 0; }
+.prog-node {
+  flex: 0 0 52px;
+  width: 52px;
+  height: 52px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.prog-dot { width: 10px; height: 10px; border-radius: 50%; background: var(--grey-300); }
+.prog-session-row .prog-dot { background: #0891B2; }
+.prog-ceremony .prog-dot { background: var(--navy); }
+.prog-avatar {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  padding: 2px;
+  background: var(--spectrum);
+}
+.prog-avatar img,
+.prog-avatar-init {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  border: 2px solid #fff;
+  object-fit: cover;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--blue-light);
+  color: var(--blue);
   font-family: var(--font-display);
   font-size: 15px;
   font-weight: 700;
-  color: var(--navy);
-  background: var(--blue-light);
-  border: 1px solid var(--blue-border);
-  border-radius: 100px;
-  display: inline-block;
-  width: fit-content;
-  padding: 8px 22px;
-  margin: 30px 0 18px;
 }
-.day-header:first-child { margin-top: 0; }
-.prog-item {
-  display: grid;
-  grid-template-columns: 120px 1fr;
-  gap: 20px;
-  padding: 18px 6px 18px 0;
-  border-bottom: 1px solid var(--grey-100);
-  background: #fff;
-  border-radius: var(--radius-sm);
-  padding-left: 16px;
-  margin-bottom: 8px;
-  border: 1px solid var(--grey-100);
-  transition: border-color .18s, box-shadow .18s;
-}
-.prog-item:hover { border-color: var(--blue-border); box-shadow: var(--shadow-sm); }
-.prog-time {
-  font-size: 13px;
+.prog-text { min-width: 0; }
+.prog-name { font-size: 15.5px; font-weight: 700; color: var(--navy); line-height: 1.35; }
+.prog-detail { font-size: 13px; color: var(--grey-600); line-height: 1.5; margin-top: 2px; }
+.prog-talk { font-size: 13.5px; font-style: italic; color: var(--blue); line-height: 1.5; margin-top: 3px; }
+.prog-dur {
+  font-size: 12px;
   font-weight: 600;
-  color: var(--blue);
-  padding-top: 3px;
+  color: var(--grey-400);
+  font-variant-numeric: tabular-nums;
   white-space: nowrap;
 }
+
+/* row types */
+.prog-keynote { box-shadow: inset 3px 0 0 #E8C36A; }
+.prog-invited { box-shadow: inset 3px 0 0 var(--blue); }
+.prog-break, .prog-registration { background: rgba(241, 245, 249, .6); }
+.prog-break .prog-name, .prog-registration .prog-name { font-size: 14px; font-weight: 500; color: var(--grey-600); }
+.prog-break .prog-time, .prog-registration .prog-time { font-weight: 500; color: var(--grey-600); }
+
 .prog-badge {
   display: inline-block;
   font-size: 10px;
   font-weight: 700;
-  letter-spacing: 0.8px;
+  letter-spacing: 0.9px;
   text-transform: uppercase;
   border-radius: 100px;
   padding: 3px 10px;
-  margin-bottom: 7px;
+  margin-bottom: 6px;
+  border: 1px solid transparent;
 }
-.badge-keynote  { background: #EDE9FE; color: #6D28D9; }
-.badge-session  { background: var(--blue-light); color: var(--blue); }
-.badge-break    { background: var(--grey-100); color: var(--grey-600); }
-.badge-workshop { background: #D1FAE5; color: #047857; }
-.badge-panel    { background: #FEF3C7; color: #B45309; }
-.prog-title { font-size: 15px; font-weight: 600; color: var(--navy); line-height: 1.45; }
-.prog-speaker { font-size: 13px; color: var(--grey-400); margin-top: 4px; }
+.badge-keynote { background: #FBF1D4; color: #8A6212; border-color: #EBD9A4; }
+.badge-invited { background: var(--blue-light); color: var(--blue); border-color: var(--blue-border); }
+
+.prog-footnote {
+  margin-top: 2px;
+  font-size: 13.5px;
+  font-style: italic;
+  color: var(--grey-600);
+  padding-left: 4px;
+}
 
 /* =====================================================
    ARCHIVE
@@ -1266,7 +1361,11 @@ footer::before {
   .speakers-grid { grid-template-columns: 1fr 1fr; }
   .dates-grid { grid-template-columns: 1fr; }
   .archive-grid { grid-template-columns: 1fr 1fr; }
-  .prog-item { grid-template-columns: 90px 1fr; }
+  .prog-row { grid-template-columns: minmax(0, 1fr) auto; gap: 8px 14px; padding: 14px 18px; }
+  .prog-time { grid-column: 1 / -1; font-size: 13px; }
+  .prog-session-head { padding: 13px 18px; flex-wrap: wrap; gap: 4px 14px; }
+  .prog-node { flex-basis: 44px; width: 44px; height: 44px; }
+  .prog-avatar { width: 44px; height: 44px; }
   .speaker-card { padding: 26px 14px 24px; }
 }
 
@@ -1491,7 +1590,7 @@ body::before {
 
 /* ---------- 3. UNIVERSAL GLASS CARD (one recipe, everywhere) ---------- */
 .date-card, .speaker-card, .archive-card, .index-badge, .org-card,
-.cfp-topics, .faq-item, .fees-scroll, .prog-item, .program-placeholder,
+.cfp-topics, .faq-item, .fees-scroll, .prog-session, .program-placeholder,
 .sponsor-card, .map-frame, .attr-card {
   background: var(--glass-bg);
   backdrop-filter: var(--blur);
@@ -2062,7 +2161,7 @@ body::before {
   <div class="sec-inner reveal">
     <p class="sec-eyebrow" id="program-eyebrow">Conference Program</p>
     <h2 class="sec-title" id="program-title">Schedule &amp; Sessions</h2>
-    <p class="sec-sub" id="program-sub">The two-day program comprises keynotes, technical sessions, and workshops.</p>
+    <p class="sec-sub" id="program-sub">Tentative program &mdash; times and sessions are subject to change.</p>
     <div id="program-wrap" class="program-wrap">
       <!-- Populated by JavaScript -->
     </div>
@@ -2368,7 +2467,8 @@ body::before {
     "speakers_invited_heading": "Invited Speakers",
     "program_eyebrow": "Conference Program",
     "program_title": "Schedule & Sessions",
-    "program_sub": "The two-day program comprises keynotes, technical sessions, and workshops.",
+    "program_sub": "Tentative program \u2014 times and sessions are subject to change.",
+    "program_footnote": "Wednesday, 11 November 2026 \u2014 program to be announced.",
     "sponsors_eyebrow": "Partners & Sponsors",
     "sponsors_title": "Supported By",
     "sponsors_sub": "We are grateful to our sponsors and institutional partners for making this conference possible.",
@@ -2521,7 +2621,145 @@ body::before {
       "talk_title": ""
     }
   ],
-  "program": [],
+  "program": [
+    {
+      "day": "Tuesday, 10 November 2026",
+      "session": "",
+      "time": "08:00–09:00",
+      "type": "registration",
+      "session_title": "Registration",
+      "detail": "MJIIT, Universiti Teknologi Malaysia, Kuala Lumpur"
+    },
+    {
+      "day": "Tuesday, 10 November 2026",
+      "session": "Opening & Keynote Speakers Session I",
+      "time": "09:00–09:15",
+      "type": "ceremony",
+      "session_title": "Opening Ceremony",
+      "detail": "Officiated by the Advisor of OSM and the Dean/Deputy Dean of MJIIT"
+    },
+    {
+      "day": "Tuesday, 10 November 2026",
+      "session": "Opening & Keynote Speakers Session I",
+      "time": "09:15–10:00",
+      "type": "keynote",
+      "label": "Keynote 1",
+      "speaker": "Prof. Ir. Ts. Dr. Tiu Zian Cheak",
+      "session_title": "",
+      "detail": "School of Engineering & Computing, MILA University (Malaysia)"
+    },
+    {
+      "day": "Tuesday, 10 November 2026",
+      "session": "Opening & Keynote Speakers Session I",
+      "time": "10:00–10:45",
+      "type": "keynote",
+      "label": "Keynote 2",
+      "speaker": "Prof. Dr. Waleed Mohammed",
+      "session_title": "",
+      "detail": "BU-CROCCS, School of Engineering, Bangkok University (Thailand)"
+    },
+    {
+      "day": "Tuesday, 10 November 2026",
+      "session": "Opening & Keynote Speakers Session I",
+      "time": "10:45–11:00",
+      "type": "break",
+      "session_title": "Tea & Networking Break"
+    },
+    {
+      "day": "Tuesday, 10 November 2026",
+      "session": "Opening & Keynote Speakers Session I",
+      "time": "11:00–11:45",
+      "type": "keynote",
+      "label": "Keynote 3",
+      "speaker": "Prof. Dr. Ir. Retna Apsari",
+      "session_title": "",
+      "detail": "Universitas Airlangga, Surabaya (Indonesia)"
+    },
+    {
+      "day": "Tuesday, 10 November 2026",
+      "session": "Opening & Keynote Speakers Session I",
+      "time": "11:45–12:30",
+      "type": "keynote",
+      "label": "Keynote 4",
+      "speaker": "Dr. Yu Chen",
+      "session_title": "",
+      "detail": "Chongqing Vocational Institute of Engineering (China)"
+    },
+    {
+      "day": "Tuesday, 10 November 2026",
+      "session": "Opening & Keynote Speakers Session I",
+      "time": "12:30–13:15",
+      "type": "keynote",
+      "label": "Keynote 5",
+      "speaker": "Peter Macaulay",
+      "session_title": "",
+      "detail": "ZDSL Networks Sdn. Bhd. (Malaysia)"
+    },
+    {
+      "day": "Tuesday, 10 November 2026",
+      "session": "Opening & Keynote Speakers Session I",
+      "time": "13:15–13:30",
+      "type": "ceremony",
+      "session_title": "Certificate Presentation & Photo Session",
+      "detail": "All keynote speakers"
+    },
+    {
+      "day": "Tuesday, 10 November 2026",
+      "session": "Opening & Keynote Speakers Session I",
+      "time": "13:30–14:30",
+      "type": "break",
+      "session_title": "Lunch Break"
+    },
+    {
+      "day": "Tuesday, 10 November 2026",
+      "session": "Invited Speaker Session",
+      "time": "14:30–14:50",
+      "type": "invited",
+      "label": "Invited Speaker 1",
+      "speaker": "Assoc. Prof. Ts. Dr. Wan Maryam Wan Ahmad Kamil",
+      "session_title": "",
+      "detail": "Universiti Sains Malaysia (USM)"
+    },
+    {
+      "day": "Tuesday, 10 November 2026",
+      "session": "Invited Speaker Session",
+      "time": "14:50–15:10",
+      "type": "invited",
+      "label": "Invited Speaker 2",
+      "speaker": "Dr. Ganesan Krishnan",
+      "session_title": "",
+      "detail": "Department of Physics, Faculty of Science, Universiti Teknologi Malaysia"
+    },
+    {
+      "day": "Tuesday, 10 November 2026",
+      "session": "Presentation",
+      "time": "15:10–16:20",
+      "type": "session",
+      "session_title": "Presentation Session I"
+    },
+    {
+      "day": "Tuesday, 10 November 2026",
+      "session": "Presentation",
+      "time": "16:20–16:40",
+      "type": "break",
+      "session_title": "Tea & Networking Break"
+    },
+    {
+      "day": "Tuesday, 10 November 2026",
+      "session": "Presentation",
+      "time": "16:40–18:00",
+      "type": "session",
+      "session_title": "Presentation Session II"
+    },
+    {
+      "day": "Tuesday, 10 November 2026",
+      "session": "Dinner & Closing Ceremony",
+      "time": "18:00–19:30",
+      "type": "ceremony",
+      "session_title": "Best Paper & Best Presentation Awards",
+      "detail": "Closing Ceremony"
+    }
+  ],
   "sponsors": [
     {
       "name": "SPIE",
@@ -2614,7 +2852,7 @@ function populateAll(data) {
   if (data.dates   && data.dates.length)    renderDates(data.dates);
   if (data.fees    && data.fees.length)     renderFees(data.fees, cfg);
   if (data.speakers && data.speakers.length) renderSpeakers(data.speakers, data.content || {});
-  renderProgram(data.program || []);
+  renderProgram(data.program || [], data.speakers || [], data.content || {});
   if (data.sponsors && data.sponsors.length) renderSponsors(data.sponsors);
   if (data.faq     && data.faq.length)      renderFaq(data.faq);
 }
@@ -2874,7 +3112,8 @@ function renderSpeakers(speakers, c) {
 // ----------------------------------------------------------------
 // PROGRAM / SCHEDULE
 // ----------------------------------------------------------------
-function renderProgram(program) {
+function renderProgram(program, speakers, c) {
+  c = c || {};
   const wrap = document.getElementById('program-wrap');
 
   if (!program || program.length === 0) {
@@ -2888,35 +3127,83 @@ function renderProgram(program) {
     return;
   }
 
-  // Group items by day
-  const days = {};
-  program.forEach(item => {
-    const key = (item.day && item.day.trim()) ? item.day
-              : (item.date && item.date.trim()) ? item.date : 'TBA';
-    if (!days[key]) days[key] = [];
-    days[key].push(item);
+  // speaker photos, looked up by name (so keynote / invited rows show the same portrait as the speaker cards)
+  const photoOf = {};
+  (speakers || []).forEach(s => {
+    if (s.name && s.photo_url && s.photo_url.trim()) photoOf[s.name.trim().toLowerCase()] = s.photo_url;
   });
 
-  const badgeMap = { keynote:'badge-keynote', session:'badge-session', break:'badge-break', workshop:'badge-workshop', panel:'badge-panel' };
+  const span = t => {
+    const m = /^(\d{1,2})[:.](\d{2})\s*[–—-]\s*(\d{1,2})[:.](\d{2})$/.exec((t || '').trim());
+    return m ? [(+m[1]) * 60 + (+m[2]), (+m[3]) * 60 + (+m[4])] : null;
+  };
+  const hhmm = n => String(Math.floor(n / 60)).padStart(2, '0') + ':' + String(n % 60).padStart(2, '0');
+  const dur = n => n <= 0 ? '' : n < 60 ? n + ' min'
+                 : (n % 60 ? Math.floor(n / 60) + ' h ' + (n % 60) + ' min' : (n / 60) + ' h');
+  const initialsOf = name => name.trim().split(/\s+/).filter(Boolean).map(w => w[0].toUpperCase()).slice(0, 2).join('');
 
+  // day -> blocks (consecutive entries that share a session heading)
+  const days = [];
+  program.forEach(item => {
+    const dayName = (item.day && item.day.trim()) ? item.day.trim()
+                  : (item.date && item.date.trim()) ? item.date.trim() : 'TBA';
+    let day = days.find(d => d.name === dayName);
+    if (!day) { day = { name: dayName, blocks: [] }; days.push(day); }
+    const sess = (item.session || '').trim();
+    let blk = day.blocks[day.blocks.length - 1];
+    if (!blk || blk.session !== sess) { blk = { session: sess, items: [] }; day.blocks.push(blk); }
+    blk.items.push(item);
+  });
+
+  const known = ['keynote', 'invited', 'break', 'registration', 'ceremony'];
   let html = '<div class="program-timeline">';
-  Object.entries(days).forEach(([day, items]) => {
-    html += `<div class="day-header">${esc(day)}</div>`;
-    items.forEach(item => {
-      const typeKey = (item.type || '').toLowerCase();
-      const badgeClass = badgeMap[typeKey] || 'badge-session';
-      const typeLabel  = item.type && item.type.trim() ? `<span class="prog-badge ${badgeClass}">${esc(item.type)}</span>` : '';
-      html += `
-        <div class="prog-item">
-          <div class="prog-time">${esc(item.time)}</div>
-          <div class="prog-body">
-            ${typeLabel}
-            <div class="prog-title">${esc(item.session_title)}</div>
-            ${item.speaker && item.speaker.trim() ? `<div class="prog-speaker">${esc(item.speaker)}</div>` : ''}
-          </div>
-        </div>`;
+  days.forEach((day, di) => {
+    html += `<div class="prog-day"><span class="prog-day-chip">Day ${di + 1}</span><h3 class="prog-day-name">${esc(day.name)}</h3></div>`;
+    day.blocks.forEach(blk => {
+      const spans = blk.items.map(i => span(i.time));
+      const range = spans.every(Boolean)
+        ? hhmm(Math.min(...spans.map(x => x[0]))) + ' – ' + hhmm(Math.max(...spans.map(x => x[1]))) : '';
+      html += `<section class="prog-session" aria-label="${escAttr(blk.session || day.name)}">`;
+      if (blk.session) {
+        html += `<div class="prog-session-head"><h4 class="prog-session-name">${esc(blk.session)}</h4>`
+              + (range ? `<span class="prog-session-span">${range}</span>` : '') + '</div>';
+      }
+      blk.items.forEach(item => {
+        const type = (item.type || '').toLowerCase();
+        const kind = known.includes(type) ? type : 'session-row';
+        const isPerson = !!(item.speaker && item.speaker.trim()) && (type === 'keynote' || type === 'invited');
+        const sp = span(item.time);
+        const timeTxt = sp ? hhmm(sp[0]) + ' – ' + hhmm(sp[1]) : (item.time || '');
+        const durTxt = sp ? dur(sp[1] - sp[0]) : '';
+
+        let node, text;
+        if (isPerson) {
+          const photo = photoOf[item.speaker.trim().toLowerCase()];
+          node = `<span class="prog-avatar">${photo
+            ? `<img src="${escAttr(photo)}" alt="${escAttr(item.speaker)}" loading="lazy">`
+            : `<span class="prog-avatar-init">${esc(initialsOf(item.speaker))}</span>`}</span>`;
+          const label = item.label || (type === 'keynote' ? 'Keynote' : 'Invited Speaker');
+          text = `<span class="prog-badge ${type === 'keynote' ? 'badge-keynote' : 'badge-invited'}">${esc(label)}</span>`
+               + `<div class="prog-name">${esc(item.speaker)}</div>`
+               + (item.detail ? `<div class="prog-detail">${esc(item.detail)}</div>` : '')
+               + (item.session_title && item.session_title.trim() ? `<div class="prog-talk">&ldquo;${esc(item.session_title)}&rdquo;</div>` : '');
+        } else {
+          node = '<span class="prog-dot" aria-hidden="true"></span>';
+          text = `<div class="prog-name">${esc(item.session_title || '')}</div>`
+               + (item.detail ? `<div class="prog-detail">${esc(item.detail)}</div>` : '')
+               + (item.speaker && item.speaker.trim() ? `<div class="prog-detail">${esc(item.speaker)}</div>` : '');
+        }
+        html += `
+          <div class="prog-row prog-${kind}">
+            <div class="prog-time">${esc(timeTxt)}</div>
+            <div class="prog-main"><div class="prog-node">${node}</div><div class="prog-text">${text}</div></div>
+            ${durTxt ? `<div class="prog-dur">${durTxt}</div>` : '<div></div>'}
+          </div>`;
+      });
+      html += '</section>';
     });
   });
+  if (c.program_footnote && c.program_footnote.trim()) html += `<p class="prog-footnote">${esc(c.program_footnote)}</p>`;
   html += '</div>';
   wrap.innerHTML = html;
 }
