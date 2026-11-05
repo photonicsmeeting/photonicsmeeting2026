@@ -29,7 +29,7 @@ if not about_text:  # fallback if the About section markup ever changes
                   "Optical Society of Malaysia (OSM) in celebrating International Day of Light.")
 
 logo_b64 = base64.b64encode(open(os.path.join(ROOT, "pm26.png"), "rb").read()).decode()
-utm_b64 = base64.b64encode(open(os.path.join(ROOT, "utm-logo.png"), "rb").read()).decode()
+mjiit_b64 = base64.b64encode(open(os.path.join(ROOT, "mjiit-logo.png"), "rb").read()).decode()
 osm_b64 = base64.b64encode(open(os.path.join(ROOT, "osm-logo.png"), "rb").read()).decode()
 iop_b64 = base64.b64encode(open(os.path.join(ROOT, "iop-logo.png"), "rb").read()).decode()
 scopus_b64 = base64.b64encode(open(os.path.join(ROOT, "scopus-logo.png"), "rb").read()).decode()
@@ -162,8 +162,10 @@ def render(T):
 
   .toprow {{ display:flex; justify-content:space-between; align-items:center; }}
   .topright {{ display:flex; align-items:center; gap:12px; }}
-  .logochip.small {{ padding:9px 14px; border-radius:13px; }}
-  .logochip.small img {{ height:42px; }}
+  .logochip.small {{ padding:0 16px; height:80px; display:flex; align-items:center; border-radius:13px; }}
+  .logochip.small img {{ height:50px; }}
+  .logochip.mjiit {{ background:linear-gradient(135deg, #1F4F3B, #2B6B50); border:none; }}
+  .logochip.mjiit img {{ height:62px; }}
   .logochip {{ background:#fff; border-radius:18px; padding:12px 26px; border:{T["logochip_border"]};
     box-shadow:0 10px 40px rgba(0,0,0,.18); }}
   .logochip img {{ height:74px; display:block; }}
@@ -261,10 +263,10 @@ def render(T):
   <div class="toprow">
     <div class="logochip"><img src="data:image/png;base64,{logo_b64}" alt="Photonics Meeting 2026"></div>
     <div class="topright">
-      <div class="org">Organised by <b>Universiti Teknologi Malaysia (UTM)</b><br>
+      <div class="org">Organised by <b>MJIIT</b>, Universiti Teknologi Malaysia<br>
       &amp; the <b>Optical Society of Malaysia (OSM)</b><br>
       <span class="idl">✦ In celebration of the International Day of Light</span></div>
-      <div class="logochip small"><img src="data:image/png;base64,{utm_b64}" alt="UTM"></div>
+      <div class="logochip small mjiit"><img src="data:image/png;base64,{mjiit_b64}" alt="MJIIT"></div>
       <div class="logochip small"><img src="data:image/png;base64,{osm_b64}" alt="OSM"></div>
     </div>
   </div>
