@@ -15,6 +15,13 @@ What it reads (the structure of the handbook):
       - a TWO-cell row            = "hh:mm–hh:mm"  |  title (+ detail lines)
       - "Keynote 1 · Name" / "Invited Speaker 2 · Name" rows are speaker rows; the 2nd line is the affiliation
 Anything else in the document (welcome text, topics, past editions) is ignored.
+
+schedule/supplement.json holds agreed details that are NOT in the handbook yet (an extra day, a corrected line).
+It is applied after the handbook is read:
+  * "days":    a day is added only if the handbook does not already contain that day (handbook wins once it does)
+  * "patches": {"match": {...fields...}, "set": {...fields...}} overwrite fields on matching entries;
+               a patch that matches nothing is reported, so a stale patch cannot hide silently
+Delete an entry from supplement.json once the handbook says the same thing.
 """
 import argparse, glob, json, os, re, sys, zipfile
 from xml.etree import ElementTree as ET
@@ -94,6 +101,36 @@ def parse(docx):
     return items
 
 
+def apply_supplement(items):
+    """Merge schedule/supplement.json into the parsed handbook items. Returns (items, notes)."""
+    path = os.path.join(ROOT, "schedule", "supplement.json")
+    notes = []
+    if not os.path.exists(path):
+        return items, notes
+    sup = json.load(open(path))
+    for patch in sup.get("patches", []):
+        hits = [i for i in items if all(i.get(k) == v for k, v in patch["match"].items())]
+        if not hits:
+            notes.append(f"! supplement patch matched nothing (handbook changed?): {patch['match']}")
+        for i in hits:
+            i.update(patch["set"])
+            notes.append(f"supplement: patched {i['day']} {i['time']} {i.get('session_title') or i.get('speaker')}: {', '.join(patch['set'])}")
+    have = {i["day"] for i in items}
+    for d in sup.get("days", []):
+        if d["day"] in have:
+            notes.append(f"supplement: day '{d['day']}' ignored — the handbook now contains it (you can delete it from supplement.json)")
+            continue
+        for e in d["items"]:
+            item = {"day": d["day"], "session": e.get("session", ""), "time": e["time"], "type": e.get("type", "session")}
+            item["session_title"] = e.get("session_title", "")
+            for k in ("label", "speaker", "detail"):
+                if e.get(k):
+                    item[k] = e[k]
+            items.append(item)
+        notes.append(f"supplement: added day '{d['day']}' ({len(d['items'])} entries) — not in the handbook")
+    return items, notes
+
+
 def minutes(t):
     m = TIME.match(t)
     if not m:
@@ -152,6 +189,7 @@ def main():
     print("handbook:", os.path.basename(docx))
 
     items = parse(docx)
+    items, notes = (apply_supplement(items) if items else (items, []))
     if not items:
         sys.exit('No schedule found. Expected a Heading 1 "Programme · <day>" followed by schedule tables. index.html NOT changed.')
 
@@ -161,6 +199,8 @@ def main():
     warnings = report(items, data.get("speakers", []))
     for w in warnings:
         print("  ! WARNING:", w)
+    for n in notes:
+        print("  " + n)
 
     if a.check:
         print("\n--check: index.html not modified.")

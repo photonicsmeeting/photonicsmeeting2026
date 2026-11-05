@@ -1,0 +1,19 @@
+{
+  "_note": "Agreed details that are NOT in the handbook .docx yet. Applied by import_handbook.py after the handbook is read. Delete an entry here once the handbook says the same thing (see schedule/README.md).",
+
+  "days": [
+    {
+      "day": "Wednesday, 11 November 2026",
+      "items": [
+        { "time": "08:00–17:00", "type": "session", "session_title": "Lab Visit & Networking" }
+      ]
+    }
+  ],
+
+  "patches": [
+    {
+      "match": { "type": "ceremony", "session_title": "Opening Ceremony" },
+      "set": { "detail": "Officiated by the Advisor of OSM and the Deputy Dean (Research, Innovation and Development) of MJIIT, Prof. Madya Ir. Dr. Zool Hilmi bin Ismail" }
+    }
+  ]
+}

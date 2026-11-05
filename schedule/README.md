@@ -27,10 +27,22 @@ Only the programme tables. Everything else in the handbook (welcome text, topics
 It reports gaps/overlaps between consecutive times and any speaker that is not in the website's speaker list
 (no photo would be shown), so typos are caught before publishing.
 
+## Details that are not in the handbook yet — `schedule/supplement.json`
+Agreed information that the .docx doesn't contain (yet) lives in `supplement.json`; the importer applies it
+after reading the handbook, so a re-import never wipes it:
+
+* `"days"` — a whole extra day (currently **Wednesday, 11 November: 08:00–17:00 Lab Visit & Networking**).
+  It is added only if the handbook has no such day; once the handbook has it, the handbook wins and the importer
+  tells you the entry can be deleted.
+* `"patches"` — overwrite fields on matching entries (currently the **Opening Ceremony** officiating line, naming
+  Prof. Madya Ir. Dr. Zool Hilmi bin Ismail). A patch that matches nothing is reported, so it cannot go stale silently.
+
+When you add the same information to the handbook, delete the matching entry from `supplement.json`.
+
 ## Data written to `index.html`
 `program` inside the `__ssr_data__` JSON — one object per row:
 `day, session, time, type (keynote|invited|session|break|ceremony|registration), session_title,
  label, speaker, detail`. Speaker photos are looked up from the `speakers` list by exact name.
 
 Other site text for this section lives in `content`: `program_sub` (subtitle) and `program_footnote`
-(the "Wednesday, 11 November — program to be announced" line; clear it once Day 2 is in the handbook).
+(an optional italic note under the schedule — empty now that Day 2 is on the page).
