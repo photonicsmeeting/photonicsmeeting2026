@@ -112,8 +112,11 @@ def orbs_html(T):
         f'background:radial-gradient(circle,{c} 0%,transparent 70%);"></div>'
         for c, x, y, r in T["orbs"])
 
+# Poster shows KEYNOTE speakers only (the website also lists "invited" speakers)
+poster_speakers = [s for s in data["speakers"] if str(s.get("category", "")).strip().lower() != "invited"]
+
 sp_cards = ""
-for s in data["speakers"]:
+for s in poster_speakers:
     sp_cards += f'''
     <div class="sp">
       <img src="{s["photo_url"]}" alt="">
@@ -195,7 +198,7 @@ def render(T):
   .slab::after {{ content:''; flex:1; height:1px; background:linear-gradient(90deg,var(--edge),transparent); }}
   .slab b {{ color:var(--ink); font-weight:700; }}
 
-  .sps {{ display:grid; grid-template-columns:repeat({max(len(data['speakers']), 1)},1fr); gap:14px; }}
+  .sps {{ display:grid; grid-template-columns:repeat({max(len(poster_speakers), 1)},1fr); gap:14px; }}
   .sp {{ background:var(--card); border:1px solid var(--edge); border-radius:16px; padding:16px 10px 12px;
     text-align:center; box-shadow:{T["chip_shadow"]}; }}
   .sp img {{ width:72px; height:72px; border-radius:50%; object-fit:cover; object-position:top;
