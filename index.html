@@ -729,21 +729,9 @@ h1,h2,h3 { font-family: var(--font-display); }
 }
 .speaker-group-title::after {
   content: '';
-  order: 3;
   flex: 1;
   height: 1px;
   background: linear-gradient(90deg, var(--grey-300), transparent);
-}
-.speaker-group-count {
-  order: 2;
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 0.4px;
-  color: var(--blue);
-  background: var(--blue-light);
-  border: 1px solid var(--blue-border);
-  padding: 3px 9px;
-  border-radius: 100px;
 }
 .speaker-card {
   background: #fff;
@@ -2877,7 +2865,7 @@ function renderSpeakers(speakers, c) {
     if (!list.length) return '';
     return `
       <div class="speaker-group">
-        <h3 class="speaker-group-title">${esc(g.label)}<span class="speaker-group-count">${list.length}</span></h3>
+        <h3 class="speaker-group-title">${esc(g.label)}</h3>
         <div class="speakers-grid">${list.map(card).join('')}</div>
       </div>`;
   }).join('');
