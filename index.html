@@ -1128,12 +1128,6 @@ h1,h2,h3 { font-family: var(--font-display); }
   align-items: center;
   justify-content: center;
 }
-.org-logo--mjiit {
-  background: linear-gradient(135deg, #1F4F3B, #2B6B50);
-  border-radius: 18px;
-  padding: 14px 30px;
-}
-.org-logo--mjiit img { max-height: 96px; max-width: 100%; display: block; }
 .org-name {
   font-family: var(--font-display);
   font-size: 16px;
@@ -1319,6 +1313,32 @@ footer::before {
   gap: 18px;
 }
 .footer-copy { font-size: 13px; color: #64748B; }
+.footer-orgs {
+  flex: 1 1 100%;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px 14px;
+  padding-bottom: 22px;
+  border-bottom: 1px solid rgba(255,255,255,.08);
+}
+.footer-orgs-label {
+  margin-right: 6px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1.8px;
+  text-transform: uppercase;
+  color: #64748B;
+}
+.footer-chip {
+  display: flex;
+  align-items: center;
+  height: 56px;
+  padding: 0 18px;
+  background: #fff;
+  border-radius: 12px;
+}
+.footer-chip img { height: 34px; width: auto; display: block; }
 .footer-links { display: flex; gap: 22px; flex-wrap: wrap; }
 .footer-links a {
   font-size: 13px;
@@ -2284,7 +2304,7 @@ body::before {
     <p class="sec-sub">Photonics Meeting 2026 is organised by the <strong>Malaysia-Japan International Institute of Technology (MJIIT)</strong> and the <strong>Optical Society of Malaysia (OSM)</strong>.</p>
     <div class="org-grid">
       <div class="org-card">
-        <div class="org-logo org-logo--mjiit"><img src="mjiit-logo.png" alt="Malaysia-Japan International Institute of Technology (MJIIT) logo" loading="lazy"></div>
+        <div class="org-logo"><img src="mjiit-logo-web.png" alt="Malaysia-Japan International Institute of Technology (MJIIT) logo" width="900" height="317" loading="lazy"></div>
         <div class="org-name">Malaysia-Japan International Institute of Technology (MJIIT)</div>
       </div>
       <div class="org-card">
@@ -2440,6 +2460,11 @@ body::before {
      ============================================================ -->
 <footer role="contentinfo">
   <div class="footer-inner">
+    <div class="footer-orgs">
+      <span class="footer-orgs-label">Organised by</span>
+      <span class="footer-chip"><img src="mjiit-logo-web.png" alt="Malaysia-Japan International Institute of Technology (MJIIT)" width="900" height="317" loading="lazy"></span>
+      <span class="footer-chip"><img src="osm-logo.png" alt="Optical Society of Malaysia (OSM)" loading="lazy"></span>
+    </div>
     <p class="footer-copy" id="footer-copy">&copy; 2026 OSM Photonics Meeting &mdash; Kuala Lumpur, Malaysia.</p>
     <nav class="footer-links" aria-label="Footer links">
       <a href="#about-us">About</a>
