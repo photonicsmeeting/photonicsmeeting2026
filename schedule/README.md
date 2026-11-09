@@ -31,7 +31,7 @@ It reports gaps/overlaps between consecutive times and any speaker that is not i
 Agreed information that the .docx doesn't contain (yet) lives in `supplement.json`; the importer applies it
 after reading the handbook, so a re-import never wipes it:
 
-* `"days"` — a whole extra day (currently **Wednesday, 11 November: 08:00–17:00 Lab Visit & Networking**).
+* `"days"` — a whole extra day (currently **Wednesday, 11 November: Laboratory Visit & Networking, 09:00–16:30**).
   It is added only if the handbook has no such day; once the handbook has it, the handbook wins and the importer
   tells you the entry can be deleted.
 * `"patches"` — overwrite fields on matching entries (currently the **Opening Ceremony** officiating line, naming
