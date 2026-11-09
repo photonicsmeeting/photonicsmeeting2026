@@ -101,6 +101,11 @@ def parse(docx):
     return items
 
 
+def photo_data_uri(path):
+    import base64
+    return "data:image/jpeg;base64," + base64.b64encode(open(path, "rb").read()).decode()
+
+
 def apply_supplement(items):
     """Merge schedule/supplement.json into the parsed handbook items. Returns (items, notes)."""
     path = os.path.join(ROOT, "schedule", "supplement.json")
@@ -113,7 +118,12 @@ def apply_supplement(items):
         if not hits:
             notes.append(f"! supplement patch matched nothing (handbook changed?): {patch['match']}")
         for i in hits:
-            i.update(patch["set"])
+            upd = json.loads(json.dumps(patch["set"]))
+            for g in upd.get("guests", []):                 # "photo_file" -> inline data URI, same convention as speaker photos
+                f = g.pop("photo_file", None)
+                if f:
+                    g["photo_url"] = photo_data_uri(os.path.join(ROOT, f))
+            i.update(upd)
             notes.append(f"supplement: patched {i['day']} {i['time']} {i.get('session_title') or i.get('speaker')}: {', '.join(patch['set'])}")
     have = {i["day"] for i in items}
     for d in sup.get("days", []):
