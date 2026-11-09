@@ -1779,6 +1779,21 @@ body::before {
 }
 .cfp-topics { box-shadow: var(--glass-ring), var(--glass-hilite), var(--shadow-md); }
 
+/* ---------- submission closed: greyed-out, inert submit buttons ---------- */
+.is-closed, .is-closed:hover, .is-closed:active,
+#submit-paper-btn.is-closed, .btn-primary.is-closed, .btn-register.is-closed {
+  background: var(--grey-200) !important;
+  color: var(--grey-400) !important;
+  border: 1px solid var(--grey-200) !important;
+  box-shadow: none !important;
+  transform: none !important;
+  cursor: not-allowed;
+  pointer-events: none;
+  filter: none;
+}
+
+#submit-paper-btn.is-closed { font-size: 12.5px; padding: 10px 14px; margin-left: 4px; }
+
 /* ---------- 6. iOS BUTTONS (flat fill, press scale, one radius) ---------- */
 .btn-primary, .btn-register, #submit-paper-btn.active {
   background: var(--blue);
@@ -2216,14 +2231,6 @@ body::before {
             <span id="cfp-submit-btn-text">Submit Paper</span>
             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
           </a>
-          <a href="poster/pm26-cfp-poster.png" download="PM26-CFP-Poster-Dark.png" class="btn-outline">
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-            <span>CFP Poster (Dark)</span>
-          </a>
-          <a href="poster/pm26-cfp-poster-bright.png" download="PM26-CFP-Poster-Bright.png" class="btn-outline">
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-            <span>CFP Poster (Bright)</span>
-          </a>
         </div>
         <p id="cfp-status-note" style="margin-top:14px; font-size:13px; color:var(--grey-400); font-style:italic;"></p>
       </div>
@@ -2602,6 +2609,7 @@ body::before {
     "venue_address": "Jalan Sultan Yahya Petra, 54100 Kuala Lumpur",
     "maps_embed_url": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3983.7036307284757!2d101.7180072093607!3d3.172515552997701!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31cc37e84e99fd5b%3A0x6401ae9199f4770b!2sMJIIT%20%E2%80%A2%20Malaysia-Japan%20International%20Institute%20of%20Technology!5e0!3m2!1sen!2smy!4v1",
     "submission_url": "https://www.morressier.com/call-for-papers/6a4e6bd8c4b29bfefa35f5c5",
+    "submission_closed": "true",
     "registration_url": "",
     "contact_email": "photonics.meeting@gmail.com",
     "nav_brand_name": "Photonics Meeting 2026",
@@ -2640,11 +2648,11 @@ body::before {
     "register_title": "Register for Photonics Meeting 2026",
     "register_sub": "Registration for Photonics Meeting 2026 is now open.",
     "footer_copy": "© 2026 OSM Photonics Meeting — Kuala Lumpur, Malaysia.",
-    "nav_submit_btn": "Submit Paper",
-    "hero_btn_primary": "Click to Submit",
+    "nav_submit_btn": "Submission Closed",
+    "hero_btn_primary": "Submission Closed",
     "hero_btn_secondary": "View Program",
-    "cfp_submit_btn": "Submit Paper",
-    "register_btn": "Click to Submit",
+    "cfp_submit_btn": "Submission Closed",
+    "register_btn": "Submission Closed",
     "fees_th_category": "Category",
     "fees_th_fee": "Fee"
   },
@@ -3129,7 +3137,18 @@ function applyConfig(cfg) {
   const registerCtaBtn = document.getElementById('register-cta-btn');
   const cfpNote = document.getElementById('cfp-status-note');
 
-  if (cfg.submission_url && cfg.submission_url.trim() !== '') {
+  const closed = ['true','TRUE','True','1','yes','YES'].includes(String(cfg.submission_closed).trim());
+  if (closed) {
+    // Submission is closed: every submit button stays visible but greyed out and inert.
+    [navBtn, heroBtn, heroPrimaryBtn, registerCtaBtn].forEach(btn => {
+      if (!btn) return;
+      btn.removeAttribute('href'); btn.removeAttribute('target'); btn.removeAttribute('rel');
+      btn.classList.remove('active'); btn.classList.add('is-closed');
+      btn.setAttribute('role', 'link'); btn.setAttribute('aria-disabled', 'true'); btn.setAttribute('tabindex', '-1');
+      btn.querySelectorAll('svg').forEach(v => v.remove());
+    });
+    if (cfpNote) cfpNote.textContent = 'Paper submission is now closed. Thank you to everyone who submitted.';
+  } else if (cfg.submission_url && cfg.submission_url.trim() !== '') {
     const url = cfg.submission_url.trim();
     [navBtn, heroBtn, heroPrimaryBtn, registerCtaBtn].forEach(btn => {
       if (!btn) return;
