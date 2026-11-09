@@ -965,6 +965,40 @@ h1,h2,h3 { font-family: var(--font-display); }
 .badge-keynote { background: #FBF1D4; color: #8A6212; border-color: #EBD9A4; }
 .badge-invited { background: var(--blue-light); color: var(--blue); border-color: var(--blue-border); }
 
+/* live progress: a thin bar along the bottom of every slot (planned schedule, Malaysia time) */
+.prog-row { position: relative; }
+.prog-bar {
+  position: absolute; left: 0; right: 0; bottom: 0; height: 3px;
+  background: rgba(11, 18, 48, .06);
+  pointer-events: none;
+}
+.prog-bar i {
+  display: block; height: 100%; width: 0;
+  background: var(--spectrum);
+  transition: width .8s ease;
+}
+.prog-state {
+  display: none;
+  margin-top: 5px;
+  font-size: 11px; font-weight: 700; letter-spacing: .9px; text-transform: uppercase;
+}
+.prog-row.is-live { background: rgba(8, 145, 178, .07); }
+.prog-row.is-live .prog-bar { height: 4px; background: rgba(8, 145, 178, .18); }
+.prog-row.is-live .prog-state { display: block; color: #0A7C92; }
+.prog-row.is-live .prog-state::before {
+  content: ''; display: inline-block; width: 7px; height: 7px; margin-right: 6px;
+  border-radius: 50%; background: #E5484D; vertical-align: 1px;
+  animation: progPulse 1.6s ease-in-out infinite;
+}
+.prog-row.is-done .prog-bar i { background: var(--grey-300); }
+.prog-row.is-done .prog-main, .prog-row.is-done .prog-time, .prog-row.is-done .prog-dur { opacity: .6; }
+.prog-row.is-done .prog-state { display: block; color: var(--grey-400); }
+@keyframes progPulse { 0%, 100% { opacity: 1; } 50% { opacity: .3; } }
+@media (prefers-reduced-motion: reduce) {
+  .prog-bar i { transition: none; }
+  .prog-row.is-live .prog-state::before { animation: none; }
+}
+
 .prog-footnote {
   margin-top: 2px;
   font-size: 13.5px;
@@ -2516,7 +2550,7 @@ body::before {
     "speakers_invited_heading": "Invited Speakers",
     "program_eyebrow": "Conference Program",
     "program_title": "Schedule & Sessions",
-    "program_sub": "Tentative program \u2014 times and sessions are subject to change.",
+    "program_sub": "Tentative program \u2014 times and sessions are subject to change. The progress bars follow the planned schedule (Malaysia time) and may differ from the actual event.",
     "program_footnote": "",
     "sponsors_eyebrow": "Partners & Sponsors",
     "sponsors_title": "Supported By",
@@ -3208,6 +3242,13 @@ function renderProgram(program, speakers, c) {
   const hhmm = n => String(Math.floor(n / 60)).padStart(2, '0') + ':' + String(n % 60).padStart(2, '0');
   const dur = n => n <= 0 ? '' : n < 60 ? n + ' min'
                  : (n % 60 ? Math.floor(n / 60) + ' h ' + (n % 60) + ' min' : (n / 60) + ' h');
+  // "Tuesday, 10 November 2026" + minutes-from-midnight (Malaysia time, UTC+8) -> epoch ms, or null
+  const MONTHS = ['january','february','march','april','may','june','july','august','september','october','november','december'];
+  const mytMs = (dayName, mins) => {
+    const m = /(\d{1,2})\s+([A-Za-z]+)\s+(\d{4})/.exec(dayName || '');
+    const mo = m ? MONTHS.indexOf(m[2].toLowerCase()) : -1;
+    return mo < 0 ? null : Date.UTC(+m[3], mo, +m[1], 0, mins) - 8 * 3600000;
+  };
   const initialsOf = name => name.trim().split(/\s+/).filter(Boolean).map(w => w[0].toUpperCase()).slice(0, 2).join('');
 
   // day -> blocks (consecutive entries that share a session heading)
@@ -3268,11 +3309,15 @@ function renderProgram(program, speakers, c) {
                     : '')
                + (item.speaker && item.speaker.trim() ? `<div class="prog-detail">${esc(item.speaker)}</div>` : '');
         }
+        const t0 = sp ? mytMs(day.name, sp[0]) : null;
+        const t1 = sp ? mytMs(day.name, sp[1]) : null;
+        const timed = t0 !== null && t1 !== null && t1 > t0;
         html += `
-          <div class="prog-row prog-${kind}">
-            <div class="prog-time">${esc(timeTxt)}</div>
+          <div class="prog-row prog-${kind}"${timed ? ` data-s="${t0}" data-e="${t1}"` : ''}>
+            <div class="prog-time">${esc(timeTxt)}<div class="prog-state"></div></div>
             <div class="prog-main"><div class="prog-node">${node}</div><div class="prog-text">${text}</div></div>
             ${durTxt ? `<div class="prog-dur">${durTxt}</div>` : '<div></div>'}
+            ${timed ? '<span class="prog-bar" aria-hidden="true"><i></i></span>' : ''}
           </div>`;
       });
       html += '</section>';
@@ -3281,6 +3326,32 @@ function renderProgram(program, speakers, c) {
   if (c.program_footnote && c.program_footnote.trim()) html += `<p class="prog-footnote">${esc(c.program_footnote)}</p>`;
   html += '</div>';
   wrap.innerHTML = html;
+  startProgramClock(wrap);
+}
+
+// Live progress for the schedule: fills each slot's bar from the PLANNED times (Malaysia time, UTC+8).
+// Test any moment with  ?now=2026-11-10T10:30  (read as Malaysia time).
+let progTimer = null;
+function startProgramClock(wrap) {
+  const rows = Array.from(wrap.querySelectorAll('.prog-row[data-s]'));
+  if (!rows.length) return;
+  const q = /[?&]now=(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2})/.exec(location.search);
+  const fake = q ? Date.UTC(+q[1], +q[2] - 1, +q[3], +q[4], +q[5]) - 8 * 3600000 : null;
+  const tick = () => {
+    const now = fake !== null ? fake : Date.now();
+    rows.forEach(r => {
+      const s = +r.dataset.s, e = +r.dataset.e;
+      const pct = now <= s ? 0 : now >= e ? 100 : Math.round((now - s) / (e - s) * 1000) / 10;
+      const live = now >= s && now < e, done = now >= e;
+      r.classList.toggle('is-live', live);
+      r.classList.toggle('is-done', done);
+      r.querySelector('.prog-bar i').style.width = pct + '%';
+      r.querySelector('.prog-state').textContent = live ? 'Live now' : done ? 'Completed' : '';
+    });
+  };
+  tick();
+  if (progTimer) clearInterval(progTimer);
+  progTimer = setInterval(tick, 30000);
 }
 
 // ----------------------------------------------------------------
