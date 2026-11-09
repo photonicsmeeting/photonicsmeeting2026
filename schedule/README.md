@@ -46,3 +46,16 @@ When you add the same information to the handbook, delete the matching entry fro
 
 Other site text for this section lives in `content`: `program_sub` (subtitle) and `program_footnote`
 (an optional italic note under the schedule — empty now that Day 2 is on the page).
+
+## Presentation lists (paper titles) — `papers`
+**Presentation Session I** and **II** each carry a collapsible "Presentation list" on the website. Until titles exist it
+shows "Coming soon". To fill it, put the papers into the matching patch in `supplement.json` (the `"papers": []` entry):
+
+```json
+{ "match": {"type": "session", "session_title": "Presentation Session I"},
+  "set": { "papers": [
+      {"time": "15:10–15:30", "title": "Title of the paper", "authors": "A. Author, B. Author"},
+      {"time": "15:30–15:50", "title": "Another title",      "authors": "C. Author"} ] } }
+```
+`time` and `authors` are optional. Then run `python3 schedule/import_handbook.py` and push. The paper that is on
+(per the planned times) is highlighted while the session is live.

@@ -972,6 +972,31 @@ h1,h2,h3 { font-family: var(--font-display); }
 .badge-keynote { background: #FBF1D4; color: #8A6212; border-color: #EBD9A4; }
 .badge-invited { background: var(--blue-light); color: var(--blue); border-color: var(--blue-border); }
 
+/* collapsible list of presentations inside a presentation slot */
+.prog-papers { margin-top: 12px; }
+.prog-papers summary {
+  list-style: none; cursor: pointer; display: inline-flex; align-items: center; gap: 10px;
+  padding: 7px 12px 7px 14px; border-radius: 999px;
+  background: var(--blue-light); border: 1px solid var(--blue-border);
+  font-size: 12.5px; font-weight: 700; color: var(--blue);
+  transition: background .2s ease;
+}
+.prog-papers summary::-webkit-details-marker { display: none; }
+.prog-papers summary:hover { background: #E3ECFF; }
+.prog-papers summary:focus-visible { outline: 2px solid var(--blue); outline-offset: 2px; }
+.pp-count { font-weight: 600; color: var(--grey-600); }
+.pp-chev { width: 7px; height: 7px; border-right: 2px solid currentColor; border-bottom: 2px solid currentColor; transform: rotate(45deg) translateY(-2px); transition: transform .25s ease; }
+.prog-papers[open] .pp-chev { transform: rotate(-135deg) translateY(-2px); }
+.pp-empty { margin-top: 10px; font-size: 13px; color: var(--grey-600); line-height: 1.5; }
+.pp-list { list-style: none; margin-top: 10px; border-left: 2px solid var(--blue-border); }
+.pp-item { display: grid; grid-template-columns: 116px minmax(0, 1fr); gap: 14px; padding: 9px 0 9px 14px; border-top: 1px solid rgba(11, 18, 48, .06); }
+.pp-item:first-child { border-top: none; }
+.pp-time { font-size: 12.5px; font-weight: 600; color: var(--navy); font-variant-numeric: tabular-nums; white-space: nowrap; padding-top: 1px; }
+.pp-title { font-size: 14px; font-weight: 600; color: var(--navy); line-height: 1.4; }
+.pp-auth { font-size: 12.5px; color: var(--grey-600); line-height: 1.5; margin-top: 2px; }
+.pp-item.is-live { background: rgba(8, 145, 178, .08); border-radius: 8px; box-shadow: inset 3px 0 0 #0891B2; }
+@media (max-width: 600px) { .pp-item { grid-template-columns: minmax(0, 1fr); gap: 2px; } }
+
 /* floating "happening now" card (bottom-left; follows the planned schedule) */
 .live-card {
   position: fixed; left: 18px; bottom: 18px; z-index: 80;
@@ -2886,7 +2911,8 @@ body::before {
       "session": "Presentation",
       "time": "15:10–16:20",
       "type": "session",
-      "session_title": "Presentation Session I"
+      "session_title": "Presentation Session I",
+      "papers": []
     },
     {
       "day": "Tuesday, 10 November 2026",
@@ -2900,7 +2926,8 @@ body::before {
       "session": "Presentation",
       "time": "16:40–18:00",
       "type": "session",
-      "session_title": "Presentation Session II"
+      "session_title": "Presentation Session II",
+      "papers": []
     },
     {
       "day": "Tuesday, 10 November 2026",
@@ -3341,6 +3368,23 @@ function renderProgram(program, speakers, c) {
     const mo = m ? MONTHS.indexOf(m[2].toLowerCase()) : -1;
     return mo < 0 ? null : Date.UTC(+m[3], mo, +m[1], 0, mins) - 8 * 3600000;
   };
+  // collapsible list of presentations inside a presentation slot: [{time:"15:10–15:30", title, authors}]
+  const papersHtml = (papers, dayName) => {
+    const n = papers.length;
+    const head = `<summary><span class="pp-label">Presentation list</span>`
+               + `<span class="pp-count">${n ? n + (n === 1 ? ' presentation' : ' presentations') : 'Coming soon'}</span>`
+               + `<span class="pp-chev" aria-hidden="true"></span></summary>`;
+    if (!n) return `<details class="prog-papers">${head}<p class="pp-empty">The list of presentations and their time slots will be announced soon.</p></details>`;
+    const items = papers.map((p, i) => {
+      const sp = span(p.time);
+      const t0 = sp ? mytMs(dayName, sp[0]) : null, t1 = sp ? mytMs(dayName, sp[1]) : null;
+      return `<li class="pp-item"${t0 !== null && t1 !== null ? ` data-s="${t0}" data-e="${t1}"` : ''}>`
+           + `<span class="pp-time">${esc(sp ? hhmm(sp[0]) + ' \u2013 ' + hhmm(sp[1]) : (p.time || ''))}</span>`
+           + `<div class="pp-body"><div class="pp-title">${esc(p.title || '')}</div>`
+           + (p.authors ? `<div class="pp-auth">${esc(p.authors)}</div>` : '') + `</div></li>`;
+    }).join('');
+    return `<details class="prog-papers">${head}<ol class="pp-list">${items}</ol></details>`;
+  };
   const initialsOf = name => name.trim().split(/\s+/).filter(Boolean).map(w => w[0].toUpperCase()).slice(0, 2).join('');
 
   // day -> blocks (consecutive entries that share a session heading)
@@ -3402,7 +3446,8 @@ function renderProgram(program, speakers, c) {
                         + (g.org ? `<div class="prog-guest-role">${esc(g.org)}</div>` : '')
                         + '</div></div>').join('') + '</div>'
                     : '')
-               + (item.speaker && item.speaker.trim() ? `<div class="prog-detail">${esc(item.speaker)}</div>` : '');
+               + (item.speaker && item.speaker.trim() ? `<div class="prog-detail">${esc(item.speaker)}</div>` : '')
+               + (Array.isArray(item.papers) ? papersHtml(item.papers, day.name) : '');
         }
         const t0 = sp ? mytMs(day.name, sp[0]) : null;
         const t1 = sp ? mytMs(day.name, sp[1]) : null;
@@ -3448,6 +3493,9 @@ function startProgramClock(wrap) {
   const fake = q ? Date.UTC(+q[1], +q[2] - 1, +q[3], +q[4], +q[5]) - 8 * 3600000 : null;
   const tick = () => {
     const now = fake !== null ? fake : Date.now();
+    wrap.querySelectorAll('.pp-item[data-s]').forEach(li => {
+      li.classList.toggle('is-live', now >= +li.dataset.s && now < +li.dataset.e);
+    });
     rows.forEach(r => {
       const s = +r.dataset.s, e = +r.dataset.e;
       const pct = now <= s ? 0 : now >= e ? 100 : Math.round((now - s) / (e - s) * 1000) / 10;

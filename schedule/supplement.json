@@ -67,6 +67,24 @@
           }
         ]
       }
+    },
+    {
+      "match": {
+        "type": "session",
+        "session_title": "Presentation Session I"
+      },
+      "set": {
+        "papers": []
+      }
+    },
+    {
+      "match": {
+        "type": "session",
+        "session_title": "Presentation Session II"
+      },
+      "set": {
+        "papers": []
+      }
     }
   ]
 }
