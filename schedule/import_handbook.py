@@ -103,7 +103,8 @@ def parse(docx):
 
 def photo_data_uri(path):
     import base64
-    return "data:image/jpeg;base64," + base64.b64encode(open(path, "rb").read()).decode()
+    mime = "image/png" if path.lower().endswith(".png") else "image/jpeg"
+    return "data:" + mime + ";base64," + base64.b64encode(open(path, "rb").read()).decode()
 
 
 def apply_supplement(items):
