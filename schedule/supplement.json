@@ -1,49 +1,6 @@
 {
   "_note": "Agreed details that are NOT in the handbook .docx yet. Applied by import_handbook.py after the handbook is read. Delete an entry here once the handbook says the same thing (see schedule/README.md).",
-  "days": [
-    {
-      "day": "Wednesday, 11 November 2026",
-      "items": [
-        {
-          "session": "Laboratory Visit & Networking",
-          "time": "09:00–09:30",
-          "type": "session",
-          "session_title": "Laboratory Briefing",
-          "detail": "Officiated by the Advisor of OSM and the Dean/Deputy Dean of MJIIT"
-        },
-        {
-          "session": "Laboratory Visit & Networking",
-          "time": "09:30–13:00",
-          "type": "session",
-          "session_title": "Lab Tour and Sharing Session I"
-        },
-        {
-          "session": "Laboratory Visit & Networking",
-          "time": "13:00–14:00",
-          "type": "break",
-          "session_title": "Lunch Break"
-        },
-        {
-          "session": "Laboratory Visit & Networking",
-          "time": "14:00–16:00",
-          "type": "session",
-          "session_title": "Lab Tour and Sharing Session II"
-        },
-        {
-          "session": "Laboratory Visit & Networking",
-          "time": "16:00–16:30",
-          "type": "break",
-          "session_title": "Tea Break and Networking Discussion"
-        },
-        {
-          "session": "Laboratory Visit & Networking",
-          "time": "16:30",
-          "type": "session",
-          "session_title": "Programme End"
-        }
-      ]
-    }
-  ],
+  "days": [],
   "patches": [
     {
       "match": {
@@ -54,36 +11,18 @@
         "detail": "Officiated by",
         "guests": [
           {
-            "name": "Prof. Ir. Dr. Sulaiman Wadi Harun",
+            "name": "Prof. Ir. Dr. Sulaiman Wadi bin Harun",
             "role": "Advisor, Optical Society of Malaysia (OSM)",
             "org": "Universiti Malaya",
             "photo_file": "schedule/photos/sulaiman-wadi-harun.png"
           },
           {
-            "name": "Prof. Madya Ir. Dr. Zool Hilmi bin Ismail",
+            "name": "Assoc. Prof. Ir. Dr. Zool Hilmi bin Ismail",
             "role": "Deputy Dean (Research, Innovation and Development)",
             "org": "Malaysia-Japan International Institute of Technology (MJIIT)",
             "photo_file": "schedule/photos/zool-hilmi-ismail.jpg"
           }
         ]
-      }
-    },
-    {
-      "match": {
-        "type": "session",
-        "session_title": "Presentation Session I"
-      },
-      "set": {
-        "papers": []
-      }
-    },
-    {
-      "match": {
-        "type": "session",
-        "session_title": "Presentation Session II"
-      },
-      "set": {
-        "papers": []
       }
     }
   ]

@@ -59,3 +59,14 @@ shows "Coming soon". To fill it, put the papers into the matching patch in `supp
 ```
 `time` and `authors` are optional. Then run `python3 schedule/import_handbook.py` and push. The paper that is on
 (per the planned times) is highlighted while the session is live.
+
+## Updating from the handbook FLIPBOOK (.html) — `import_flipbook.py`
+The current source of truth is `PM26_Conference_Handbook_Flipbook.html`:
+```sh
+python3 schedule/import_flipbook.py "path/to/PM26_Conference_Handbook_Flipbook.html"          # rewrites `program` in index.html
+python3 schedule/import_flipbook.py "path/to/PM26_Conference_Handbook_Flipbook.html" --check  # report only
+```
+It reads the **paper IDs, time slots, titles and presenters** of both presentation sessions straight from the flipbook text.
+The rest of the programme (speakers, topics, MC / chairs / time keepers, breaks, Day 2) is typed in `build()` inside the script —
+edit it there when the handbook changes. `supplement.json` still adds the officiating guests' photos.
+(`import_handbook.py` + the `.docx` remains available, but the flipbook is now newer.)
